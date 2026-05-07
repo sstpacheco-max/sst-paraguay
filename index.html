@@ -337,7 +337,10 @@
                 <h4 class="font-bold text-primary">Vigilancia Médica (MTESS)</h4>
             </div>
             <p class="text-sm text-on-surface-variant flex-1">Generador de Órdenes de Exámenes Médicos (Admisional/Periódico) según Res. MTESS Nº 03/2022 y Decreto 5078/2021.</p>
-            <button id="btn-medico" class="w-full text-emerald-700 bg-emerald-50 py-2 rounded-lg text-sm font-bold hover:bg-emerald-100 transition-colors">Generar Orden Médica EMO</button>
+            <div class="flex flex-col gap-2 mt-auto">
+                <button id="btn-medico" class="w-full text-emerald-700 bg-emerald-50 py-2 rounded-lg text-sm font-bold hover:bg-emerald-100 transition-colors">Emitir Orden (EMO)</button>
+                <button id="btn-registro-medico" class="w-full text-teal-700 bg-teal-50 py-2 rounded-lg text-sm font-bold hover:bg-teal-100 transition-colors border border-teal-200">Ver Registro (Excel)</button>
+            </div>
         </div>
 
         <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 shadow-sm flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
@@ -951,6 +954,45 @@
     </div>
 </div>
 
+<!-- Modal Registro Vigilancia Médica -->
+<div id="registro-medico-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+    <div class="bg-surface-container-lowest rounded-3xl w-full max-w-4xl p-6 shadow-2xl relative transform scale-95 transition-transform duration-300">
+        <button id="close-registro-medico" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <h3 class="font-headline text-2xl font-bold text-teal-800 mb-1">Registro de Vigilancia Médica</h3>
+                <p class="text-sm text-on-surface-variant">Control de Colaboradores con EMO (Res. 03/2022)</p>
+            </div>
+            <button id="btn-export-csv" class="bg-teal-600 text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-teal-700 transition-colors flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm">download</span> Exportar Excel (CSV)
+            </button>
+        </div>
+        
+        <div class="overflow-x-auto bg-surface-container-low rounded-xl border border-outline-variant/20 max-h-[60vh]">
+            <table class="w-full text-left text-sm whitespace-nowrap">
+                <thead class="bg-teal-100 text-teal-800 sticky top-0">
+                    <tr>
+                        <th class="px-4 py-3 font-bold">Fecha Orden</th>
+                        <th class="px-4 py-3 font-bold">Trabajador</th>
+                        <th class="px-4 py-3 font-bold">C.I.</th>
+                        <th class="px-4 py-3 font-bold">Puesto</th>
+                        <th class="px-4 py-3 font-bold">Tipo Examen</th>
+                        <th class="px-4 py-3 font-bold text-center">Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="registro-medico-body" class="divide-y divide-outline-variant/10 text-on-surface">
+                    <!-- Filas inyectadas por JS -->
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-4 text-xs text-on-surface-variant text-center">
+            Los datos se guardan de forma local en tu navegador.
+        </div>
+    </div>
+</div>
+
 <!-- BottomNavBar -->
 <nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-t border-slate-200/15 dark:border-slate-800/15 shadow-[0_-4px_24px_0_rgba(0,0,0,0.06)] z-50 rounded-t-3xl">
 <a class="flex flex-col items-center justify-center bg-gradient-to-br from-blue-900 to-blue-800 text-white rounded-2xl px-5 py-2 transition-transform duration-200 active:scale-90" href="#">
@@ -970,5 +1012,5 @@
 <span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Capacitación</span>
 </a>
 </nav>
-<script src="app.js?v=2.6"></script>
+<script src="app.js?v=2.7"></script>
 </body></html>

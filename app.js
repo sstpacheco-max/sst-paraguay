@@ -1337,6 +1337,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
             doc.save(`Orden_EMO_${tipo}_${trabajador.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`);
             
+            // GUARDAR EN LOCAL STORAGE
+            const newRecord = {
+                fecha: dateStr,
+                empresa,
+                trabajador,
+                cedula,
+                puesto,
+                tipo,
+                estado: "Orden Emitida" // Default
+            };
+            
+            let registros = JSON.parse(localStorage.getItem('sst_registros_medicos')) || [];
+            registros.push(newRecord);
+            localStorage.setItem('sst_registros_medicos', JSON.stringify(registros));
+            
+            // ACTUALIZAR TABLA SI ESTÁ ABIERTA
+            renderRegistroMedico();
+
             const btn = medicoForm.querySelector('button[type="submit"]');
             const originalText = btn.innerHTML;
             btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Orden Emitida';
@@ -1347,6 +1365,94 @@ document.addEventListener('DOMContentLoaded', () => {
                 medicoForm.reset();
                 closeMedicoFunc();
             }, 2500);
+        });
+    }
+
+    // Registro Médico (Excel/Tabla) Logic
+    const btnRegistroMedico = document.getElementById('btn-registro-medico');
+    const registroMedicoModal = document.getElementById('registro-medico-modal');
+    const closeRegistroMedicoBtn = document.getElementById('close-registro-medico');
+    const tbodyRegistro = document.getElementById('registro-medico-body');
+    const btnExportCsv = document.getElementById('btn-export-csv');
+
+    const renderRegistroMedico = () => {
+        if (!tbodyRegistro) return;
+        const registros = JSON.parse(localStorage.getItem('sst_registros_medicos')) || [];
+        
+        if (registros.length === 0) {
+            tbodyRegistro.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-on-surface-variant italic">No hay registros de órdenes emitidas todavía.</td></tr>`;
+            return;
+        }
+
+        tbodyRegistro.innerHTML = registros.reverse().map(reg => `
+            <tr class="hover:bg-surface-container-highest transition-colors">
+                <td class="px-4 py-3">${reg.fecha}</td>
+                <td class="px-4 py-3 font-medium">${reg.trabajador}</td>
+                <td class="px-4 py-3">${reg.cedula}</td>
+                <td class="px-4 py-3">${reg.puesto}</td>
+                <td class="px-4 py-3">
+                    <span class="px-2 py-1 rounded text-xs font-bold ${reg.tipo === 'Admisional' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700'}">
+                        ${reg.tipo}
+                    </span>
+                </td>
+                <td class="px-4 py-3 text-center">
+                    <span class="px-2 py-1 rounded text-xs font-bold bg-amber-100 text-amber-700 border border-amber-200">
+                        ${reg.estado}
+                    </span>
+                </td>
+            </tr>
+        `).join('');
+    };
+
+    const closeRegistroMedicoFunc = () => {
+        if (!registroMedicoModal) return;
+        registroMedicoModal.classList.add('opacity-0');
+        registroMedicoModal.querySelector('div').classList.add('scale-95');
+        setTimeout(() => registroMedicoModal.classList.add('hidden'), 300);
+    };
+
+    if (btnRegistroMedico && registroMedicoModal && closeRegistroMedicoBtn) {
+        btnRegistroMedico.addEventListener('click', () => {
+            renderRegistroMedico();
+            registroMedicoModal.classList.remove('hidden');
+            setTimeout(() => {
+                registroMedicoModal.classList.remove('opacity-0');
+                registroMedicoModal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        });
+
+        closeRegistroMedicoBtn.addEventListener('click', closeRegistroMedicoFunc);
+        registroMedicoModal.addEventListener('click', (e) => {
+            if (e.target === registroMedicoModal) closeRegistroMedicoFunc();
+        });
+    }
+
+    if (btnExportCsv) {
+        btnExportCsv.addEventListener('click', () => {
+            const registros = JSON.parse(localStorage.getItem('sst_registros_medicos')) || [];
+            if (registros.length === 0) {
+                alert("No hay datos para exportar.");
+                return;
+            }
+
+            // Crear CSV Header
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Fecha Orden,Empresa,Trabajador,Cedula,Puesto,Tipo Examen,Estado\n";
+
+            // Añadir filas
+            registros.forEach(r => {
+                const row = `"${r.fecha}","${r.empresa}","${r.trabajador}","${r.cedula}","${r.puesto}","${r.tipo}","${r.estado}"`;
+                csvContent += row + "\n";
+            });
+
+            // Descargar archivo
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Registro_Vigilancia_Medica_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         });
     }
     // Procedimiento Auditoria Modal Logic
