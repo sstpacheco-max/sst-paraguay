@@ -1833,6 +1833,125 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+    // --- AUDIT LOGIC ---
+    const btnAuditoria = document.getElementById('btn-auditoria');
+    const auditoriaModal = document.getElementById('auditoria-modal');
+    const closeAuditoriaBtn = document.getElementById('close-auditoria-modal');
+    const auditoriaForm = document.getElementById('auditoria-form');
+
+    const closeAuditoriaFunc = () => {
+        if (!auditoriaModal) return;
+        auditoriaModal.classList.add('opacity-0');
+        auditoriaModal.querySelector('div').classList.add('scale-95');
+        setTimeout(() => auditoriaModal.classList.add('hidden'), 300);
+    };
+
+    if (btnAuditoria && auditoriaModal && closeAuditoriaBtn) {
+        btnAuditoria.onclick = () => {
+            auditoriaModal.classList.remove('hidden');
+            setTimeout(() => {
+                auditoriaModal.classList.remove('opacity-0');
+                auditoriaModal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        };
+        closeAuditoriaBtn.onclick = closeAuditoriaFunc;
+    }
+
+    if (auditoriaForm) {
+        auditoriaForm.onsubmit = (e) => {
+            e.preventDefault();
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const empresa = document.getElementById('aud-empresa').value;
+            const lider = document.getElementById('aud-lider').value;
+            const fecha = document.getElementById('aud-fecha').value;
+            const alcance = document.getElementById('aud-alcance').value;
+            const obs = document.getElementById('aud-obs').value;
+            
+            // Get checklist items
+            const checks = document.querySelectorAll('.aud-check');
+            const items = [];
+            checks.forEach(c => {
+                items.push({
+                    text: c.dataset.item,
+                    checked: c.checked
+                });
+            });
+
+            // --- PDF DESIGN ---
+            // Header
+            doc.setFillColor(0, 128, 128); // Teal
+            doc.rect(0, 0, 210, 40, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(22);
+            doc.setFont("helvetica", "bold");
+            doc.text("INFORME DE AUDITORÍA SST", 105, 20, null, null, "center");
+            doc.setFontSize(10);
+            doc.text("Basado en el Decreto 14.390/92 - Paraguay", 105, 30, null, null, "center");
+
+            // Info Section
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("1. INFORMACIÓN GENERAL", 15, 55);
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "normal");
+            doc.text(`Empresa Auditada: ${empresa}`, 20, 65);
+            doc.text(`Auditor Líder: ${lider}`, 20, 72);
+            doc.text(`Fecha: ${fecha}`, 130, 65);
+            doc.text(`Alcance: ${alcance}`, 130, 72);
+
+            // Checklist Section
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("2. VERIFICACIÓN DE CUMPLIMIENTO LEGAL", 15, 85);
+            
+            doc.setFontSize(10);
+            let y = 95;
+            items.forEach(item => {
+                const status = item.checked ? "[ X ] CUMPLE" : "[   ] NO CUMPLE / NO APLICA";
+                doc.setFont("helvetica", item.checked ? "bold" : "normal");
+                doc.text(status, 20, y);
+                doc.setFont("helvetica", "normal");
+                doc.text(item.text, 75, y);
+                y += 8;
+            });
+
+            // Findings
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("3. HALLAZGOS Y OBSERVACIONES", 15, y + 10);
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "normal");
+            const splitObs = doc.splitTextToSize(obs || "Sin observaciones adicionales.", 180);
+            doc.text(splitObs, 20, y + 20);
+
+            // Footer / Signatures
+            const footerY = 250;
+            doc.line(40, footerY, 90, footerY);
+            doc.text("Firma Auditor", 65, footerY + 5, null, null, "center");
+            
+            doc.line(120, footerY, 170, footerY);
+            doc.text("Firma Responsable Empresa", 145, footerY + 5, null, null, "center");
+
+            doc.save(`Informe_Auditoria_${empresa.replace(/\s/g, '_')}.pdf`);
+            
+            // UI Feedback
+            const btn = auditoriaForm.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined">done_all</span> Informe Generado';
+            btn.classList.replace('bg-teal-600', 'bg-emerald-600');
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.replace('bg-emerald-600', 'bg-teal-600');
+                auditoriaForm.reset();
+                closeAuditoriaFunc();
+            }, 2000);
+        };
+    }
+
 });
 
 // Helper for counting up numbers

@@ -885,12 +885,63 @@
                     <input type="text" id="aud-empresa" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Industrias ABC">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Auditor Líder / Encargado</label>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Auditor Líder</label>
                     <input type="text" id="aud-lider" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Lic. Ana Rojas">
                 </div>
             </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Fecha de Auditoría</label>
+                    <input type="date" id="aud-fecha" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Alcance</label>
+                    <input type="text" id="aud-alcance" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Planta Industrial / Oficinas">
+                </div>
+            </div>
+
+            <div class="mt-4 border-t border-outline-variant/20 pt-4">
+                <h4 class="text-xs font-bold text-teal-800 uppercase mb-3">Checklist de Cumplimiento (Dec. 14.390/92)</h4>
+                <div class="space-y-2 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+                    <label class="flex items-start gap-3 bg-white p-2 rounded-lg border border-outline-variant/10 cursor-pointer">
+                        <input type="checkbox" class="mt-1 aud-check" data-item="Registro de Especialista MTESS" checked>
+                        <div class="text-xs"><span class="font-bold block">Reg. Especialista</span> Registro vigente del técnico/licenciado ante el MTESS.</div>
+                    </label>
+                    <label class="flex items-start gap-3 bg-white p-2 rounded-lg border border-outline-variant/10 cursor-pointer">
+                        <input type="checkbox" class="mt-1 aud-check" data-item="Reglamento Interno (RISSO) Homologado" checked>
+                        <div class="text-xs"><span class="font-bold block">RISSO</span> Reglamento Interno de Seguridad y Salud homologado.</div>
+                    </label>
+                    <label class="flex items-start gap-3 bg-white p-2 rounded-lg border border-outline-variant/10 cursor-pointer">
+                        <input type="checkbox" class="mt-1 aud-check" data-item="Matriz IPERC Actualizada" checked>
+                        <div class="text-xs"><span class="font-bold block">IPERC</span> Evaluación de riesgos por puesto de trabajo.</div>
+                    </label>
+                    <label class="flex items-start gap-3 bg-white p-2 rounded-lg border border-outline-variant/10 cursor-pointer">
+                        <input type="checkbox" class="mt-1 aud-check" data-item="Comisión CIPA Constituida">
+                        <div class="text-xs"><span class="font-bold block">CIPA</span> Comité mixto y actas de reunión mensuales.</div>
+                    </label>
+                    <label class="flex items-start gap-3 bg-white p-2 rounded-lg border border-outline-variant/10 cursor-pointer">
+                        <input type="checkbox" class="mt-1 aud-check" data-item="Vigilancia Médica (EMO)" checked>
+                        <div class="text-xs"><span class="font-bold block">Medicina</span> Exámenes médicos admisionales y periódicos (Res. 03/22).</div>
+                    </label>
+                    <label class="flex items-start gap-3 bg-white p-2 rounded-lg border border-outline-variant/10 cursor-pointer">
+                        <input type="checkbox" class="mt-1 aud-check" data-item="Prevención de Incendios">
+                        <div class="text-xs"><span class="font-bold block">Incendios</span> Extintores, señalética y plan de evacuación.</div>
+                    </label>
+                    <label class="flex items-start gap-3 bg-white p-2 rounded-lg border border-outline-variant/10 cursor-pointer">
+                        <input type="checkbox" class="mt-1 aud-check" data-item="Entrega de EPP con planilla">
+                        <div class="text-xs"><span class="font-bold block">EPP</span> Equipos de protección con registro de entrega firmado.</div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Observaciones / Hallazgos</label>
+                <textarea id="aud-obs" rows="2" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Se observa falta de señalética en depósito..."></textarea>
+            </div>
+
             <button type="submit" class="w-full bg-teal-600 text-white font-bold py-3 rounded-xl hover:bg-teal-700 transition-colors flex justify-center items-center gap-2 mt-4">
-                <span class="material-symbols-outlined">fact_check</span> Generar Proc. Auditoría
+                <span class="material-symbols-outlined">fact_check</span> Generar Informe de Auditoría
             </button>
         </form>
     </div>
@@ -1127,5 +1178,5 @@
 <span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Capacitación</span>
 </a>
 </nav>
-<script src="app.js?v=2.9"></script>
+<script src="app.js?v=3.0"></script>
 </body></html>
