@@ -258,42 +258,109 @@
 </div>
 </div>
 </section>
-<!-- Módulos SG-SST Paraguay -->
+<!-- Cumplimiento Legal (MTESS / IPS) -->
 <section class="space-y-6">
     <h3 class="font-headline text-2xl font-bold text-primary flex items-center gap-2">
-        <span class="material-symbols-outlined">widgets</span> Módulos del Sistema SG-SST
+        <span class="material-symbols-outlined">gavel</span> Monitoreo de Cumplimiento Legal (Paraguay)
     </h3>
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        <button class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/10 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center gap-3 text-center group">
-            <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <span class="material-symbols-outlined">groups</span>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Decreto 14.390/92 -->
+        <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/20 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-1.5 h-full bg-primary"></div>
+            <h4 class="font-bold text-primary mb-1">Decreto 14.390/92</h4>
+            <p class="text-xs text-on-surface-variant mb-4">Reglamento Gral. Técnico de Seguridad, Higiene y Medicina</p>
+            <ul class="space-y-3 text-sm">
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-success text-lg">check_circle</span> Matriz IPERC Actualizada</li>
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-warning text-lg">pending</span> Plan de Contingencia (Bomberos)</li>
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-success text-lg">check_circle</span> Monitoreo Ocupacional al día</li>
+            </ul>
+        </div>
+
+        <!-- Ley 213/93 & CIPA -->
+        <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/20 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-1.5 h-full bg-secondary"></div>
+            <h4 class="font-bold text-primary mb-1">Comisión Interna (CIPA)</h4>
+            <p class="text-xs text-on-surface-variant mb-4">Obligatorio según Resolución MTESS para >100 emp.</p>
+            <ul class="space-y-3 text-sm">
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-success text-lg">check_circle</span> Acta de Conformación MTESS</li>
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-error text-lg">cancel</span> Libro de Actas Rubricado (Atrasado)</li>
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-success text-lg">check_circle</span> Reuniones Mensuales</li>
+            </ul>
+        </div>
+
+        <!-- IPS y Siniestralidad -->
+        <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/20 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-1.5 h-full bg-amber-500"></div>
+            <h4 class="font-bold text-primary mb-1">Resoluciones IPS</h4>
+            <p class="text-xs text-on-surface-variant mb-4">Vigilancia Médica y Reporte de Siniestralidad</p>
+            <ul class="space-y-3 text-sm">
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-warning text-lg">pending</span> 3 Exámenes Admisionales Pendientes</li>
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-success text-lg">check_circle</span> RISSO Aprobado por el MTESS</li>
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-success text-lg">check_circle</span> 0 Reportes de Accidente este mes</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Módulos Operativos SG-SST -->
+<section class="space-y-6">
+    <h3 class="font-headline text-2xl font-bold text-primary flex items-center gap-2">
+        <span class="material-symbols-outlined">apps</span> Aplicación del Sistema (Módulos)
+    </h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 shadow-sm flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center"><span class="material-symbols-outlined">policy</span></div>
+                <h4 class="font-bold text-primary">Gestión Documental</h4>
             </div>
-            <span class="font-bold text-sm text-primary">Gestión CIPA</span>
-        </button>
-        <button class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/10 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center gap-3 text-center group">
-            <div class="w-12 h-12 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <span class="material-symbols-outlined">warning</span>
+            <p class="text-sm text-on-surface-variant flex-1">Generación de RISSO, Políticas SST y planes de emergencia listos para presentar al Ministerio.</p>
+            <button class="w-full text-blue-700 bg-blue-50 py-2 rounded-lg text-sm font-bold hover:bg-blue-100 transition-colors">Abrir Módulo</button>
+        </div>
+        
+        <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 shadow-sm flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center"><span class="material-symbols-outlined">warning</span></div>
+                <h4 class="font-bold text-primary">Matriz IPERC</h4>
             </div>
-            <span class="font-bold text-sm text-primary">Matriz IPERC</span>
-        </button>
-        <button class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/10 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center gap-3 text-center group">
-            <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <span class="material-symbols-outlined">medical_services</span>
+            <p class="text-sm text-on-surface-variant flex-1">Identificación de Peligros y Evaluación de Riesgos por puesto de trabajo según Dec. 14.390/92.</p>
+            <button class="w-full text-rose-700 bg-rose-50 py-2 rounded-lg text-sm font-bold hover:bg-rose-100 transition-colors">Evaluar Riesgos</button>
+        </div>
+
+        <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 shadow-sm flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center"><span class="material-symbols-outlined">medical_services</span></div>
+                <h4 class="font-bold text-primary">Vigilancia Médica (IPS)</h4>
             </div>
-            <span class="font-bold text-sm text-primary">Exámenes Médicos</span>
-        </button>
-        <button class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/10 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center gap-3 text-center group">
-            <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <span class="material-symbols-outlined">security</span>
+            <p class="text-sm text-on-surface-variant flex-1">Control de Exámenes Admisionales, Periódicos y de Retorno. Alertas automáticas de vencimiento.</p>
+            <button class="w-full text-emerald-700 bg-emerald-50 py-2 rounded-lg text-sm font-bold hover:bg-emerald-100 transition-colors">Ver Fichas Médicas</button>
+        </div>
+
+        <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 shadow-sm flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center"><span class="material-symbols-outlined">security</span></div>
+                <h4 class="font-bold text-primary">EPPs y Capacitación</h4>
             </div>
-            <span class="font-bold text-sm text-primary">Control de EPPs</span>
-        </button>
-        <button class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/10 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center gap-3 text-center group">
-            <div class="w-12 h-12 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <span class="material-symbols-outlined">account_balance</span>
+            <p class="text-sm text-on-surface-variant flex-1">Registros de entrega de Equipos de Protección y planillas de asistencia obligatorias.</p>
+            <button class="w-full text-amber-700 bg-amber-50 py-2 rounded-lg text-sm font-bold hover:bg-amber-100 transition-colors">Gestionar Registros</button>
+        </div>
+
+        <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 shadow-sm flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center"><span class="material-symbols-outlined">groups</span></div>
+                <h4 class="font-bold text-primary">Comisión CIPA</h4>
             </div>
-            <span class="font-bold text-sm text-primary">Trámites MTESS</span>
-        </button>
+            <p class="text-sm text-on-surface-variant flex-1">Conformación de comité, registro de actas de reuniones mensuales y seguimiento de hallazgos.</p>
+            <button class="w-full text-purple-700 bg-purple-50 py-2 rounded-lg text-sm font-bold hover:bg-purple-100 transition-colors">Administrar CIPA</button>
+        </div>
+
+        <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 shadow-sm flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center"><span class="material-symbols-outlined">assignment_late</span></div>
+                <h4 class="font-bold text-primary">Formularios MTESS</h4>
+            </div>
+            <p class="text-sm text-on-surface-variant flex-1">Generador automático de declaraciones de accidentes laborales para el Ministerio del Trabajo.</p>
+            <button class="w-full text-slate-700 bg-slate-50 py-2 rounded-lg text-sm font-bold hover:bg-slate-100 transition-colors">Generar Formularios</button>
+        </div>
     </div>
 </section>
 </main>
