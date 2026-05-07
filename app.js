@@ -962,6 +962,197 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 2500);
         });
     }
+
+    // POE Altura Modal Logic
+    const btnAltura = document.getElementById('btn-altura');
+    const alturaModal = document.getElementById('altura-modal');
+    const closeAlturaBtn = document.getElementById('close-altura-modal');
+    const alturaForm = document.getElementById('altura-form');
+
+    const closeAlturaFunc = () => {
+        if (!alturaModal) return;
+        alturaModal.classList.add('opacity-0');
+        alturaModal.querySelector('div').classList.add('scale-95');
+        setTimeout(() => alturaModal.classList.add('hidden'), 300);
+    };
+
+    if (btnAltura && alturaModal && closeAlturaBtn) {
+        btnAltura.addEventListener('click', () => {
+            alturaModal.classList.remove('hidden');
+            setTimeout(() => {
+                alturaModal.classList.remove('opacity-0');
+                alturaModal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        });
+
+        closeAlturaBtn.addEventListener('click', closeAlturaFunc);
+        alturaModal.addEventListener('click', (e) => {
+            if (e.target === alturaModal) closeAlturaFunc();
+        });
+    }
+
+    if (alturaForm) {
+        alturaForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const empresa = document.getElementById('alt-empresa').value;
+            const responsable = document.getElementById('alt-responsable').value;
+            const date = new Date().toLocaleDateString('es-PY');
+
+            doc.setFontSize(18);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(14, 116, 144); // cyan-700
+            doc.text("PROCEDIMIENTO OPERATIVO ESTANDARIZADO (POE)", 105, 30, null, null, "center");
+            doc.setFontSize(16);
+            doc.text("TRABAJOS EN ALTURAS (> 1.8m)", 105, 40, null, null, "center");
+            
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.setFont("helvetica", "normal");
+            doc.text(`Empresa: ${empresa}`, 20, 60);
+            doc.text(`Responsable SST: ${responsable}`, 20, 70);
+            doc.text(`Fecha: ${date}`, 20, 80);
+            
+            doc.line(20, 85, 190, 85);
+
+            doc.setFont("helvetica", "bold");
+            doc.text("1. OBJETIVO", 20, 100);
+            doc.setFont("helvetica", "normal");
+            const objText = `Establecer las medidas preventivas y los pasos a seguir para garantizar la integridad física de los trabajadores que realicen tareas a una altura igual o superior a 1.8 metros, previniendo caídas a distinto nivel.`;
+            doc.text(doc.splitTextToSize(objText, 170), 25, 110);
+
+            doc.setFont("helvetica", "bold");
+            doc.text("2. EQUIPOS DE PROTECCIÓN REQUERIDOS", 20, 135);
+            doc.setFont("helvetica", "normal");
+            doc.text("- Arnés de seguridad de cuerpo entero.", 25, 145);
+            doc.text("- Cabo de vida doble con amortiguador de impacto.", 25, 155);
+            doc.text("- Casco de seguridad con barbiquejo.", 25, 165);
+            doc.text("- Calzado de seguridad antideslizante.", 25, 175);
+
+            doc.setFont("helvetica", "bold");
+            doc.text("3. PROCEDIMIENTO DE TRABAJO", 20, 195);
+            doc.setFont("helvetica", "normal");
+            doc.text("1. Inspeccionar el arnés y las eslingas antes de cada uso.", 25, 205);
+            doc.text("2. Delimitar y señalizar el área de trabajo en el nivel inferior.", 25, 215);
+            doc.text("3. Enganchar los mosquetones a un punto de anclaje firme por encima del hombro.", 25, 225);
+            doc.text("4. Mantener siempre al menos un mosquetón anclado durante el desplazamiento.", 25, 235);
+            doc.text("5. Suspender las tareas en caso de lluvia, tormenta eléctrica o vientos fuertes.", 25, 245);
+
+            doc.setFontSize(9);
+            doc.setFont("helvetica", "italic");
+            doc.text("Generado por Sistema Integrado SG-SST Paraguay.", 20, 280);
+
+            doc.save(`POE_Alturas_${empresa.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`);
+            
+            const btn = alturaForm.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Generado';
+            btn.classList.replace('bg-cyan-600', 'bg-emerald-600');
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.replace('bg-emerald-600', 'bg-cyan-600');
+                alturaForm.reset();
+                closeAlturaFunc();
+            }, 2500);
+        });
+    }
+
+    // Procedimiento Auditoria Modal Logic
+    const btnAuditoria = document.getElementById('btn-auditoria');
+    const auditoriaModal = document.getElementById('auditoria-modal');
+    const closeAuditoriaBtn = document.getElementById('close-auditoria-modal');
+    const auditoriaForm = document.getElementById('auditoria-form');
+
+    const closeAuditoriaFunc = () => {
+        if (!auditoriaModal) return;
+        auditoriaModal.classList.add('opacity-0');
+        auditoriaModal.querySelector('div').classList.add('scale-95');
+        setTimeout(() => auditoriaModal.classList.add('hidden'), 300);
+    };
+
+    if (btnAuditoria && auditoriaModal && closeAuditoriaBtn) {
+        btnAuditoria.addEventListener('click', () => {
+            auditoriaModal.classList.remove('hidden');
+            setTimeout(() => {
+                auditoriaModal.classList.remove('opacity-0');
+                auditoriaModal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        });
+
+        closeAuditoriaBtn.addEventListener('click', closeAuditoriaFunc);
+        auditoriaModal.addEventListener('click', (e) => {
+            if (e.target === auditoriaModal) closeAuditoriaFunc();
+        });
+    }
+
+    if (auditoriaForm) {
+        auditoriaForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const empresa = document.getElementById('aud-empresa').value;
+            const lider = document.getElementById('aud-lider').value;
+            const date = new Date().toLocaleDateString('es-PY');
+
+            doc.setFontSize(18);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(15, 118, 110); // teal-700
+            doc.text("PROCEDIMIENTO DE AUDITORÍA INTERNA", 105, 30, null, null, "center");
+            doc.setFontSize(14);
+            doc.text("SISTEMA DE GESTIÓN SST", 105, 40, null, null, "center");
+            
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.setFont("helvetica", "normal");
+            doc.text(`Empresa: ${empresa}`, 20, 60);
+            doc.text(`Auditor Líder: ${lider}`, 20, 70);
+            doc.text(`Fecha: ${date}`, 20, 80);
+            
+            doc.line(20, 85, 190, 85);
+
+            doc.setFont("helvetica", "bold");
+            doc.text("1. OBJETIVO", 20, 100);
+            doc.setFont("helvetica", "normal");
+            const objText = `Definir la metodología para la planificación, ejecución y reporte de las auditorías internas del Sistema de Gestión de Seguridad y Salud en el Trabajo (SG-SST), para determinar su eficacia y nivel de cumplimiento normativo.`;
+            doc.text(doc.splitTextToSize(objText, 170), 25, 110);
+
+            doc.setFont("helvetica", "bold");
+            doc.text("2. FASES DE LA AUDITORÍA", 20, 135);
+            doc.setFont("helvetica", "normal");
+            doc.text("A) Planificación: Elaboración y aprobación del Plan de Auditoría anual.", 25, 145);
+            doc.text("B) Ejecución: Reunión de apertura, revisión documental, entrevistas y visita a planta.", 25, 155);
+            doc.text("C) Cierre: Reunión de cierre y presentación de hallazgos preliminares.", 25, 165);
+            doc.text("D) Reporte: Emisión del Informe Final de Auditoría y No Conformidades.", 25, 175);
+
+            doc.setFont("helvetica", "bold");
+            doc.text("3. CRITERIOS DE AUDITORÍA", 20, 195);
+            doc.setFont("helvetica", "normal");
+            doc.text("- Decreto N° 14.390/92: Reglamento General Técnico de Seguridad y Medicina.", 25, 205);
+            doc.text("- Ley N° 5.804/17: Sistema Nacional de Prevención de Riesgos Laborales.", 25, 215);
+            doc.text("- Resoluciones vigentes del Ministerio de Trabajo (MTESS).", 25, 225);
+            doc.text("- Resoluciones del Instituto de Previsión Social (IPS).", 25, 235);
+            
+            doc.setFontSize(9);
+            doc.setFont("helvetica", "italic");
+            doc.text("Generado por Sistema Integrado SG-SST Paraguay.", 20, 280);
+
+            doc.save(`Proc_Auditoria_${empresa.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`);
+            
+            const btn = auditoriaForm.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Generado';
+            btn.classList.replace('bg-teal-600', 'bg-emerald-600');
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.replace('bg-emerald-600', 'bg-teal-600');
+                auditoriaForm.reset();
+                closeAuditoriaFunc();
+            }, 2500);
+        });
+    }
 });
 
 // Helper for counting up numbers
