@@ -1740,6 +1740,186 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+    // --- INSPECTION LOGIC ---
+    const btnInspeccion = document.getElementById('btn-inspeccion');
+    const inspeccionModal = document.getElementById('inspeccion-modal');
+    const closeInspeccionBtn = document.getElementById('close-inspeccion-modal');
+    const inspeccionForm = document.getElementById('inspeccion-form');
+    const selectTipoIns = document.getElementById('ins-tipo');
+    const checklistContainer = document.getElementById('ins-checklist-container');
+    const checklistTitle = document.getElementById('ins-checklist-title');
+
+    const checklistData = {
+        'Extintores': [
+            { item: "Ubicación visible y señalizada", desc: "El extintor está en su lugar asignado y tiene cartel." },
+            { item: "Acceso libre de obstáculos", desc: "No hay objetos obstruyendo el paso al extintor." },
+            { item: "Manómetro en rango verde", desc: "La presión es la correcta según el indicador." },
+            { item: "Manguera y boquilla en buen estado", desc: "Sin grietas, obstrucciones o roturas." },
+            { item: "Precinto de seguridad intacto", desc: "El seguro no ha sido removido." },
+            { item: "Vencimiento vigente", desc: "La carga anual no ha expirado." }
+        ],
+        'Botiquín': [
+            { item: "Gasa estéril y vendas", desc: "Existencia de material de curación básico." },
+            { item: "Antisépticos (Alcohol/Iodo)", desc: "Líquidos para desinfección presentes y vigentes." },
+            { item: "Guantes de látex/nitrilo", desc: "Mínimo 2 pares para bioseguridad." },
+            { item: "Tijera y pinza", desc: "Instrumentos limpios y sin óxido." },
+            { item: "Cinta adhesiva/Esparadrapo", desc: "Material para fijación de vendas." },
+            { item: "Medicamentos vigentes", desc: "Sin fármacos con fecha de vencimiento cumplida." }
+        ],
+        'Orden y Limpieza': [
+            { item: "Pasillos despejados", desc: "Vías de evacuación libres de cajas o materiales." },
+            { item: "Herramientas ordenadas", desc: "Cada herramienta en su panel o caja asignada." },
+            { item: "Residuos clasificados", desc: "Basureros con bolsas y etiquetas correspondientes." },
+            { item: "Iluminación adecuada", desc: "Lámparas limpias y funcionando." },
+            { item: "Suelos secos y limpios", desc: "Sin manchas de aceite o agua que causen resbalones." },
+            { item: "Señalética visible", desc: "Carteles de seguridad limpios y sin daños." }
+        ],
+        'Herramientas': [
+            { item: "Mangos sin astillas/roturas", desc: "Partes de agarre en buen estado físico." },
+            { item: "Sin grasa o aceite", desc: "Superficies de contacto limpias para evitar resbales." },
+            { item: "Filos/Puntas afiladas", desc: "Herramientas de corte con el filo necesario." },
+            { item: "Sin piezas sueltas", desc: "Cabezales de martillos o partes móviles firmes." },
+            { item: "Almacenamiento seguro", desc: "Herramientas guardadas con fundas o protectores." }
+        ]
+    };
+
+    const renderInspeccionChecklist = (tipo) => {
+        if (!checklistContainer) return;
+        const data = checklistData[tipo] || [];
+        checklistTitle.innerText = `Checklist: ${tipo}`;
+        checklistContainer.innerHTML = data.map((d, i) => `
+            <div class="bg-white p-3 rounded-xl border border-outline-variant/15 space-y-2">
+                <label class="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" class="mt-1 ins-check" data-item="${d.item}" checked>
+                    <div class="text-xs flex-1"><span class="font-bold block">${d.item}</span> ${d.desc}</div>
+                </label>
+                <input type="text" class="ins-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observación específica (opcional)">
+            </div>
+        `).join('');
+    };
+
+    const closeInspeccionFunc = () => {
+        if (!inspeccionModal) return;
+        inspeccionModal.classList.add('opacity-0');
+        inspeccionModal.querySelector('div').classList.add('scale-95');
+        setTimeout(() => inspeccionModal.classList.add('hidden'), 300);
+    };
+
+    if (btnInspeccion && inspeccionModal) {
+        btnInspeccion.onclick = () => {
+            renderInspeccionChecklist(selectTipoIns.value);
+            inspeccionModal.classList.remove('hidden');
+            setTimeout(() => {
+                inspeccionModal.classList.remove('opacity-0');
+                inspeccionModal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        };
+        closeInspeccionBtn.onclick = closeInspeccionFunc;
+    }
+
+    if (selectTipoIns) {
+        selectTipoIns.onchange = (e) => renderInspeccionChecklist(e.target.value);
+    }
+
+    if (inspeccionForm) {
+        inspeccionForm.onsubmit = (e) => {
+            e.preventDefault();
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const tipo = document.getElementById('ins-tipo').value;
+            const resp = document.getElementById('ins-responsable').value;
+            const area = document.getElementById('ins-area').value;
+            const fecha = document.getElementById('ins-fecha').value;
+            const obsGeneral = document.getElementById('ins-obs').value;
+            
+            const checks = document.querySelectorAll('.ins-check');
+            const obsItems = document.querySelectorAll('.ins-obs-item');
+            let compliantCount = 0;
+            const items = [];
+
+            checks.forEach((c, i) => {
+                if (c.checked) compliantCount++;
+                items.push({
+                    text: c.dataset.item,
+                    checked: c.checked,
+                    obs: obsItems[i].value || "Sin observaciones"
+                });
+            });
+
+            const percent = ((compliantCount / items.length) * 100).toFixed(1);
+
+            // PDF
+            doc.setFillColor(37, 99, 235); // Blue 600
+            doc.rect(0, 0, 210, 40, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(20);
+            doc.setFont("helvetica", "bold");
+            doc.text(`INFORME DE INSPECCIÓN: ${tipo.toUpperCase()}`, 105, 20, null, null, "center");
+            doc.setFontSize(10);
+            doc.text("Gestión de Seguridad y Salud en el Trabajo - SST Paraguay", 105, 30, null, null, "center");
+
+            doc.setTextColor(0,0,0);
+            doc.setFontSize(11);
+            doc.text("1. DATOS DE LA INSPECCIÓN", 15, 50);
+            doc.setFontSize(9);
+            doc.setFont("helvetica", "normal");
+            doc.text(`Inspector: ${resp}`, 20, 58);
+            doc.text(`Área: ${area}`, 20, 64);
+            doc.text(`Fecha: ${fecha}`, 130, 58);
+            
+            // Compliance Box
+            doc.setDrawColor(37, 99, 235);
+            doc.rect(130, 62, 65, 12);
+            doc.setFont("helvetica", "bold");
+            doc.text(`CUMPLIMIENTO: ${percent}%`, 162.5, 70, null, null, "center");
+
+            doc.setFontSize(11);
+            doc.text("2. DETALLE DE HALLAZGOS", 15, 85);
+            
+            let y = 95;
+            doc.setFillColor(245, 245, 245);
+            doc.rect(15, y-4, 180, 6, 'F');
+            doc.setFontSize(8);
+            doc.text("ESTADO", 20, y);
+            doc.text("CRITERIO EVALUADO", 50, y);
+            doc.text("OBSERVACIONES", 130, y);
+            y += 8;
+
+            items.forEach(item => {
+                doc.setFont("helvetica", item.checked ? "normal" : "bold");
+                if(!item.checked) doc.setTextColor(200, 0, 0);
+                doc.text(item.checked ? "OK" : "NO OK", 20, y);
+                doc.setTextColor(0,0,0);
+                doc.text(item.text, 50, y);
+                
+                const splitObs = doc.splitTextToSize(item.obs, 65);
+                doc.text(splitObs, 130, y);
+                y += Math.max(splitObs.length * 4, 6);
+
+                if (y > 275) { doc.addPage(); y = 20; }
+            });
+
+            y += 10;
+            doc.setFontSize(11);
+            doc.setFont("helvetica", "bold");
+            doc.text("3. CONCLUSIONES Y RECOMENDACIONES", 15, y);
+            doc.setFontSize(9);
+            doc.setFont("helvetica", "normal");
+            doc.text(doc.splitTextToSize(obsGeneral || "Se recomienda corregir los hallazgos en un plazo no mayor a 48 horas.", 180), 20, y+8);
+
+            doc.save(`Inspeccion_${tipo}_${area.replace(/\s/g, '_')}.pdf`);
+
+            const sbtn = inspeccionForm.querySelector('button[type="submit"]');
+            sbtn.innerText = "¡Generado!";
+            setTimeout(() => {
+                sbtn.innerHTML = '<span class="material-symbols-outlined">description</span> Finalizar y Generar PDF';
+                inspeccionForm.reset();
+                closeInspeccionFunc();
+            }, 2000);
+        };
+    }
+
     // --- AUDIT LOGIC ---
     const btnAuditoria = document.getElementById('btn-auditoria');
     const auditoriaModal = document.getElementById('auditoria-modal');

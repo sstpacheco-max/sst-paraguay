@@ -138,7 +138,7 @@
 <span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
 <span class="font-bold tracking-tight">Reportar Incidente (MTESS)</span>
 </button>
-<button class="flex-1 min-w-[200px] bg-surface-container-lowest border border-outline-variant/15 text-primary py-4 px-6 rounded-xl flex items-center justify-center gap-3 hover:bg-surface-container transition-all duration-300">
+<button id="btn-inspeccion" class="flex-1 min-w-[200px] bg-surface-container-lowest border border-outline-variant/15 text-primary py-4 px-6 rounded-xl flex items-center justify-center gap-3 hover:bg-surface-container transition-all duration-300">
 <span class="material-symbols-outlined" data-icon="inventory">inventory</span>
 <span class="font-bold tracking-tight">Nueva Inspección</span>
 </button>
@@ -1113,6 +1113,63 @@
     </div>
 </div>
 
+<!-- Modal Inspecciones Dinámicas -->
+<div id="inspeccion-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+    <div class="bg-surface-container-lowest rounded-3xl w-full max-w-2xl p-6 pb-8 shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto">
+        <button id="close-inspeccion-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <h3 class="font-headline text-2xl font-bold text-blue-800 mb-2">Nueva Inspección de Seguridad</h3>
+        <p class="text-sm text-on-surface-variant mb-6">Seleccione el tipo de inspección para cargar el formulario correspondiente.</p>
+        
+        <form id="inspeccion-form" class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Tipo de Inspección</label>
+                    <select id="ins-tipo" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none cursor-pointer">
+                        <option value="Extintores">Inspección de Extintores</option>
+                        <option value="Botiquín">Inspección de Botiquín</option>
+                        <option value="Orden y Limpieza">Orden y Limpieza (5S)</option>
+                        <option value="Herramientas">Herramientas Manuales</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Responsable</label>
+                    <input type="text" id="ins-responsable" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Nombre del inspector">
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Área / Sector</label>
+                    <input type="text" id="ins-area" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Almacén Sur">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Fecha</label>
+                    <input type="date" id="ins-fecha" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                </div>
+            </div>
+
+            <!-- Contenedor Dinámico de Checklist -->
+            <div class="mt-4 border-t border-outline-variant/20 pt-4">
+                <h4 id="ins-checklist-title" class="text-xs font-bold text-blue-900 uppercase mb-3">Checklist: Extintores</h4>
+                <div id="ins-checklist-container" class="space-y-3">
+                    <!-- Inyectado dinámicamente por JS -->
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Conclusiones Generales</label>
+                <textarea id="ins-obs" rows="2" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Observaciones generales de la inspección..."></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-blue-700 text-white font-bold py-3 rounded-xl hover:bg-blue-800 transition-colors flex justify-center items-center gap-2 mt-4 shadow-lg">
+                <span class="material-symbols-outlined">description</span> Finalizar y Generar PDF
+            </button>
+        </form>
+    </div>
+</div>
+
 <!-- Modal Calendario -->
 <div id="calendar-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
     <div class="bg-surface-container-lowest rounded-3xl w-full max-w-4xl p-6 shadow-2xl relative transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col max-h-[90vh]">
@@ -1206,5 +1263,5 @@
 <span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Capacitación</span>
 </a>
 </nav>
-<script src="app.js?v=3.2"></script>
+<script src="app.js?v=3.3"></script>
 </body></html>
