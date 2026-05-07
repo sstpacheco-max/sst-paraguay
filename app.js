@@ -430,6 +430,175 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 2500);
         });
     }
+
+    // IPERC Modal Logic
+    const btnIperc = document.getElementById('btn-iperc');
+    const ipercModal = document.getElementById('iperc-modal');
+    const closeIpercBtn = document.getElementById('close-iperc-modal');
+    const ipercForm = document.getElementById('iperc-form');
+    
+    const prob = document.getElementById('iperc-prob');
+    const sev = document.getElementById('iperc-sev');
+    const nivelDiv = document.getElementById('iperc-nivel');
+
+    const calculateNivel = () => {
+        if (!prob || !sev || !nivelDiv) return;
+        const p = parseInt(prob.value);
+        const s = parseInt(sev.value);
+        const result = p * s;
+        let text = "";
+        let bgColor = "";
+        let textColor = "";
+
+        if (result <= 2) {
+            text = result + " - TRIVIAL / BAJO";
+            bgColor = "bg-emerald-100";
+            textColor = "text-emerald-800";
+        } else if (result <= 4) {
+            text = result + " - MODERADO";
+            bgColor = "bg-amber-100";
+            textColor = "text-amber-800";
+        } else if (result == 6) {
+            text = result + " - IMPORTANTE / ALTO";
+            bgColor = "bg-orange-100";
+            textColor = "text-orange-800";
+        } else {
+            text = result + " - INTOLERABLE / CRÍTICO";
+            bgColor = "bg-rose-100";
+            textColor = "text-rose-800";
+        }
+
+        nivelDiv.className = `w-full font-bold text-center rounded-lg px-2 py-2 text-sm ${bgColor} ${textColor}`;
+        nivelDiv.innerText = text;
+    };
+
+    if (prob && sev) {
+        prob.addEventListener('change', calculateNivel);
+        sev.addEventListener('change', calculateNivel);
+    }
+
+    const closeIpercFunc = () => {
+        if (!ipercModal) return;
+        ipercModal.classList.add('opacity-0');
+        ipercModal.querySelector('div').classList.add('scale-95');
+        setTimeout(() => ipercModal.classList.add('hidden'), 300);
+    };
+
+    if (btnIperc && ipercModal && closeIpercBtn) {
+        btnIperc.addEventListener('click', () => {
+            ipercModal.classList.remove('hidden');
+            setTimeout(() => {
+                ipercModal.classList.remove('opacity-0');
+                ipercModal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+            calculateNivel(); // initialize
+        });
+
+        closeIpercBtn.addEventListener('click', closeIpercFunc);
+        ipercModal.addEventListener('click', (e) => {
+            if (e.target === ipercModal) closeIpercFunc();
+        });
+    }
+
+    if (ipercForm) {
+        ipercForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('landscape');
+            
+            const area = document.getElementById('iperc-area').value;
+            const puesto = document.getElementById('iperc-puesto').value;
+            const tarea = document.getElementById('iperc-tarea').value;
+            const peligro = document.getElementById('iperc-peligro').value;
+            const riesgo = document.getElementById('iperc-riesgo').value;
+            const p = document.getElementById('iperc-prob').value;
+            const s = document.getElementById('iperc-sev').value;
+            const control = document.getElementById('iperc-control').value;
+            const nivelText = nivelDiv.innerText;
+            const date = new Date().toLocaleDateString('es-PY');
+
+            doc.setFontSize(16);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(225, 29, 72); // Rose
+            doc.text("MATRIZ DE IDENTIFICACIÓN DE PELIGROS Y EVALUACIÓN DE RIESGOS (IPERC)", 15, 20);
+            
+            doc.setFontSize(10);
+            doc.setTextColor(0, 0, 0);
+            doc.setFont("helvetica", "normal");
+            doc.text("Según metodología de evaluación y exigencias del Decreto 14.390/92 MTESS (Paraguay)", 15, 27);
+            doc.text(`Fecha de Evaluación: ${date}`, 230, 27);
+            
+            doc.line(15, 30, 280, 30);
+            
+            // Draw Table Headers
+            doc.setFillColor(241, 245, 249); // slate-100
+            doc.rect(15, 35, 265, 12, 'F');
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "bold");
+            doc.text("ÁREA / SECTOR", 18, 43);
+            doc.text("PUESTO / TAREA", 55, 43);
+            doc.text("PELIGRO", 100, 43);
+            doc.text("RIESGO ASOCIADO", 145, 43);
+            doc.text("EVALUACIÓN", 190, 43);
+            doc.text("MEDIDAS DE CONTROL", 225, 43);
+            
+            // Draw Row
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(9);
+            
+            // Text splitting
+            const splitArea = doc.splitTextToSize(area, 32);
+            const splitPuesto = doc.splitTextToSize(`Puesto: ${puesto}\nTarea: ${tarea}`, 40);
+            const splitPeligro = doc.splitTextToSize(peligro, 40);
+            const splitRiesgo = doc.splitTextToSize(riesgo, 40);
+            const splitNivel = doc.splitTextToSize(`Probabilidad: ${p}\nSeveridad: ${s}\n${nivelText}`, 30);
+            const splitControl = doc.splitTextToSize(control, 50);
+            
+            let yRow = 54;
+            doc.text(splitArea, 18, yRow);
+            doc.text(splitPuesto, 55, yRow);
+            doc.text(splitPeligro, 100, yRow);
+            doc.text(splitRiesgo, 145, yRow);
+            
+            doc.setFont("helvetica", "bold");
+            if(p*s >= 6) doc.setTextColor(220, 38, 38);
+            doc.text(splitNivel, 190, yRow);
+            doc.setTextColor(0, 0, 0);
+            
+            doc.setFont("helvetica", "normal");
+            doc.text(splitControl, 225, yRow);
+            
+            // Draw Table Grid Lines (Rough estimation based on text splits)
+            doc.line(15, 35, 15, 80); // V-lines
+            doc.line(52, 35, 52, 80);
+            doc.line(97, 35, 97, 80);
+            doc.line(142, 35, 142, 80);
+            doc.line(187, 35, 187, 80);
+            doc.line(222, 35, 222, 80);
+            doc.line(280, 35, 280, 80);
+            
+            doc.line(15, 47, 280, 47); // Under Header
+            doc.line(15, 80, 280, 80); // Bottom Line
+            
+            doc.setFontSize(9);
+            doc.setFont("helvetica", "italic");
+            doc.text("Documento generado automáticamente a través del Sistema Integrado SG-SST.", 15, 88);
+            
+            doc.save(`Matriz_IPERC_${puesto.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`);
+            
+            const btn = ipercForm.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Matriz IPERC Generada';
+            btn.classList.replace('bg-rose-600', 'bg-emerald-600');
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.replace('bg-emerald-600', 'bg-rose-600');
+                ipercForm.reset();
+                calculateNivel();
+                closeIpercFunc();
+            }, 2500);
+        });
+    }
 });
 
 // Helper for counting up numbers

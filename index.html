@@ -325,7 +325,7 @@
                 <h4 class="font-bold text-primary">Matriz IPERC</h4>
             </div>
             <p class="text-sm text-on-surface-variant flex-1">Identificación de Peligros y Evaluación de Riesgos por puesto de trabajo según Dec. 14.390/92.</p>
-            <button class="w-full text-rose-700 bg-rose-50 py-2 rounded-lg text-sm font-bold hover:bg-rose-100 transition-colors">Evaluar Riesgos</button>
+            <button id="btn-iperc" class="w-full text-rose-700 bg-rose-50 py-2 rounded-lg text-sm font-bold hover:bg-rose-100 transition-colors">Evaluar Riesgos</button>
         </div>
 
         <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 shadow-sm flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
@@ -558,6 +558,81 @@
             </div>
             <button type="submit" class="w-full bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition-colors flex justify-center items-center gap-2 mt-4">
                 <span class="material-symbols-outlined">picture_as_pdf</span> Generar Acta PDF
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Generador IPERC -->
+<div id="iperc-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+    <div class="bg-surface-container-lowest rounded-3xl w-full max-w-2xl p-6 shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto">
+        <button id="close-iperc-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <h3 class="font-headline text-2xl font-bold text-rose-700 mb-2">Evaluación IPERC</h3>
+        <p class="text-sm text-on-surface-variant mb-6">Identificación de Peligros y Evaluación de Riesgos (Dec. 14.390/92 MTESS).</p>
+        
+        <form id="iperc-form" class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Área / Sector</label>
+                    <input type="text" id="iperc-area" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Producción">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Puesto de Trabajo</label>
+                    <input type="text" id="iperc-puesto" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Operador de Máquina">
+                </div>
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Tarea a Evaluar</label>
+                <input type="text" id="iperc-tarea" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Corte mecánico de piezas">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Peligro Identificado</label>
+                    <input type="text" id="iperc-peligro" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Ruido elevado">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Riesgo Asociado</label>
+                    <input type="text" id="iperc-riesgo" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Hipoacusia">
+                </div>
+            </div>
+            
+            <div class="p-4 bg-surface-container-low rounded-xl border border-outline-variant/30">
+                <h4 class="text-sm font-bold text-on-surface mb-3">Evaluación del Nivel de Riesgo</h4>
+                <div class="grid grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-on-surface-variant mb-1">Probabilidad (P)</label>
+                        <select id="iperc-prob" class="w-full bg-white border border-outline-variant/50 rounded-lg px-2 py-2 text-sm outline-none cursor-pointer">
+                            <option value="1">1 - Baja</option>
+                            <option value="2">2 - Media</option>
+                            <option value="3">3 - Alta</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-on-surface-variant mb-1">Severidad (S)</label>
+                        <select id="iperc-sev" class="w-full bg-white border border-outline-variant/50 rounded-lg px-2 py-2 text-sm outline-none cursor-pointer">
+                            <option value="1">1 - Ligeramente Dañino</option>
+                            <option value="2">2 - Dañino</option>
+                            <option value="3">3 - Extr. Dañino</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-on-surface-variant mb-1">Nivel (P x S)</label>
+                        <div id="iperc-nivel" class="w-full bg-emerald-100 text-emerald-800 font-bold text-center rounded-lg px-2 py-2 text-sm">
+                            1 - TRIVIAL
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Medidas de Control a Implementar</label>
+                <textarea id="iperc-control" rows="2" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Uso obligatorio de protector auditivo tipo copa."></textarea>
+            </div>
+            
+            <button type="submit" class="w-full bg-rose-600 text-white font-bold py-3 rounded-xl hover:bg-rose-700 transition-colors flex justify-center items-center gap-2 mt-4">
+                <span class="material-symbols-outlined">table</span> Generar Reporte IPERC PDF
             </button>
         </form>
     </div>
