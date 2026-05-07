@@ -440,11 +440,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const prob = document.getElementById('iperc-prob');
     const sev = document.getElementById('iperc-sev');
     const nivelDiv = document.getElementById('iperc-nivel');
+    
+    const ipercPeligroSelect = document.getElementById('iperc-peligro-select');
+    const ipercPeligro = document.getElementById('iperc-peligro');
+    const ipercRiesgo = document.getElementById('iperc-riesgo');
+    const ipercControl = document.getElementById('iperc-control');
+    const btnAddPeligro = document.getElementById('btn-add-peligro');
+    const ipercLista = document.getElementById('iperc-lista');
+    let ipercHazards = [];
+
+    const hazardDict = {
+        "Ruido elevado": { riesgo: "Hipoacusia, estrés", control: "Uso de protector auditivo (tapón/copa), aislamiento acústico, pausas." },
+        "Piso mojado / irregular": { riesgo: "Caída a nivel, contusiones", control: "Señalización, limpieza inmediata, calzado antideslizante." },
+        "Partículas en proyección": { riesgo: "Lesión ocular, ceguera", control: "Uso de anteojos de seguridad Z87+, pantallas protectoras." },
+        "Carga manual pesada": { riesgo: "Lumbalgia, hernias", control: "Uso de carritos, capacitación en levantamiento, pausas activas." },
+        "Trabajos en altura": { riesgo: "Caída a distinto nivel, muerte", control: "Arnés de seguridad con doble cabo, línea de vida, barandas." },
+        "Contacto eléctrico": { riesgo: "Electrocución, quemaduras", control: "Puesta a tierra, disyuntores diferenciales, guantes dieléctricos, bloqueo LOTO." },
+        "Polvo en suspensión": { riesgo: "Neumoconiosis, alergias", control: "Uso de respiradores N95, sistema de extracción localizada." },
+        "Posturas prolongadas": { riesgo: "Trastornos musculoesqueléticos", control: "Sillas ergonómicas, pausas activas cada 2 horas, rotación." }
+    };
+
+    if (ipercPeligroSelect) {
+        ipercPeligroSelect.addEventListener('change', (e) => {
+            const val = e.target.value;
+            if (val && hazardDict[val]) {
+                ipercPeligro.value = val;
+                ipercRiesgo.value = hazardDict[val].riesgo;
+                ipercControl.value = hazardDict[val].control;
+            } else if (val === "Otro") {
+                ipercPeligro.value = "";
+                ipercRiesgo.value = "";
+                ipercControl.value = "";
+                ipercPeligro.focus();
+            }
+        });
+    }
 
     const calculateNivel = () => {
         if (!prob || !sev || !nivelDiv) return;
-        const p = parseInt(prob.value);
-        const s = parseInt(sev.value);
+        const p = parseInt(prob.value) || 1;
+        const s = parseInt(sev.value) || 1;
         const result = p * s;
         let text = "";
         let bgColor = "";
@@ -477,6 +512,60 @@ document.addEventListener('DOMContentLoaded', () => {
         sev.addEventListener('change', calculateNivel);
     }
 
+    const renderHazardsList = () => {
+        if (!ipercLista) return;
+        if (ipercHazards.length === 0) {
+            ipercLista.classList.add('hidden');
+            ipercLista.innerHTML = "";
+            return;
+        }
+        ipercLista.classList.remove('hidden');
+        ipercLista.innerHTML = ipercHazards.map((h, i) => `
+            <div class="flex justify-between items-center bg-white p-3 rounded-lg border border-outline-variant/30 shadow-sm text-sm">
+                <div>
+                    <span class="font-bold text-slate-800">${h.peligro}</span>
+                    <p class="text-xs text-slate-500">${h.riesgo} | Nivel: ${h.nivelText}</p>
+                </div>
+                <button type="button" onclick="window.removeHazard(${i})" class="text-rose-500 hover:text-rose-700 p-1">
+                    <span class="material-symbols-outlined text-sm">delete</span>
+                </button>
+            </div>
+        `).join('');
+    };
+
+    window.removeHazard = (index) => {
+        ipercHazards.splice(index, 1);
+        renderHazardsList();
+    };
+
+    if (btnAddPeligro) {
+        btnAddPeligro.addEventListener('click', () => {
+            if (!ipercPeligro.value || !ipercRiesgo.value || !ipercControl.value) {
+                alert("Por favor complete el peligro, riesgo y medidas de control antes de añadir.");
+                return;
+            }
+            const p = parseInt(prob.value) || 1;
+            const s = parseInt(sev.value) || 1;
+            ipercHazards.push({
+                peligro: ipercPeligro.value,
+                riesgo: ipercRiesgo.value,
+                control: ipercControl.value,
+                p: p,
+                s: s,
+                nivelText: nivelDiv.innerText
+            });
+            // Reset fields
+            ipercPeligro.value = "";
+            ipercRiesgo.value = "";
+            ipercControl.value = "";
+            if (ipercPeligroSelect) ipercPeligroSelect.value = "";
+            prob.value = "1";
+            sev.value = "1";
+            calculateNivel();
+            renderHazardsList();
+        });
+    }
+
     const closeIpercFunc = () => {
         if (!ipercModal) return;
         ipercModal.classList.add('opacity-0');
@@ -503,23 +592,36 @@ document.addEventListener('DOMContentLoaded', () => {
     if (ipercForm) {
         ipercForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            if (ipercHazards.length === 0) {
+                alert("Debe añadir al menos 1 peligro a la matriz (Botón 'Añadir a la Matriz').");
+                return;
+            }
+            
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ orientation: "landscape" });
             
             const area = document.getElementById('iperc-area').value || 'N/A';
             const puesto = document.getElementById('iperc-puesto').value || 'N/A';
             const tarea = document.getElementById('iperc-tarea').value || 'N/A';
-            const peligro = document.getElementById('iperc-peligro').value || 'N/A';
-            const riesgo = document.getElementById('iperc-riesgo').value || 'N/A';
-            const p = parseInt(document.getElementById('iperc-prob').value) || 1;
-            const s = parseInt(document.getElementById('iperc-sev').value) || 1;
-            const control = document.getElementById('iperc-control').value || 'N/A';
-            const nivelText = document.getElementById('iperc-nivel').innerText || '';
             const date = new Date().toLocaleDateString('es-PY');
+
+            const drawHeaders = (y) => {
+                doc.setFillColor(241, 245, 249);
+                doc.rect(15, y, 265, 12, 'F');
+                doc.setFontSize(10);
+                doc.setFont("helvetica", "bold");
+                doc.setTextColor(0, 0, 0);
+                doc.text("ÁREA / SECTOR", 18, y + 8);
+                doc.text("PUESTO / TAREA", 55, y + 8);
+                doc.text("PELIGRO", 100, y + 8);
+                doc.text("RIESGO ASOCIADO", 145, y + 8);
+                doc.text("EVALUACIÓN", 190, y + 8);
+                doc.text("MEDIDAS DE CONTROL", 225, y + 8);
+            };
 
             doc.setFontSize(16);
             doc.setFont("helvetica", "bold");
-            doc.setTextColor(225, 29, 72); // Rose
+            doc.setTextColor(225, 29, 72);
             doc.text("MATRIZ DE IDENTIFICACIÓN DE PELIGROS Y EVALUACIÓN DE RIESGOS (IPERC)", 15, 20);
             
             doc.setFontSize(10);
@@ -529,61 +631,68 @@ document.addEventListener('DOMContentLoaded', () => {
             doc.text(`Fecha de Evaluación: ${date}`, 230, 27);
             
             doc.line(15, 30, 280, 30);
+            drawHeaders(35);
             
-            // Draw Table Headers
-            doc.setFillColor(241, 245, 249); // slate-100
-            doc.rect(15, 35, 265, 12, 'F');
-            doc.setFontSize(10);
-            doc.setFont("helvetica", "bold");
-            doc.text("ÁREA / SECTOR", 18, 43);
-            doc.text("PUESTO / TAREA", 55, 43);
-            doc.text("PELIGRO", 100, 43);
-            doc.text("RIESGO ASOCIADO", 145, 43);
-            doc.text("EVALUACIÓN", 190, 43);
-            doc.text("MEDIDAS DE CONTROL", 225, 43);
+            let currentY = 52;
             
-            // Draw Row
-            doc.setFont("helvetica", "normal");
-            doc.setFontSize(9);
+            ipercHazards.forEach((h, index) => {
+                if (currentY > 170) {
+                    doc.line(15, 47, 15, currentY - 5);
+                    doc.line(280, 47, 280, currentY - 5);
+                    doc.line(15, currentY - 5, 280, currentY - 5);
+                    
+                    doc.addPage('landscape');
+                    drawHeaders(15);
+                    currentY = 32;
+                }
+
+                doc.setFontSize(9);
+                const splitArea = doc.splitTextToSize(index === 0 ? area : '"', 32);
+                const splitPuesto = doc.splitTextToSize(index === 0 ? `Puesto: ${puesto}\nTarea: ${tarea}` : '"', 40);
+                const splitPeligro = doc.splitTextToSize(h.peligro, 40);
+                const splitRiesgo = doc.splitTextToSize(h.riesgo, 40);
+                const splitNivel = doc.splitTextToSize(`P:${h.p} | S:${h.s}\n${h.nivelText}`, 30);
+                const splitControl = doc.splitTextToSize(h.control, 50);
+
+                const lines = Math.max(splitPeligro.length, splitRiesgo.length, splitControl.length, splitNivel.length, splitPuesto.length);
+                const rowHeight = lines * 4 + 4;
+
+                doc.setFont("helvetica", "normal");
+                doc.text(splitArea, 18, currentY);
+                doc.text(splitPuesto, 55, currentY);
+                doc.text(splitPeligro, 100, currentY);
+                doc.text(splitRiesgo, 145, currentY);
+                
+                doc.setFont("helvetica", "bold");
+                if ((h.p * h.s) >= 6) doc.setTextColor(220, 38, 38);
+                doc.text(splitNivel, 190, currentY);
+                doc.setTextColor(0, 0, 0);
+                
+                doc.setFont("helvetica", "normal");
+                doc.text(splitControl, 225, currentY);
+
+                // Grid lines for this row
+                doc.line(15, currentY - 5, 280, currentY - 5); // top of row
+                
+                // Vertical lines
+                doc.line(15, currentY - 5, 15, currentY + rowHeight - 5);
+                doc.line(52, currentY - 5, 52, currentY + rowHeight - 5);
+                doc.line(97, currentY - 5, 97, currentY + rowHeight - 5);
+                doc.line(142, currentY - 5, 142, currentY + rowHeight - 5);
+                doc.line(187, currentY - 5, 187, currentY + rowHeight - 5);
+                doc.line(222, currentY - 5, 222, currentY + rowHeight - 5);
+                doc.line(280, currentY - 5, 280, currentY + rowHeight - 5);
+
+                currentY += rowHeight;
+            });
             
-            // Text splitting
-            const splitArea = doc.splitTextToSize(area, 32);
-            const splitPuesto = doc.splitTextToSize(`Puesto: ${puesto}\nTarea: ${tarea}`, 40);
-            const splitPeligro = doc.splitTextToSize(peligro, 40);
-            const splitRiesgo = doc.splitTextToSize(riesgo, 40);
-            const splitNivel = doc.splitTextToSize(`Probabilidad: ${p}\nSeveridad: ${s}\n${nivelText}`, 30);
-            const splitControl = doc.splitTextToSize(control, 50);
-            
-            let yRow = 54;
-            doc.text(splitArea, 18, yRow);
-            doc.text(splitPuesto, 55, yRow);
-            doc.text(splitPeligro, 100, yRow);
-            doc.text(splitRiesgo, 145, yRow);
-            
-            doc.setFont("helvetica", "bold");
-            if((p * s) >= 6) doc.setTextColor(220, 38, 38);
-            doc.text(splitNivel, 190, yRow);
-            doc.setTextColor(0, 0, 0);
-            
-            doc.setFont("helvetica", "normal");
-            doc.text(splitControl, 225, yRow);
-            
-            // Draw Table Grid Lines (Rough estimation based on text splits)
-            doc.line(15, 35, 15, 80); // V-lines
-            doc.line(52, 35, 52, 80);
-            doc.line(97, 35, 97, 80);
-            doc.line(142, 35, 142, 80);
-            doc.line(187, 35, 187, 80);
-            doc.line(222, 35, 222, 80);
-            doc.line(280, 35, 280, 80);
-            
-            doc.line(15, 47, 280, 47); // Under Header
-            doc.line(15, 80, 280, 80); // Bottom Line
+            // Bottom line for last row
+            doc.line(15, currentY - 5, 280, currentY - 5);
             
             doc.setFontSize(9);
             doc.setFont("helvetica", "italic");
-            doc.text("Documento generado automáticamente a través del Sistema Integrado SG-SST.", 15, 88);
-            
+            doc.text("Documento generado automáticamente a través del Sistema Integrado SG-SST.", 15, currentY + 3);
+
             doc.save(`Matriz_IPERC_${puesto.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`);
             
             const btn = ipercForm.querySelector('button[type="submit"]');
@@ -594,6 +703,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.innerHTML = originalText;
                 btn.classList.replace('bg-emerald-600', 'bg-rose-600');
                 ipercForm.reset();
+                ipercHazards = [];
+                renderHazardsList();
                 calculateNivel();
                 closeIpercFunc();
             }, 2500);

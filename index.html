@@ -587,19 +587,35 @@
                 <label class="block text-xs font-bold text-on-surface-variant mb-1">Tarea a Evaluar</label>
                 <input type="text" id="iperc-tarea" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Corte mecánico de piezas">
             </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Peligro Identificado</label>
-                    <input type="text" id="iperc-peligro" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Ruido elevado">
+            <hr class="border-outline-variant/20 my-4">
+            <h4 class="text-sm font-bold text-rose-700">Identificación de Peligros y Controles</h4>
+            
+            <div class="p-4 bg-surface-container-low rounded-xl border border-outline-variant/30 space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-on-surface-variant mb-1">Peligro Típico (Auto-completar)</label>
+                        <select id="iperc-peligro-select" class="w-full bg-white border border-outline-variant/50 rounded-lg px-2 py-2 text-sm outline-none cursor-pointer">
+                            <option value="">-- Seleccionar o escribir abajo --</option>
+                            <option value="Ruido elevado">Ruido elevado</option>
+                            <option value="Piso mojado / irregular">Piso mojado / irregular</option>
+                            <option value="Partículas en proyección">Partículas en proyección</option>
+                            <option value="Carga manual pesada">Carga manual pesada</option>
+                            <option value="Trabajos en altura">Trabajos en altura</option>
+                            <option value="Contacto eléctrico">Contacto eléctrico</option>
+                            <option value="Polvo en suspensión">Polvo en suspensión</option>
+                            <option value="Posturas prolongadas">Posturas prolongadas</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-on-surface-variant mb-1">Peligro Identificado</label>
+                        <input type="text" id="iperc-peligro" class="w-full bg-white border border-outline-variant/50 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Ruido elevado">
+                    </div>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-on-surface-variant mb-1">Riesgo Asociado</label>
-                    <input type="text" id="iperc-riesgo" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Hipoacusia">
+                    <input type="text" id="iperc-riesgo" class="w-full bg-white border border-outline-variant/50 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Hipoacusia">
                 </div>
-            </div>
-            
-            <div class="p-4 bg-surface-container-low rounded-xl border border-outline-variant/30">
-                <h4 class="text-sm font-bold text-on-surface mb-3">Evaluación del Nivel de Riesgo</h4>
+                
                 <div class="grid grid-cols-3 gap-4">
                     <div>
                         <label class="block text-xs font-bold text-on-surface-variant mb-1">Probabilidad (P)</label>
@@ -624,11 +640,20 @@
                         </div>
                     </div>
                 </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Medidas de Control a Implementar</label>
+                    <textarea id="iperc-control" rows="2" class="w-full bg-white border border-outline-variant/50 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Uso obligatorio de protector auditivo."></textarea>
+                </div>
+                
+                <button type="button" id="btn-add-peligro" class="w-full bg-slate-800 text-white font-bold py-2 rounded-lg hover:bg-slate-700 transition-colors text-sm flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-sm">add</span> Añadir a la Matriz
+                </button>
             </div>
 
-            <div>
-                <label class="block text-xs font-bold text-on-surface-variant mb-1">Medidas de Control a Implementar</label>
-                <textarea id="iperc-control" rows="2" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Uso obligatorio de protector auditivo tipo copa."></textarea>
+            <!-- List of added hazards -->
+            <div id="iperc-lista" class="space-y-2 max-h-40 overflow-y-auto hidden">
+                <!-- Javascript will inject items here -->
             </div>
             
             <button type="submit" class="w-full bg-rose-600 text-white font-bold py-3 rounded-xl hover:bg-rose-700 transition-colors flex justify-center items-center gap-2 mt-4">
