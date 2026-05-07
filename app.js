@@ -1018,27 +1018,24 @@ document.addEventListener('DOMContentLoaded', () => {
             doc.line(20, 85, 190, 85);
 
             doc.setFont("helvetica", "bold");
-            doc.text("1. OBJETIVO", 20, 100);
+            doc.text("1. NORMATIVA Y OBJETIVO", 20, 100);
             doc.setFont("helvetica", "normal");
-            const objText = `Establecer las medidas preventivas y los pasos a seguir para garantizar la integridad física de los trabajadores que realicen tareas a una altura igual o superior a 1.8 metros, previniendo caídas a distinto nivel.`;
+            const objText = `En cumplimiento con el Decreto 14.390/92 (MTESS) y los estándares internacionales OSHA / ANSI Z359, este procedimiento establece los lineamientos técnicos obligatorios para la emisión del Permiso de Trabajo en Alturas (PTA), garantizando el uso correcto de los sistemas de detención de caídas.`;
             doc.text(doc.splitTextToSize(objText, 170), 25, 110);
 
             doc.setFont("helvetica", "bold");
-            doc.text("2. EQUIPOS DE PROTECCIÓN REQUERIDOS", 20, 135);
+            doc.text("2. SISTEMA 'A-B-C' DE PROTECCIÓN CONTRA CAÍDAS", 20, 140);
             doc.setFont("helvetica", "normal");
-            doc.text("- Arnés de seguridad de cuerpo entero.", 25, 145);
-            doc.text("- Cabo de vida doble con amortiguador de impacto.", 25, 155);
-            doc.text("- Casco de seguridad con barbiquejo.", 25, 165);
-            doc.text("- Calzado de seguridad antideslizante.", 25, 175);
+            doc.text("A (Anclaje / Anchorage): Punto seguro capaz de resistir al menos 22.2 kN (5000 lbs) por trabajador conectado. Puede ser estructural o adaptadores de anclaje portátiles.", 25, 150, { maxWidth: 165 });
+            doc.text("B (Body Support / Arnés): Uso obligatorio de Arnés de Cuerpo Completo tipo paracaidista (Clase A para detención de caídas, P para posicionamiento).", 25, 165, { maxWidth: 165 });
+            doc.text("C (Conectores / Connectors): Líneas de vida, eslingas (cabos de vida) con amortiguador de impacto y mosquetones de doble seguro.", 25, 180, { maxWidth: 165 });
 
             doc.setFont("helvetica", "bold");
-            doc.text("3. PROCEDIMIENTO DE TRABAJO", 20, 195);
+            doc.text("3. NIVELES Y PERMISOS DE TRABAJO (PTA)", 20, 200);
             doc.setFont("helvetica", "normal");
-            doc.text("1. Inspeccionar el arnés y las eslingas antes de cada uso.", 25, 205);
-            doc.text("2. Delimitar y señalizar el área de trabajo en el nivel inferior.", 25, 215);
-            doc.text("3. Enganchar los mosquetones a un punto de anclaje firme por encima del hombro.", 25, 225);
-            doc.text("4. Mantener siempre al menos un mosquetón anclado durante el desplazamiento.", 25, 235);
-            doc.text("5. Suspender las tareas en caso de lluvia, tormenta eléctrica o vientos fuertes.", 25, 245);
+            doc.text("- Emisión del PTA: Ningún trabajador puede iniciar tareas a +1.8m sin el Permiso firmado por el supervisor / responsable SST.", 25, 210, { maxWidth: 165 });
+            doc.text("- Inspección Pre-uso: Revisión visual obligatoria del sistema A-B-C antes de cada jornada.", 25, 222, { maxWidth: 165 });
+            doc.text("- Plan de Rescate: Obligatoriedad de contar con un mecanismo de rescate rápido para evitar el Síndrome del Arnés.", 25, 230, { maxWidth: 165 });
 
             doc.setFontSize(9);
             doc.setFont("helvetica", "italic");
