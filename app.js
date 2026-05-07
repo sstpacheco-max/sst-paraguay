@@ -1910,17 +1910,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
             doc.save(`Inspeccion_${tipo}_${area.replace(/\s/g, '_')}.pdf`);
 
-            // Save to History
-            const inspecciones = JSON.parse(localStorage.getItem('sst_inspecciones')) || [];
-            inspecciones.push({ fecha, tipo, area, resp, percent });
-            localStorage.setItem('sst_inspecciones', JSON.stringify(inspecciones));
+            // Save to History (LocalStorage)
+            try {
+                const inspecciones = JSON.parse(localStorage.getItem('sst_inspecciones')) || [];
+                const nuevaIns = { 
+                    fecha: fecha || new Date().toISOString().split('T')[0], 
+                    tipo: tipo || 'Inspección', 
+                    area: area || 'General', 
+                    resp: resp || 'N/A', 
+                    percent: percent || "0.0" 
+                };
+                inspecciones.push(nuevaIns);
+                localStorage.setItem('sst_inspecciones', JSON.stringify(inspecciones));
+                console.log("Inspección guardada con éxito:", nuevaIns);
+            } catch (err) {
+                console.error("Error al guardar inspección:", err);
+            }
 
             const sbtn = inspeccionForm.querySelector('button[type="submit"]');
-            sbtn.innerText = "¡Generado!";
+            sbtn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> ¡Guardado!';
+            sbtn.classList.replace('bg-blue-700', 'bg-emerald-600');
+            
             setTimeout(() => {
                 sbtn.innerHTML = '<span class="material-symbols-outlined">description</span> Finalizar y Generar PDF';
+                sbtn.classList.replace('bg-emerald-600', 'bg-blue-700');
                 inspeccionForm.reset();
                 closeInspeccionFunc();
+                renderHistorialIns(); // Update table if open
             }, 2000);
         };
     }
@@ -1935,15 +1951,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderHistorialIns = () => {
         if (!tbodyHistorialIns) return;
         const inspecciones = JSON.parse(localStorage.getItem('sst_inspecciones')) || [];
-        tbodyHistorialIns.innerHTML = inspecciones.map(ins => `
+        
+        if (inspecciones.length === 0) {
+            tbodyHistorialIns.innerHTML = `<tr><td colspan="5" class="px-4 py-8 text-center text-on-surface-variant italic">No hay inspecciones registradas aún.</td></tr>`;
+            return;
+        }
+
+        tbodyHistorialIns.innerHTML = inspecciones.map(ins => {
+            const p = parseFloat(ins.percent || 0);
+            return `
             <tr class="hover:bg-blue-50 transition-colors">
                 <td class="px-4 py-3">${ins.fecha}</td>
                 <td class="px-4 py-3 font-bold text-blue-700">${ins.tipo}</td>
                 <td class="px-4 py-3">${ins.area}</td>
                 <td class="px-4 py-3">${ins.resp}</td>
-                <td class="px-4 py-3 text-center font-bold ${parseFloat(ins.percent) < 70 ? 'text-red-600' : 'text-emerald-600'}">${ins.percent}%</td>
+                <td class="px-4 py-3 text-center font-bold ${p < 70 ? 'text-red-600' : 'text-emerald-600'}">${ins.percent}%</td>
             </tr>
-        `).reverse().join('');
+        `}).reverse().join('');
     };
 
     if (btnHistorialIns && historialInsModal) {
