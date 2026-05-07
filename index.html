@@ -334,10 +334,10 @@
         <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 shadow-sm flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center"><span class="material-symbols-outlined">medical_services</span></div>
-                <h4 class="font-bold text-primary">Vigilancia Médica (IPS)</h4>
+                <h4 class="font-bold text-primary">Vigilancia Médica (MTESS)</h4>
             </div>
-            <p class="text-sm text-on-surface-variant flex-1">Control de Exámenes Admisionales, Periódicos y de Retorno. Alertas automáticas de vencimiento.</p>
-            <button class="w-full text-emerald-700 bg-emerald-50 py-2 rounded-lg text-sm font-bold hover:bg-emerald-100 transition-colors">Ver Fichas Médicas</button>
+            <p class="text-sm text-on-surface-variant flex-1">Generador de Órdenes de Exámenes Médicos (Admisional/Periódico) según Res. MTESS Nº 03/2022 y Decreto 5078/2021.</p>
+            <button id="btn-medico" class="w-full text-emerald-700 bg-emerald-50 py-2 rounded-lg text-sm font-bold hover:bg-emerald-100 transition-colors">Generar Orden Médica EMO</button>
         </div>
 
         <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 shadow-sm flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
@@ -890,6 +890,67 @@
     </div>
 </div>
 
+<!-- Modal Orden Médica EMO -->
+<div id="medico-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+    <div class="bg-surface-container-lowest rounded-3xl w-full max-w-2xl p-6 pb-8 shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[85vh] overflow-y-auto">
+        <button id="close-medico-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <h3 class="font-headline text-2xl font-bold text-emerald-700 mb-2">Orden de Examen Médico (EMO)</h3>
+        <p class="text-sm text-on-surface-variant mb-6">Generador de orden médica laboral según Resolución MTESS Nº 03/2022.</p>
+        
+        <form id="medico-form" class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Razón Social de la Empresa</label>
+                    <input type="text" id="med-empresa" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Industria Guaraní S.A.">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Nombre del Trabajador</label>
+                    <input type="text" id="med-trabajador" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: María López">
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Cédula de Identidad (C.I.)</label>
+                    <input type="text" id="med-cedula" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: 4.555.666">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Puesto de Trabajo a ocupar/ocupado</label>
+                    <input type="text" id="med-puesto" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Operador de Montacargas">
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <label class="block text-xs font-bold text-on-surface-variant mb-2">Tipo de Examen Requerido (Res. 03/2022)</label>
+                <div class="flex flex-col gap-2">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="med-tipo" value="Admisional" checked class="text-emerald-600 focus:ring-emerald-500">
+                        <span class="text-sm font-medium">Examen Admisional (Pre-ingreso)</span>
+                    </label>
+                    <p class="text-xs text-on-surface-variant ml-6 mb-2">Incluye: Examen Clínico, Hemograma completo, Eritrosedimentación, Perfil Lipídico, Glicemia y Tipificación Sanguínea.</p>
+                    
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="med-tipo" value="Periódico" class="text-emerald-600 focus:ring-emerald-500">
+                        <span class="text-sm font-medium">Examen Periódico (Anual/Semestral)</span>
+                    </label>
+                    <p class="text-xs text-on-surface-variant ml-6">Incluye: Examen Clínico y Hemograma completo (Más específicos según el riesgo del puesto).</p>
+                </div>
+            </div>
+
+            <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100 mt-4">
+                <h4 class="text-sm font-bold text-emerald-800 mb-2">Responsabilidad del Empleador</h4>
+                <p class="text-xs text-emerald-700">Según el Art. 4 de la Res. 03/2022, el costo de estos exámenes es íntegramente a cargo del empleador. El trabajador debe presentar los resultados en formato de Certificado de Aptitud Médica.</p>
+            </div>
+            
+            <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl hover:bg-emerald-700 transition-colors flex justify-center items-center gap-2 mt-4">
+                <span class="material-symbols-outlined">print</span> Emitir Orden Médica PDF
+            </button>
+        </form>
+    </div>
+</div>
+
 <!-- BottomNavBar -->
 <nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-t border-slate-200/15 dark:border-slate-800/15 shadow-[0_-4px_24px_0_rgba(0,0,0,0.06)] z-50 rounded-t-3xl">
 <a class="flex flex-col items-center justify-center bg-gradient-to-br from-blue-900 to-blue-800 text-white rounded-2xl px-5 py-2 transition-transform duration-200 active:scale-90" href="#">
@@ -909,5 +970,5 @@
 <span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Capacitación</span>
 </a>
 </nav>
-<script src="app.js?v=2.4"></script>
+<script src="app.js?v=2.5"></script>
 </body></html>

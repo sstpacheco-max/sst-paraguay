@@ -1222,9 +1222,133 @@ document.addEventListener('DOMContentLoaded', () => {
                 ptaAlturaForm.reset();
                 closePtaAlturaFunc();
             }, 2500);
+            }
+
+    // Orden Médica EMO Logic
+    const btnMedico = document.getElementById('btn-medico');
+    const medicoModal = document.getElementById('medico-modal');
+    const closeMedicoBtn = document.getElementById('close-medico-modal');
+    const medicoForm = document.getElementById('medico-form');
+
+    const closeMedicoFunc = () => {
+        if (!medicoModal) return;
+        medicoModal.classList.add('opacity-0');
+        medicoModal.querySelector('div').classList.add('scale-95');
+        setTimeout(() => medicoModal.classList.add('hidden'), 300);
+    };
+
+    if (btnMedico && medicoModal && closeMedicoBtn) {
+        btnMedico.addEventListener('click', () => {
+            medicoModal.classList.remove('hidden');
+            setTimeout(() => {
+                medicoModal.classList.remove('opacity-0');
+                medicoModal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        });
+
+        closeMedicoBtn.addEventListener('click', closeMedicoFunc);
+        medicoModal.addEventListener('click', (e) => {
+            if (e.target === medicoModal) closeMedicoFunc();
         });
     }
 
+    if (medicoForm) {
+        medicoForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const empresa = document.getElementById('med-empresa').value;
+            const trabajador = document.getElementById('med-trabajador').value;
+            const cedula = document.getElementById('med-cedula').value;
+            const puesto = document.getElementById('med-puesto').value;
+            const tipo = document.querySelector('input[name="med-tipo"]:checked').value;
+            
+            const dateStr = new Date().toLocaleDateString('es-PY');
+
+            doc.setFontSize(20);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(4, 120, 87); // emerald-700
+            doc.text("ORDEN DE EXAMEN MÉDICO OCUPACIONAL", 105, 30, null, null, "center");
+            
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.text(`En cumplimiento de la Res. MTESS N° 03/2022 y Dec. N° 5078/2021`, 105, 40, null, null, "center");
+            doc.line(15, 45, 195, 45);
+
+            // DATOS DE LA EMPRESA
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("1. DATOS DE LA EMPRESA SOLICITANTE", 20, 55);
+            doc.setFontSize(11);
+            doc.setFont("helvetica", "normal");
+            doc.text(`Razón Social: ${empresa}`, 25, 65);
+            doc.text(`Fecha de Emisión de la Orden: ${dateStr}`, 25, 75);
+
+            // DATOS DEL TRABAJADOR
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("2. DATOS DEL TRABAJADOR", 20, 95);
+            doc.setFontSize(11);
+            doc.setFont("helvetica", "normal");
+            doc.text(`Nombre y Apellido: ${trabajador}`, 25, 105);
+            doc.text(`C.I. N°: ${cedula}`, 25, 115);
+            doc.text(`Puesto de Trabajo: ${puesto}`, 25, 125);
+
+            // TIPO DE EXAMEN Y REQUERIMIENTOS
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("3. TIPO DE EXAMEN Y ESTUDIOS SOLICITADOS", 20, 145);
+            doc.setFontSize(11);
+            doc.setFont("helvetica", "normal");
+            doc.text(`Se solicita a la clínica/profesional de salud ocupacional realizar el siguiente examen:`, 25, 155);
+            
+            doc.setFontSize(13);
+            doc.setFont("helvetica", "bold");
+            doc.text(`[ X ] EXAMEN ${tipo.toUpperCase()}`, 35, 165);
+            
+            doc.setFontSize(11);
+            doc.setFont("helvetica", "normal");
+            if (tipo === 'Admisional') {
+                doc.text("De acuerdo al Art. 3 de la Res. 03/2022, el examen admisional debe incluir:", 25, 180);
+                doc.text("- Examen clínico con énfasis ocupacional.", 35, 190);
+                doc.text("- Hemograma completo.", 35, 200);
+                doc.text("- Eritrosedimentación.", 35, 210);
+                doc.text("- Perfil lipídico y Glicemia.", 35, 220);
+                doc.text("- Tipificación sanguínea.", 35, 230);
+            } else {
+                doc.text("De acuerdo al Art. 4 de la Res. 03/2022, el examen periódico debe incluir:", 25, 180);
+                doc.text("- Examen clínico con énfasis en riesgos del puesto.", 35, 190);
+                doc.text("- Hemograma completo.", 35, 200);
+                doc.text("- Otros estudios complementarios según criterio del médico laboral.", 35, 210);
+            }
+
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "italic");
+            const note = "Nota a la Clínica: Los resultados médicos son confidenciales y pertenecen al trabajador. A la empresa solo se le debe remitir el 'Certificado de Aptitud Médica Ocupacional' indicando si es APTO, APTO CON RESTRICCIONES, o NO APTO.";
+            doc.text(doc.splitTextToSize(note, 160), 20, 250);
+
+            // FIRMAS
+            doc.line(70, 280, 140, 280);
+            doc.setFontSize(11);
+            doc.setFont("helvetica", "bold");
+            doc.text("Firma y Sello de la Empresa", 105, 285, null, null, "center");
+
+            doc.save(`Orden_EMO_${tipo}_${trabajador.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`);
+            
+            const btn = medicoForm.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Orden Emitida';
+            btn.classList.replace('bg-emerald-600', 'bg-emerald-800');
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.replace('bg-emerald-800', 'bg-emerald-600');
+                medicoForm.reset();
+                closeMedicoFunc();
+            }, 2500);
+        });
+    }
+    }
     // Procedimiento Auditoria Modal Logic
     const btnAuditoria = document.getElementById('btn-auditoria');
     const auditoriaModal = document.getElementById('auditoria-modal');
