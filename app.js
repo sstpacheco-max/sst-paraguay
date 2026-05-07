@@ -194,6 +194,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Reporte Generado';
                 btn.classList.replace('bg-blue-600', 'bg-emerald-600');
                 
+                // GUARDAR EN LOCAL STORAGE
+                const newRecord = {
+                    fecha: fechaHora,
+                    empresa,
+                    trabajador,
+                    cedula: ci,
+                    lugar,
+                    estado: "Declarado al MTESS"
+                };
+                
+                let registros = JSON.parse(localStorage.getItem('sst_registros_mtess')) || [];
+                registros.push(newRecord);
+                localStorage.setItem('sst_registros_mtess', JSON.stringify(registros));
+                
+                if (typeof renderRegistroMtess === 'function') {
+                    renderRegistroMtess();
+                }
+
                 setTimeout(() => {
                     btn.innerHTML = originalText;
                     btn.classList.replace('bg-emerald-600', 'bg-blue-600');
@@ -1549,6 +1567,89 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 2500);
         });
     }
+    // Registro MTESS (Excel/Tabla) Logic
+    const btnRegistroMtess = document.getElementById('btn-registro-mtess');
+    const registroMtessModal = document.getElementById('registro-mtess-modal');
+    const closeRegistroMtessBtn = document.getElementById('close-registro-mtess');
+    const tbodyRegistroMtess = document.getElementById('registro-mtess-body');
+    const btnExportMtessCsv = document.getElementById('btn-export-mtess-csv');
+
+    const renderRegistroMtess = () => {
+        if (!tbodyRegistroMtess) return;
+        const registros = JSON.parse(localStorage.getItem('sst_registros_mtess')) || [];
+        
+        if (registros.length === 0) {
+            tbodyRegistroMtess.innerHTML = `<tr><td colspan="5" class="px-4 py-8 text-center text-on-surface-variant italic">No hay declaraciones de accidentes emitidas todavía.</td></tr>`;
+            return;
+        }
+
+        tbodyRegistroMtess.innerHTML = registros.reverse().map(reg => `
+            <tr class="hover:bg-surface-container-highest transition-colors">
+                <td class="px-4 py-3">${reg.fecha}</td>
+                <td class="px-4 py-3 font-medium">${reg.trabajador}</td>
+                <td class="px-4 py-3">${reg.cedula}</td>
+                <td class="px-4 py-3">${reg.lugar}</td>
+                <td class="px-4 py-3 text-center">
+                    <span class="px-2 py-1 rounded text-xs font-bold bg-slate-100 text-slate-700 border border-slate-300">
+                        ${reg.estado}
+                    </span>
+                </td>
+            </tr>
+        `).join('');
+    };
+
+    const closeRegistroMtessFunc = () => {
+        if (!registroMtessModal) return;
+        registroMtessModal.classList.add('opacity-0');
+        registroMtessModal.querySelector('div').classList.add('scale-95');
+        setTimeout(() => registroMtessModal.classList.add('hidden'), 300);
+    };
+
+    if (btnRegistroMtess && registroMtessModal && closeRegistroMtessBtn) {
+        btnRegistroMtess.addEventListener('click', () => {
+            renderRegistroMtess();
+            registroMtessModal.classList.remove('hidden');
+            setTimeout(() => {
+                registroMtessModal.classList.remove('opacity-0');
+                registroMtessModal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        });
+
+        closeRegistroMtessBtn.addEventListener('click', closeRegistroMtessFunc);
+        registroMtessModal.addEventListener('click', (e) => {
+            if (e.target === registroMtessModal) closeRegistroMtessFunc();
+        });
+    }
+
+    if (btnExportMtessCsv) {
+        btnExportMtessCsv.addEventListener('click', () => {
+            const registros = JSON.parse(localStorage.getItem('sst_registros_mtess')) || [];
+            if (registros.length === 0) {
+                alert("No hay datos para exportar.");
+                return;
+            }
+
+            // Crear CSV Header
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Fecha del Evento,Empresa,Trabajador,Cedula,Lugar,Estado\n";
+
+            // Añadir filas
+            registros.forEach(r => {
+                const row = `"${r.fecha}","${r.empresa}","${r.trabajador}","${r.cedula}","${r.lugar}","${r.estado}"`;
+                csvContent += row + "\n";
+            });
+
+            // Descargar archivo
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `Registro_Accidentes_MTESS_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    }
+
 });
 
 // Helper for counting up numbers
