@@ -504,17 +504,17 @@ document.addEventListener('DOMContentLoaded', () => {
         ipercForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const { jsPDF } = window.jspdf;
-            const doc = new jsPDF('landscape');
+            const doc = new jsPDF({ orientation: "landscape" });
             
-            const area = document.getElementById('iperc-area').value;
-            const puesto = document.getElementById('iperc-puesto').value;
-            const tarea = document.getElementById('iperc-tarea').value;
-            const peligro = document.getElementById('iperc-peligro').value;
-            const riesgo = document.getElementById('iperc-riesgo').value;
-            const p = document.getElementById('iperc-prob').value;
-            const s = document.getElementById('iperc-sev').value;
-            const control = document.getElementById('iperc-control').value;
-            const nivelText = nivelDiv.innerText;
+            const area = document.getElementById('iperc-area').value || 'N/A';
+            const puesto = document.getElementById('iperc-puesto').value || 'N/A';
+            const tarea = document.getElementById('iperc-tarea').value || 'N/A';
+            const peligro = document.getElementById('iperc-peligro').value || 'N/A';
+            const riesgo = document.getElementById('iperc-riesgo').value || 'N/A';
+            const p = parseInt(document.getElementById('iperc-prob').value) || 1;
+            const s = parseInt(document.getElementById('iperc-sev').value) || 1;
+            const control = document.getElementById('iperc-control').value || 'N/A';
+            const nivelText = document.getElementById('iperc-nivel').innerText || '';
             const date = new Date().toLocaleDateString('es-PY');
 
             doc.setFontSize(16);
@@ -561,7 +561,7 @@ document.addEventListener('DOMContentLoaded', () => {
             doc.text(splitRiesgo, 145, yRow);
             
             doc.setFont("helvetica", "bold");
-            if(p*s >= 6) doc.setTextColor(220, 38, 38);
+            if((p * s) >= 6) doc.setTextColor(220, 38, 38);
             doc.text(splitNivel, 190, yRow);
             doc.setTextColor(0, 0, 0);
             
