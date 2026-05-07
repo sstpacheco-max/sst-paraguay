@@ -710,6 +710,146 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 2500);
         });
     }
+
+    // Contingency Plan Modal Logic
+    const btnContingencia = document.getElementById('btn-contingencia');
+    const contingenciaModal = document.getElementById('contingencia-modal');
+    const closeContingenciaBtn = document.getElementById('close-contingencia-modal');
+    const contingenciaForm = document.getElementById('contingencia-form');
+
+    const closeContingenciaFunc = () => {
+        if (!contingenciaModal) return;
+        contingenciaModal.classList.add('opacity-0');
+        contingenciaModal.querySelector('div').classList.add('scale-95');
+        setTimeout(() => contingenciaModal.classList.add('hidden'), 300);
+    };
+
+    if (btnContingencia && contingenciaModal && closeContingenciaBtn) {
+        btnContingencia.addEventListener('click', () => {
+            contingenciaModal.classList.remove('hidden');
+            setTimeout(() => {
+                contingenciaModal.classList.remove('opacity-0');
+                contingenciaModal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        });
+
+        closeContingenciaBtn.addEventListener('click', closeContingenciaFunc);
+        contingenciaModal.addEventListener('click', (e) => {
+            if (e.target === contingenciaModal) closeContingenciaFunc();
+        });
+    }
+
+    if (contingenciaForm) {
+        contingenciaForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const empresa = document.getElementById('cont-empresa').value;
+            const ruc = document.getElementById('cont-ruc').value;
+            const direccion = document.getElementById('cont-direccion').value;
+            const lider = document.getElementById('cont-lider').value;
+            const tel = document.getElementById('cont-tel').value;
+            const punto = document.getElementById('cont-punto').value;
+            const date = new Date().toLocaleDateString('es-PY');
+
+            // Cover Page
+            doc.setFontSize(22);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(29, 78, 216); // blue-700
+            doc.text("PLAN DE CONTINGENCIA", 105, 50, null, null, "center");
+            doc.text("Y EVACUACIÓN", 105, 62, null, null, "center");
+            
+            doc.setFontSize(14);
+            doc.setTextColor(0, 0, 0);
+            doc.text(`Empresa: ${empresa}`, 105, 90, null, null, "center");
+            doc.text(`RUC: ${ruc}`, 105, 100, null, null, "center");
+            
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "normal");
+            doc.text(`Dirección: ${direccion}`, 105, 115, null, null, "center");
+            
+            doc.setFontSize(10);
+            doc.text(`Generado el: ${date}`, 105, 270, null, null, "center");
+            
+            // Page 2: Content
+            doc.addPage();
+            doc.setFontSize(16);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(29, 78, 216);
+            doc.text("1. OBJETIVO Y ALCANCE", 20, 20);
+            
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            doc.setFont("helvetica", "normal");
+            const objText = `El presente Plan de Contingencia y Evacuación tiene como objetivo principal salvaguardar la vida y la integridad física de los trabajadores de ${empresa}, así como proteger los bienes materiales y el medio ambiente en caso de emergencias, en estricto cumplimiento del Decreto 14.390/92 del Ministerio de Trabajo, Empleo y Seguridad Social (MTESS) de la República del Paraguay.`;
+            doc.text(doc.splitTextToSize(objText, 170), 20, 30);
+            
+            doc.setFontSize(16);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(29, 78, 216);
+            doc.text("2. ROLES Y RESPONSABILIDADES", 20, 60);
+            
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            doc.setFont("helvetica", "normal");
+            doc.text(`Líder de Brigada / Responsable: ${lider}`, 20, 70);
+            doc.text(`Teléfono de Contacto: ${tel}`, 20, 77);
+            doc.text("Responsabilidades:", 20, 87);
+            doc.text("- Activar la alarma general de evacuación.", 25, 94);
+            doc.text("- Coordinar con servicios de emergencia externos.", 25, 101);
+            doc.text("- Dirigir la evacuación hacia el Punto de Encuentro.", 25, 108);
+            doc.text("- Realizar el conteo final del personal evacuado.", 25, 115);
+
+            doc.setFontSize(16);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(29, 78, 216);
+            doc.text("3. NÚMEROS DE EMERGENCIA NACIONAL (PARAGUAY)", 20, 135);
+            
+            doc.setFillColor(241, 245, 249);
+            doc.rect(20, 142, 170, 35, 'F');
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.setFont("helvetica", "bold");
+            doc.text("Bomberos Voluntarios (CBVP):", 25, 152);
+            doc.text("132", 150, 152);
+            doc.text("Policía Nacional:", 25, 162);
+            doc.text("911", 150, 162);
+            doc.text("Emergencias Médicas (SEME):", 25, 172);
+            doc.text("141", 150, 172);
+
+            doc.setFontSize(16);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(29, 78, 216);
+            doc.text("4. PROCEDIMIENTO DE EVACUACIÓN", 20, 195);
+            
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            doc.setFont("helvetica", "normal");
+            const procText = `Ante la señal de alarma, todo el personal debe abandonar sus tareas inmediatamente, desconectar equipos si es posible, y dirigirse por las rutas de evacuación señalizadas (color verde) de forma rápida pero sin correr. No utilice ascensores.`;
+            doc.text(doc.splitTextToSize(procText, 170), 20, 205);
+            
+            doc.setFont("helvetica", "bold");
+            doc.text(`PUNTO DE ENCUENTRO: ${punto}`, 20, 230);
+            
+            doc.setFontSize(9);
+            doc.setFont("helvetica", "italic");
+            doc.text("Generado por Sistema Integrado SG-SST Paraguay.", 20, 280);
+
+            doc.save(`Plan_Contingencia_${empresa.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`);
+            
+            const btn = contingenciaForm.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Plan PDF Generado';
+            btn.classList.replace('bg-blue-600', 'bg-emerald-600');
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.replace('bg-emerald-600', 'bg-blue-600');
+                contingenciaForm.reset();
+                closeContingenciaFunc();
+            }, 2500);
+        });
+    }
 });
 
 // Helper for counting up numbers

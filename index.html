@@ -316,7 +316,7 @@
                 <h4 class="font-bold text-primary">Gestión Documental</h4>
             </div>
             <p class="text-sm text-on-surface-variant flex-1">Generación de RISSO, Políticas SST y planes de emergencia listos para presentar al Ministerio.</p>
-            <button class="w-full text-blue-700 bg-blue-50 py-2 rounded-lg text-sm font-bold hover:bg-blue-100 transition-colors">Abrir Módulo</button>
+            <button id="btn-contingencia" class="w-full text-blue-700 bg-blue-50 py-2 rounded-lg text-sm font-bold hover:bg-blue-100 transition-colors">Plan de Contingencia</button>
         </div>
         
         <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 shadow-sm flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
@@ -658,6 +658,64 @@
             
             <button type="submit" class="w-full bg-rose-600 text-white font-bold py-3 rounded-xl hover:bg-rose-700 transition-colors flex justify-center items-center gap-2 mt-4">
                 <span class="material-symbols-outlined">table</span> Generar Reporte IPERC PDF
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Generador Plan de Contingencia -->
+<div id="contingencia-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+    <div class="bg-surface-container-lowest rounded-3xl w-full max-w-2xl p-6 pb-8 shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[85vh] overflow-y-auto">
+        <button id="close-contingencia-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <h3 class="font-headline text-2xl font-bold text-blue-700 mb-2">Plan de Contingencia y Evacuación</h3>
+        <p class="text-sm text-on-surface-variant mb-6">Generador automático de Plan de Emergencias Básico según exigencias del MTESS y CBVP (Bomberos).</p>
+        
+        <form id="contingencia-form" class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Nombre de la Empresa / Razón Social</label>
+                    <input type="text" id="cont-empresa" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: SST Paraguay S.A.">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">RUC</label>
+                    <input type="text" id="cont-ruc" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: 80000000-1">
+                </div>
+            </div>
+            
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Dirección de la Sede / Planta</label>
+                <input type="text" id="cont-direccion" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Av. Artigas y Perú, Asunción">
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Líder de Brigada / Responsable SST</label>
+                    <input type="text" id="cont-lider" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Ing. Juan Pérez">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Teléfono de Contacto (Líder)</label>
+                    <input type="text" id="cont-tel" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: 0981 123 456">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Punto de Encuentro de Evacuación Principal</label>
+                <input type="text" id="cont-punto" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Estacionamiento principal frente a portería">
+            </div>
+
+            <div class="p-4 bg-blue-50 rounded-xl border border-blue-100">
+                <h4 class="text-sm font-bold text-blue-800 mb-2">Contenido Automático</h4>
+                <ul class="text-xs text-blue-700 list-disc list-inside space-y-1">
+                    <li>Se incluirán números de emergencia nacionales (132, 911, 141).</li>
+                    <li>Se redactará el protocolo estándar de evacuación (Alarma, Rutas, Conteo).</li>
+                    <li>Se incluirá protocolo para Incendios y Primeros Auxilios.</li>
+                </ul>
+            </div>
+            
+            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-colors flex justify-center items-center gap-2 mt-4">
+                <span class="material-symbols-outlined">description</span> Generar Plan de Contingencia PDF
             </button>
         </form>
     </div>
