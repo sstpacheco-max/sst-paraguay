@@ -1222,7 +1222,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 ptaAlturaForm.reset();
                 closePtaAlturaFunc();
             }, 2500);
-            }
+        });
+    }
 
     // Orden Médica EMO Logic
     const btnMedico = document.getElementById('btn-medico');
@@ -1347,7 +1348,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 closeMedicoFunc();
             }, 2500);
         });
-    }
     }
     // Procedimiento Auditoria Modal Logic
     const btnAuditoria = document.getElementById('btn-auditoria');
