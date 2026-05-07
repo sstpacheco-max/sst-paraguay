@@ -1020,22 +1020,29 @@ document.addEventListener('DOMContentLoaded', () => {
             doc.setFont("helvetica", "bold");
             doc.text("1. NORMATIVA Y OBJETIVO", 20, 100);
             doc.setFont("helvetica", "normal");
-            const objText = `En cumplimiento con el Decreto 14.390/92 (MTESS) y los estándares internacionales OSHA / ANSI Z359, este procedimiento establece los lineamientos técnicos obligatorios para la emisión del Permiso de Trabajo en Alturas (PTA), garantizando el uso correcto de los sistemas de detención de caídas.`;
+            const objText = `En estricto cumplimiento del Decreto 14.390/92, la Resolución MTESS N° 835/2016 y estándares internacionales, este POE establece los lineamientos técnicos obligatorios para la emisión del Permiso de Trabajo en Alturas (PTA) y el uso correcto de sistemas anticaídas.`;
             doc.text(doc.splitTextToSize(objText, 170), 25, 110);
 
             doc.setFont("helvetica", "bold");
-            doc.text("2. SISTEMA 'A-B-C' DE PROTECCIÓN CONTRA CAÍDAS", 20, 140);
+            doc.text("2. NIVELES DE RIESGO EN TRABAJOS EN ALTURA", 20, 135);
             doc.setFont("helvetica", "normal");
-            doc.text("A (Anclaje / Anchorage): Punto seguro capaz de resistir al menos 22.2 kN (5000 lbs) por trabajador conectado. Puede ser estructural o adaptadores de anclaje portátiles.", 25, 150, { maxWidth: 165 });
-            doc.text("B (Body Support / Arnés): Uso obligatorio de Arnés de Cuerpo Completo tipo paracaidista (Clase A para detención de caídas, P para posicionamiento).", 25, 165, { maxWidth: 165 });
-            doc.text("C (Conectores / Connectors): Líneas de vida, eslingas (cabos de vida) con amortiguador de impacto y mosquetones de doble seguro.", 25, 180, { maxWidth: 165 });
+            doc.text("Nivel Bajo: Tareas en plataformas aprobadas con barandas perimetrales o andamios certificados. Riesgo controlado.", 25, 145, { maxWidth: 165 });
+            doc.text("Nivel Medio: Trabajos en techos planos o inclinados con líneas de vida instaladas. Requiere PTA y sistema A-B-C completo.", 25, 155, { maxWidth: 165 });
+            doc.text("Nivel Alto: Trabajos en suspensión, torres eléctricas o zonas sin anclaje fijo. Requiere PTA, vigía permanente y Plan de Rescate inmediato.", 25, 165, { maxWidth: 165 });
 
             doc.setFont("helvetica", "bold");
-            doc.text("3. NIVELES Y PERMISOS DE TRABAJO (PTA)", 20, 200);
+            doc.text("3. REQUISITOS PARA PERMISO DE TRABAJO (PTA)", 20, 185);
             doc.setFont("helvetica", "normal");
-            doc.text("- Emisión del PTA: Ningún trabajador puede iniciar tareas a +1.8m sin el Permiso firmado por el supervisor / responsable SST.", 25, 210, { maxWidth: 165 });
-            doc.text("- Inspección Pre-uso: Revisión visual obligatoria del sistema A-B-C antes de cada jornada.", 25, 222, { maxWidth: 165 });
-            doc.text("- Plan de Rescate: Obligatoriedad de contar con un mecanismo de rescate rápido para evitar el Síndrome del Arnés.", 25, 230, { maxWidth: 165 });
+            doc.text("A) Evaluación Médica: Certificado de aptitud médica para trabajos en altura.", 25, 195);
+            doc.text("B) Verificación A-B-C: Inspección del Anclaje, Arnés de Cuerpo Completo y Conectores.", 25, 205);
+            doc.text("C) Supervisión: Ninguna tarea a +1.8m inicia sin firma de autorización en el PTA.", 25, 215);
+
+            doc.setFont("helvetica", "bold");
+            doc.text("4. PROCEDIMIENTO DE EJECUCIÓN", 20, 230);
+            doc.setFont("helvetica", "normal");
+            doc.text("1. Delimitar y señalizar el área de trabajo en el nivel inferior.", 25, 240);
+            doc.text("2. Enganchar los mosquetones por encima del hombro.", 25, 250);
+            doc.text("3. Suspender tareas en caso de lluvia, tormenta eléctrica o vientos fuertes (>40km/h).", 25, 260);
 
             doc.setFontSize(9);
             doc.setFont("helvetica", "italic");
