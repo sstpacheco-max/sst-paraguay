@@ -1910,6 +1910,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             doc.save(`Inspeccion_${tipo}_${area.replace(/\s/g, '_')}.pdf`);
 
+            // Save to History
+            const inspecciones = JSON.parse(localStorage.getItem('sst_inspecciones')) || [];
+            inspecciones.push({ fecha, tipo, area, resp, percent });
+            localStorage.setItem('sst_inspecciones', JSON.stringify(inspecciones));
+
             const sbtn = inspeccionForm.querySelector('button[type="submit"]');
             sbtn.innerText = "¡Generado!";
             setTimeout(() => {
@@ -1917,6 +1922,64 @@ document.addEventListener('DOMContentLoaded', () => {
                 inspeccionForm.reset();
                 closeInspeccionFunc();
             }, 2000);
+        };
+    }
+
+    // Historial Inspecciones Logic
+    const btnHistorialIns = document.getElementById('btn-historial-inspeccion');
+    const historialInsModal = document.getElementById('historial-inspeccion-modal');
+    const closeHistorialInsBtn = document.getElementById('close-historial-inspeccion');
+    const tbodyHistorialIns = document.getElementById('historial-inspeccion-body');
+    const btnExportInsCsv = document.getElementById('btn-export-ins-csv');
+
+    const renderHistorialIns = () => {
+        if (!tbodyHistorialIns) return;
+        const inspecciones = JSON.parse(localStorage.getItem('sst_inspecciones')) || [];
+        tbodyHistorialIns.innerHTML = inspecciones.map(ins => `
+            <tr class="hover:bg-blue-50 transition-colors">
+                <td class="px-4 py-3">${ins.fecha}</td>
+                <td class="px-4 py-3 font-bold text-blue-700">${ins.tipo}</td>
+                <td class="px-4 py-3">${ins.area}</td>
+                <td class="px-4 py-3">${ins.resp}</td>
+                <td class="px-4 py-3 text-center font-bold ${parseFloat(ins.percent) < 70 ? 'text-red-600' : 'text-emerald-600'}">${ins.percent}%</td>
+            </tr>
+        `).reverse().join('');
+    };
+
+    if (btnHistorialIns && historialInsModal) {
+        btnHistorialIns.onclick = () => {
+            renderHistorialIns();
+            historialInsModal.classList.remove('hidden');
+            setTimeout(() => {
+                historialInsModal.classList.remove('opacity-0');
+                historialInsModal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        };
+        closeHistorialInsBtn.onclick = () => {
+            historialInsModal.classList.add('opacity-0');
+            historialInsModal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => historialInsModal.classList.add('hidden'), 300);
+        };
+    }
+
+    if (btnExportInsCsv) {
+        btnExportInsCsv.onclick = () => {
+            const inspecciones = JSON.parse(localStorage.getItem('sst_inspecciones')) || [];
+            if (inspecciones.length === 0) return alert("No hay datos para exportar");
+
+            let csv = "Fecha,Tipo,Area,Responsable,Cumplimiento\n";
+            inspecciones.forEach(ins => {
+                csv += `${ins.fecha},${ins.tipo},${ins.area},${ins.resp},${ins.percent}%\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", `Historial_Inspecciones_SST.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         };
     }
 
