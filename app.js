@@ -1063,6 +1063,168 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Permiso PTA Alturas Modal Logic
+    const btnPtaAltura = document.getElementById('btn-pta-altura');
+    const ptaAlturaModal = document.getElementById('pta-altura-modal');
+    const closePtaAlturaBtn = document.getElementById('close-pta-altura-modal');
+    const ptaAlturaForm = document.getElementById('pta-altura-form');
+
+    const closePtaAlturaFunc = () => {
+        if (!ptaAlturaModal) return;
+        ptaAlturaModal.classList.add('opacity-0');
+        ptaAlturaModal.querySelector('div').classList.add('scale-95');
+        setTimeout(() => ptaAlturaModal.classList.add('hidden'), 300);
+    };
+
+    if (btnPtaAltura && ptaAlturaModal && closePtaAlturaBtn) {
+        btnPtaAltura.addEventListener('click', () => {
+            ptaAlturaModal.classList.remove('hidden');
+            setTimeout(() => {
+                ptaAlturaModal.classList.remove('opacity-0');
+                ptaAlturaModal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        });
+
+        closePtaAlturaBtn.addEventListener('click', closePtaAlturaFunc);
+        ptaAlturaModal.addEventListener('click', (e) => {
+            if (e.target === ptaAlturaModal) closePtaAlturaFunc();
+        });
+    }
+
+    if (ptaAlturaForm) {
+        ptaAlturaForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const trabajador = document.getElementById('pta-trabajador').value;
+            const supervisor = document.getElementById('pta-supervisor').value;
+            const lugar = document.getElementById('pta-lugar').value;
+            const riesgo = document.getElementById('pta-riesgo').value;
+            
+            const dateObj = new Date();
+            const dateStr = dateObj.toLocaleDateString('es-PY');
+            const timeStr = dateObj.toLocaleTimeString('es-PY', { hour: '2-digit', minute: '2-digit' });
+
+            // Generar número de permiso aleatorio para que sea realista
+            const numPermiso = Math.floor(100000 + Math.random() * 900000);
+
+            // Borde del documento (estilo certificado)
+            doc.setDrawColor(234, 88, 12); // orange-600
+            doc.setLineWidth(1);
+            doc.rect(10, 10, 190, 277);
+
+            doc.setFontSize(20);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(234, 88, 12); 
+            doc.text("PERMISO DE TRABAJO EN ALTURAS (PTA)", 105, 25, null, null, "center");
+            
+            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.text(`N° PTA-${numPermiso}`, 105, 33, null, null, "center");
+            
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "italic");
+            doc.text("Documento oficial en cumplimiento con el Decreto 14.390/92 (MTESS Paraguay)", 105, 40, null, null, "center");
+            
+            doc.line(15, 45, 195, 45);
+
+            // DATOS GENERALES
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("1. DATOS DE LA TAREA", 20, 55);
+            doc.setFontSize(11);
+            doc.setFont("helvetica", "normal");
+            doc.text(`Fecha de Emisión: ${dateStr}`, 25, 65);
+            doc.text(`Hora de Inicio Autorizada: ${timeStr}`, 110, 65);
+            doc.text(`Lugar de Trabajo: ${lugar}`, 25, 75);
+            doc.text(`Nivel de Riesgo: ${riesgo}`, 110, 75);
+
+            // PERSONAL
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("2. PERSONAL INVOLUCRADO", 20, 90);
+            doc.setFontSize(11);
+            doc.setFont("helvetica", "normal");
+            doc.text(`Trabajador Autorizado: ${trabajador}`, 25, 100);
+            doc.text(`Supervisor / Emisor del Permiso: ${supervisor}`, 25, 110);
+
+            // CHECKLIST
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("3. VERIFICACIÓN Y CHECKLIST (SISTEMA A-B-C)", 20, 125);
+            doc.setFontSize(11);
+            
+            // Checkboxes simulados
+            const yStart = 135;
+            doc.setFont("helvetica", "bold");
+            doc.text("[ X ]", 25, yStart);
+            doc.setFont("helvetica", "normal");
+            doc.text("Evaluación Médica (Apto para Alturas) - Vigente.", 35, yStart);
+
+            doc.setFont("helvetica", "bold");
+            doc.text("[ X ]", 25, yStart + 10);
+            doc.setFont("helvetica", "normal");
+            doc.text("A (Anclaje): Punto seguro verificado (Resistencia min. 5000 lbs).", 35, yStart + 10);
+
+            doc.setFont("helvetica", "bold");
+            doc.text("[ X ]", 25, yStart + 20);
+            doc.setFont("helvetica", "normal");
+            doc.text("B (Body Support): Arnés inspeccionado, sin cortes ni quemaduras.", 35, yStart + 20);
+
+            doc.setFont("helvetica", "bold");
+            doc.text("[ X ]", 25, yStart + 30);
+            doc.setFont("helvetica", "normal");
+            doc.text("C (Conectores): Eslingas/Cabos de vida con amortiguador en buen estado.", 35, yStart + 30);
+
+            doc.setFont("helvetica", "bold");
+            doc.text("[ X ]", 25, yStart + 40);
+            doc.setFont("helvetica", "normal");
+            doc.text("Condiciones climáticas favorables (Sin lluvias ni vientos fuertes).", 35, yStart + 40);
+
+            // DECLARACION
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("4. AUTORIZACIÓN Y DECLARACIÓN", 20, 190);
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "normal");
+            const decl = "El supervisor abajo firmante certifica que ha inspeccionado personalmente el área de trabajo y los equipos de protección, encontrándolos en condiciones óptimas para realizar la tarea de manera segura. El trabajador declara haber entendido el procedimiento (POE) y estar en óptimas condiciones físicas y mentales hoy.";
+            doc.text(doc.splitTextToSize(decl, 160), 25, 200);
+
+            // FIRMAS
+            doc.line(30, 250, 90, 250);
+            doc.setFont("helvetica", "bold");
+            doc.text(trabajador, 60, 255, null, null, "center");
+            doc.setFont("helvetica", "normal");
+            doc.text("Firma del Trabajador Autorizado", 60, 260, null, null, "center");
+
+            doc.line(120, 250, 180, 250);
+            doc.setFont("helvetica", "bold");
+            doc.text(supervisor, 150, 255, null, null, "center");
+            doc.setFont("helvetica", "normal");
+            doc.text("Firma del Supervisor (Emisor)", 150, 260, null, null, "center");
+
+            // Validez
+            doc.setFontSize(9);
+            doc.setFont("helvetica", "italic");
+            doc.setTextColor(220, 38, 38); // red
+            doc.text("VÁLIDO ÚNICAMENTE POR ESTA JORNADA LABORAL", 105, 270, null, null, "center");
+
+            doc.save(`PTA_Alturas_${trabajador.replace(/[^a-zA-Z0-9]/g, '_')}_${dateStr.replace(/\//g, '-')}.pdf`);
+            
+            const btn = ptaAlturaForm.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Permiso Emitido';
+            btn.classList.replace('bg-orange-600', 'bg-emerald-600');
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.replace('bg-emerald-600', 'bg-orange-600');
+                ptaAlturaForm.reset();
+                closePtaAlturaFunc();
+            }, 2500);
+        });
+    }
+
     // Procedimiento Auditoria Modal Logic
     const btnAuditoria = document.getElementById('btn-auditoria');
     const auditoriaModal = document.getElementById('auditoria-modal');
