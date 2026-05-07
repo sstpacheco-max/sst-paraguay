@@ -903,35 +903,63 @@
 
             <div class="mt-4 border-t border-outline-variant/20 pt-4">
                 <h4 class="text-xs font-bold text-teal-800 uppercase mb-3">Checklist de Cumplimiento (Dec. 14.390/92)</h4>
-                <div class="space-y-2 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
-                    <label class="flex items-start gap-3 bg-white p-2 rounded-lg border border-outline-variant/10 cursor-pointer">
-                        <input type="checkbox" class="mt-1 aud-check" data-item="Registro de Especialista MTESS" checked>
-                        <div class="text-xs"><span class="font-bold block">Reg. Especialista</span> Registro vigente del técnico/licenciado ante el MTESS.</div>
-                    </label>
-                    <label class="flex items-start gap-3 bg-white p-2 rounded-lg border border-outline-variant/10 cursor-pointer">
-                        <input type="checkbox" class="mt-1 aud-check" data-item="Reglamento Interno (RISSO) Homologado" checked>
-                        <div class="text-xs"><span class="font-bold block">RISSO</span> Reglamento Interno de Seguridad y Salud homologado.</div>
-                    </label>
-                    <label class="flex items-start gap-3 bg-white p-2 rounded-lg border border-outline-variant/10 cursor-pointer">
-                        <input type="checkbox" class="mt-1 aud-check" data-item="Matriz IPERC Actualizada" checked>
-                        <div class="text-xs"><span class="font-bold block">IPERC</span> Evaluación de riesgos por puesto de trabajo.</div>
-                    </label>
-                    <label class="flex items-start gap-3 bg-white p-2 rounded-lg border border-outline-variant/10 cursor-pointer">
-                        <input type="checkbox" class="mt-1 aud-check" data-item="Comisión CIPA Constituida">
-                        <div class="text-xs"><span class="font-bold block">CIPA</span> Comité mixto y actas de reunión mensuales.</div>
-                    </label>
-                    <label class="flex items-start gap-3 bg-white p-2 rounded-lg border border-outline-variant/10 cursor-pointer">
-                        <input type="checkbox" class="mt-1 aud-check" data-item="Vigilancia Médica (EMO)" checked>
-                        <div class="text-xs"><span class="font-bold block">Medicina</span> Exámenes médicos admisionales y periódicos (Res. 03/22).</div>
-                    </label>
-                    <label class="flex items-start gap-3 bg-white p-2 rounded-lg border border-outline-variant/10 cursor-pointer">
-                        <input type="checkbox" class="mt-1 aud-check" data-item="Prevención de Incendios">
-                        <div class="text-xs"><span class="font-bold block">Incendios</span> Extintores, señalética y plan de evacuación.</div>
-                    </label>
-                    <label class="flex items-start gap-3 bg-white p-2 rounded-lg border border-outline-variant/10 cursor-pointer">
-                        <input type="checkbox" class="mt-1 aud-check" data-item="Entrega de EPP con planilla">
-                        <div class="text-xs"><span class="font-bold block">EPP</span> Equipos de protección con registro de entrega firmado.</div>
-                    </label>
+                <div class="space-y-3 max-h-72 overflow-y-auto pr-2 custom-scrollbar p-1">
+                    <!-- Item 1 -->
+                    <div class="bg-white p-3 rounded-xl border border-outline-variant/15 space-y-2">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" class="mt-1 aud-check" data-item="Registro de Especialista MTESS" checked>
+                            <div class="text-xs flex-1"><span class="font-bold block">Reg. Especialista</span> Registro vigente del técnico/licenciado ante el MTESS.</div>
+                        </label>
+                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones específicas...">
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="bg-white p-3 rounded-xl border border-outline-variant/15 space-y-2">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" class="mt-1 aud-check" data-item="Reglamento Interno (RISSO) Homologado" checked>
+                            <div class="text-xs flex-1"><span class="font-bold block">RISSO</span> Reglamento Interno de Seguridad y Salud homologado.</div>
+                        </label>
+                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones específicas...">
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="bg-white p-3 rounded-xl border border-outline-variant/15 space-y-2">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" class="mt-1 aud-check" data-item="Matriz IPERC Actualizada" checked>
+                            <div class="text-xs flex-1"><span class="font-bold block">IPERC</span> Evaluación de riesgos por puesto de trabajo.</div>
+                        </label>
+                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones específicas...">
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="bg-white p-3 rounded-xl border border-outline-variant/15 space-y-2">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" class="mt-1 aud-check" data-item="Comisión CIPA Constituida">
+                            <div class="text-xs flex-1"><span class="font-bold block">CIPA</span> Comité mixto y actas de reunión mensuales.</div>
+                        </label>
+                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones específicas...">
+                    </div>
+                    <!-- Item 5 -->
+                    <div class="bg-white p-3 rounded-xl border border-outline-variant/15 space-y-2">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" class="mt-1 aud-check" data-item="Vigilancia Médica (EMO)" checked>
+                            <div class="text-xs flex-1"><span class="font-bold block">Medicina</span> Exámenes médicos admisionales y periódicos (Res. 03/22).</div>
+                        </label>
+                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones específicas...">
+                    </div>
+                    <!-- Item 6 -->
+                    <div class="bg-white p-3 rounded-xl border border-outline-variant/15 space-y-2">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" class="mt-1 aud-check" data-item="Prevención de Incendios">
+                            <div class="text-xs flex-1"><span class="font-bold block">Incendios</span> Extintores, señalética y plan de evacuación.</div>
+                        </label>
+                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones específicas...">
+                    </div>
+                    <!-- Item 7 -->
+                    <div class="bg-white p-3 rounded-xl border border-outline-variant/15 space-y-2">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" class="mt-1 aud-check" data-item="Entrega de EPP con planilla">
+                            <div class="text-xs flex-1"><span class="font-bold block">EPP</span> Equipos de protección con registro de entrega firmado.</div>
+                        </label>
+                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones específicas...">
+                    </div>
                 </div>
             </div>
 
@@ -1178,5 +1206,5 @@
 <span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Capacitación</span>
 </a>
 </nav>
-<script src="app.js?v=3.1"></script>
+<script src="app.js?v=3.2"></script>
 </body></html>

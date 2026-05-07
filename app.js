@@ -1774,17 +1774,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const lider = document.getElementById('aud-lider').value;
             const fecha = document.getElementById('aud-fecha').value;
             const alcance = document.getElementById('aud-alcance').value;
-            const obs = document.getElementById('aud-obs').value;
+            const obsGeneral = document.getElementById('aud-obs').value;
             
-            // Get checklist items
+            // Get checklist items and individual observations
             const checks = document.querySelectorAll('.aud-check');
+            const obsItems = document.querySelectorAll('.aud-obs-item');
             const items = [];
-            checks.forEach(c => {
+            let compliantCount = 0;
+
+            checks.forEach((c, index) => {
+                const isChecked = c.checked;
+                if (isChecked) compliantCount++;
                 items.push({
                     text: c.dataset.item,
-                    checked: c.checked
+                    checked: isChecked,
+                    observation: obsItems[index].value || "Sin observaciones"
                 });
             });
+
+            const totalItems = items.length;
+            const compliancePercent = ((compliantCount / totalItems) * 100).toFixed(1);
 
             // --- PDF DESIGN ---
             // Header
@@ -1799,43 +1808,77 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Info Section
             doc.setTextColor(0, 0, 0);
-            doc.setFontSize(12);
+            doc.setFontSize(11);
             doc.setFont("helvetica", "bold");
-            doc.text("1. INFORMACIÓN GENERAL", 15, 55);
-            doc.setFontSize(10);
+            doc.text("1. INFORMACIÓN GENERAL", 15, 50);
+            doc.setFontSize(9);
             doc.setFont("helvetica", "normal");
-            doc.text(`Empresa Auditada: ${empresa}`, 20, 65);
-            doc.text(`Auditor Líder: ${lider}`, 20, 72);
-            doc.text(`Fecha: ${fecha}`, 130, 65);
-            doc.text(`Alcance: ${alcance}`, 130, 72);
+            doc.text(`Empresa Auditada: ${empresa}`, 20, 58);
+            doc.text(`Auditor Líder: ${lider}`, 20, 64);
+            doc.text(`Fecha: ${fecha}`, 130, 58);
+            doc.text(`Alcance: ${alcance}`, 130, 64);
+
+            // Compliance Percentage Box
+            doc.setDrawColor(0, 128, 128);
+            doc.setLineWidth(0.5);
+            doc.rect(130, 15, 65, 15);
+            doc.setFontSize(14);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(255, 255, 255);
+            doc.text(`CUMPLIMIENTO: ${compliancePercent}%`, 162.5, 25, null, null, "center");
 
             // Checklist Section
-            doc.setFontSize(12);
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(11);
             doc.setFont("helvetica", "bold");
-            doc.text("2. VERIFICACIÓN DE CUMPLIMIENTO LEGAL", 15, 85);
+            doc.text("2. VERIFICACIÓN DE CUMPLIMIENTO LEGAL", 15, 75);
             
-            doc.setFontSize(10);
-            let y = 95;
+            doc.setFontSize(8);
+            let y = 85;
+            
+            // Table Header
+            doc.setFillColor(240, 240, 240);
+            doc.rect(15, y-4, 180, 6, 'F');
+            doc.text("ESTADO", 20, y);
+            doc.text("REQUISITO EVALUADO", 45, y);
+            doc.text("HALLAZGOS / OBSERVACIONES", 120, y);
+            y += 8;
+
             items.forEach(item => {
-                const status = item.checked ? "[ X ] CUMPLE" : "[   ] NO CUMPLE / NO APLICA";
+                const status = item.checked ? "CUMPLE" : "NO CUMPLE";
                 doc.setFont("helvetica", item.checked ? "bold" : "normal");
+                if (!item.checked) doc.setTextColor(180, 0, 0);
                 doc.text(status, 20, y);
+                doc.setTextColor(0, 0, 0);
+                
                 doc.setFont("helvetica", "normal");
-                doc.text(item.text, 75, y);
-                y += 8;
+                doc.text(item.text, 45, y);
+                
+                const splitObs = doc.splitTextToSize(item.observation, 70);
+                doc.text(splitObs, 120, y);
+                
+                const lineIncrease = Math.max(splitObs.length * 4, 6);
+                y += lineIncrease;
+                
+                // Add page if needed
+                if (y > 270) {
+                    doc.addPage();
+                    y = 20;
+                }
             });
 
-            // Findings
-            doc.setFontSize(12);
+            // General Findings
+            y += 10;
+            doc.setFontSize(11);
             doc.setFont("helvetica", "bold");
-            doc.text("3. HALLAZGOS Y OBSERVACIONES", 15, y + 10);
-            doc.setFontSize(10);
+            doc.text("3. CONCLUSIONES Y RECOMENDACIONES GENERALES", 15, y);
+            doc.setFontSize(9);
             doc.setFont("helvetica", "normal");
-            const splitObs = doc.splitTextToSize(obs || "Sin observaciones adicionales.", 180);
-            doc.text(splitObs, 20, y + 20);
+            const splitObsGeneral = doc.splitTextToSize(obsGeneral || "Se recomienda continuar con el plan de mejora continua y seguimiento de No Conformidades.", 180);
+            doc.text(splitObsGeneral, 20, y + 10);
 
             // Footer / Signatures
-            const footerY = 250;
+            const footerY = 265;
             doc.line(40, footerY, 90, footerY);
             doc.text("Firma Auditor", 65, footerY + 5, null, null, "center");
             
