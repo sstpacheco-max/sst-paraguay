@@ -98,7 +98,7 @@
 <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/10">
 <img alt="User profile photo" class="w-full h-full object-cover" data-alt="professional male portrait in business casual attire, clean background, soft studio lighting, professional headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt9WNzIj5CKBdzg4Lx0sZcI5K-F4JUMV1-6WaYlcVMuGe6zO1U7SndiM9P_68dv_uS4aRPZ8rRvEpoYj6Ybl37q1YVD-H5yoxIBGgnrUpKrtpSC0PBZzvVJfNAJ-CDci8EUvU3iZnHDuAfqXo6tyy_rZZVXz1soRu4Xtr7qa4HuEYRJ9YukOZETkeF7DmNoiZdnxNPHjUnQpKbhtQpMETa8Wq5JG8gODzknxvR1G_RRfaIZTDsbTY4eHdEbWGe40AFMRCZpW0mKbM"/>
 </div>
-<h1 class="font-headline font-black text-blue-900 dark:text-white tracking-tight text-lg">SST Paraguay</h1>
+<h1 class="font-headline font-black text-blue-900 dark:text-white tracking-tight text-lg">Portal SG-SST Paraguay</h1>
 </div>
 <div class="flex items-center gap-2">
 <button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-300 active:scale-95">
@@ -132,9 +132,9 @@
 </section>
 <!-- Quick Actions -->
 <section class="flex flex-wrap gap-4">
-<button class="flex-1 min-w-[200px] bg-gradient-to-br from-secondary to-secondary-container text-white py-4 px-6 rounded-xl flex items-center justify-center gap-3 shadow-lg hover:brightness-110 transition-all duration-300 active:scale-95 group">
+<button id="btn-reportar" class="flex-1 min-w-[200px] bg-gradient-to-br from-secondary to-secondary-container text-white py-4 px-6 rounded-xl flex items-center justify-center gap-3 shadow-lg hover:brightness-110 transition-all duration-300 active:scale-95 group">
 <span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
-<span class="font-bold tracking-tight">Reportar Incidente</span>
+<span class="font-bold tracking-tight">Reportar Incidente (MTESS)</span>
 </button>
 <button class="flex-1 min-w-[200px] bg-surface-container-lowest border border-outline-variant/15 text-primary py-4 px-6 rounded-xl flex items-center justify-center gap-3 hover:bg-surface-container transition-all duration-300">
 <span class="material-symbols-outlined" data-icon="inventory">inventory</span>
@@ -258,7 +258,80 @@
 </div>
 </div>
 </section>
+<!-- Módulos SG-SST Paraguay -->
+<section class="space-y-6">
+    <h3 class="font-headline text-2xl font-bold text-primary flex items-center gap-2">
+        <span class="material-symbols-outlined">widgets</span> Módulos del Sistema SG-SST
+    </h3>
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <button class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/10 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center gap-3 text-center group">
+            <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined">groups</span>
+            </div>
+            <span class="font-bold text-sm text-primary">Gestión CIPA</span>
+        </button>
+        <button class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/10 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center gap-3 text-center group">
+            <div class="w-12 h-12 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined">warning</span>
+            </div>
+            <span class="font-bold text-sm text-primary">Matriz IPERC</span>
+        </button>
+        <button class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/10 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center gap-3 text-center group">
+            <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined">medical_services</span>
+            </div>
+            <span class="font-bold text-sm text-primary">Exámenes Médicos</span>
+        </button>
+        <button class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/10 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center gap-3 text-center group">
+            <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined">security</span>
+            </div>
+            <span class="font-bold text-sm text-primary">Control de EPPs</span>
+        </button>
+        <button class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant/10 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center gap-3 text-center group">
+            <div class="w-12 h-12 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined">account_balance</span>
+            </div>
+            <span class="font-bold text-sm text-primary">Trámites MTESS</span>
+        </button>
+    </div>
+</section>
 </main>
+
+<!-- Modal Reportar Incidente MTESS -->
+<div id="incidente-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+    <div class="bg-surface-container-lowest rounded-3xl w-full max-w-lg p-6 shadow-2xl relative transform scale-95 transition-transform duration-300">
+        <button id="close-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <h3 class="font-headline text-2xl font-bold text-primary mb-2">Reportar Novedad (MTESS / IPS)</h3>
+        <p class="text-sm text-on-surface-variant mb-6">Complete los datos preliminares para generar el reporte legal y asentar en el libro de inspecciones.</p>
+        
+        <form id="novedad-form" class="space-y-4">
+            <div>
+                <label class="block text-sm font-bold text-on-surface-variant mb-1">Tipo de Evento</label>
+                <select class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary outline-none cursor-pointer">
+                    <option>Accidente de Trabajo (C/ Baja)</option>
+                    <option>Accidente de Trabajo (S/ Baja)</option>
+                    <option>Incidente / Casi Accidente</option>
+                    <option>Enfermedad Profesional</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-bold text-on-surface-variant mb-1">Cédula de Identidad (Colaborador)</label>
+                <input type="text" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary outline-none" placeholder="Ej: 4.555.666">
+            </div>
+            <div>
+                <label class="block text-sm font-bold text-on-surface-variant mb-1">Descripción Breve del Suceso</label>
+                <textarea rows="3" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary outline-none" placeholder="Describa cómo y dónde ocurrió..."></textarea>
+            </div>
+            <button type="submit" class="w-full bg-primary text-white font-bold py-3 rounded-xl hover:bg-primary-container transition-colors flex justify-center items-center gap-2 mt-4">
+                <span class="material-symbols-outlined">send</span> Generar y Enviar Reporte
+            </button>
+        </form>
+    </div>
+</div>
+
 <!-- BottomNavBar -->
 <nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-t border-slate-200/15 dark:border-slate-800/15 shadow-[0_-4px_24px_0_rgba(0,0,0,0.06)] z-50 rounded-t-3xl">
 <a class="flex flex-col items-center justify-center bg-gradient-to-br from-blue-900 to-blue-800 text-white rounded-2xl px-5 py-2 transition-transform duration-200 active:scale-90" href="#">
