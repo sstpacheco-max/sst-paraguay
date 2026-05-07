@@ -850,6 +850,118 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 2500);
         });
     }
+
+    // Politica SST Modal Logic
+    const btnPolitica = document.getElementById('btn-politica');
+    const politicaModal = document.getElementById('politica-modal');
+    const closePoliticaBtn = document.getElementById('close-politica-modal');
+    const politicaForm = document.getElementById('politica-form');
+
+    const closePoliticaFunc = () => {
+        if (!politicaModal) return;
+        politicaModal.classList.add('opacity-0');
+        politicaModal.querySelector('div').classList.add('scale-95');
+        setTimeout(() => politicaModal.classList.add('hidden'), 300);
+    };
+
+    if (btnPolitica && politicaModal && closePoliticaBtn) {
+        btnPolitica.addEventListener('click', () => {
+            politicaModal.classList.remove('hidden');
+            setTimeout(() => {
+                politicaModal.classList.remove('opacity-0');
+                politicaModal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        });
+
+        closePoliticaBtn.addEventListener('click', closePoliticaFunc);
+        politicaModal.addEventListener('click', (e) => {
+            if (e.target === politicaModal) closePoliticaFunc();
+        });
+    }
+
+    if (politicaForm) {
+        politicaForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const empresa = document.getElementById('pol-empresa').value;
+            const ruc = document.getElementById('pol-ruc').value;
+            const autoridad = document.getElementById('pol-autoridad').value;
+            const actividad = document.getElementById('pol-actividad').value;
+            const date = new Date().toLocaleDateString('es-PY');
+
+            doc.setFontSize(22);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(67, 56, 202); // indigo-700
+            doc.text("POLÍTICA DE SEGURIDAD Y", 105, 40, null, null, "center");
+            doc.text("SALUD EN EL TRABAJO", 105, 52, null, null, "center");
+            
+            doc.setFontSize(14);
+            doc.setTextColor(0, 0, 0);
+            doc.text(empresa, 105, 70, null, null, "center");
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "normal");
+            doc.text(`RUC: ${ruc} | Actividad: ${actividad}`, 105, 78, null, null, "center");
+            
+            doc.line(20, 85, 190, 85);
+            
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "normal");
+            
+            const p1 = `${empresa}, dedicada a la actividad de ${actividad}, asume el compromiso de proteger la integridad física, mental y social de todos sus colaboradores, contratistas y visitantes, proporcionando condiciones de trabajo seguras y saludables.`;
+            doc.text(doc.splitTextToSize(p1, 170), 20, 100);
+
+            const p2 = `Para cumplir con este propósito, la Alta Dirección se compromete a:`;
+            doc.text(p2, 20, 125);
+            
+            doc.setFont("helvetica", "bold");
+            doc.text("1. Cumplimiento Legal:", 25, 135);
+            doc.setFont("helvetica", "normal");
+            doc.text("Cumplir estrictamente con la legislación nacional vigente, en particular la Ley 5804/17 y el Decreto 14.390/92 del Ministerio de Trabajo, Empleo y Seguridad Social (MTESS), así como las normativas de IPS aplicables.", 30, 142, { maxWidth: 160 });
+
+            doc.setFont("helvetica", "bold");
+            doc.text("2. Prevención de Riesgos:", 25, 160);
+            doc.setFont("helvetica", "normal");
+            doc.text("Identificar los peligros, evaluar y valorar los riesgos, estableciendo los controles necesarios para prevenir accidentes de trabajo y enfermedades profesionales.", 30, 167, { maxWidth: 160 });
+
+            doc.setFont("helvetica", "bold");
+            doc.text("3. Mejora Continua:", 25, 185);
+            doc.setFont("helvetica", "normal");
+            doc.text("Mejorar continuamente el desempeño del Sistema de Gestión de Seguridad y Salud en el Trabajo (SG-SST).", 30, 192, { maxWidth: 160 });
+
+            doc.setFont("helvetica", "bold");
+            doc.text("4. Participación y Capacitación:", 25, 205);
+            doc.setFont("helvetica", "normal");
+            doc.text("Promover la consulta y participación activa de los trabajadores, garantizando su capacitación continua en materia de prevención de riesgos laborales.", 30, 212, { maxWidth: 160 });
+
+            const p3 = `Esta política debe ser comunicada, entendida y aplicada por todo el personal de la empresa y estará disponible para las partes interesadas.`;
+            doc.text(doc.splitTextToSize(p3, 170), 20, 235);
+            
+            doc.line(65, 265, 145, 265);
+            doc.setFont("helvetica", "bold");
+            doc.text(autoridad, 105, 272, null, null, "center");
+            doc.setFont("helvetica", "normal");
+            doc.text("Máxima Autoridad / Representante Legal", 105, 278, null, null, "center");
+
+            doc.setFontSize(9);
+            doc.setFont("helvetica", "italic");
+            doc.text(`Aprobado el: ${date}`, 20, 290);
+            
+            doc.save(`Politica_SST_${empresa.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`);
+            
+            const btn = politicaForm.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Política Generada';
+            btn.classList.replace('bg-indigo-600', 'bg-emerald-600');
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.replace('bg-emerald-600', 'bg-indigo-600');
+                politicaForm.reset();
+                closePoliticaFunc();
+            }, 2500);
+        });
+    }
 });
 
 // Helper for counting up numbers

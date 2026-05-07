@@ -316,7 +316,10 @@
                 <h4 class="font-bold text-primary">Gestión Documental</h4>
             </div>
             <p class="text-sm text-on-surface-variant flex-1">Generación de RISSO, Políticas SST y planes de emergencia listos para presentar al Ministerio.</p>
-            <button id="btn-contingencia" class="w-full text-blue-700 bg-blue-50 py-2 rounded-lg text-sm font-bold hover:bg-blue-100 transition-colors">Plan de Contingencia</button>
+            <div class="flex flex-col gap-2 mt-auto">
+                <button id="btn-politica" class="w-full text-indigo-700 bg-indigo-50 py-2 rounded-lg text-sm font-bold hover:bg-indigo-100 transition-colors">Política de SST</button>
+                <button id="btn-contingencia" class="w-full text-blue-700 bg-blue-50 py-2 rounded-lg text-sm font-bold hover:bg-blue-100 transition-colors">Plan de Contingencia</button>
+            </div>
         </div>
         
         <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 shadow-sm flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
@@ -716,6 +719,54 @@
             
             <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-colors flex justify-center items-center gap-2 mt-4">
                 <span class="material-symbols-outlined">description</span> Generar Plan de Contingencia PDF
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Generador Política SST -->
+<div id="politica-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+    <div class="bg-surface-container-lowest rounded-3xl w-full max-w-2xl p-6 pb-8 shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[85vh] overflow-y-auto">
+        <button id="close-politica-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <h3 class="font-headline text-2xl font-bold text-indigo-700 mb-2">Política de Salud y Seguridad</h3>
+        <p class="text-sm text-on-surface-variant mb-6">Generación de documento formal de Política SST para la empresa en cumplimiento con el MTESS.</p>
+        
+        <form id="politica-form" class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Razón Social</label>
+                    <input type="text" id="pol-empresa" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: SST Paraguay S.A.">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">RUC</label>
+                    <input type="text" id="pol-ruc" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: 80000000-1">
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Máxima Autoridad (Firma)</label>
+                    <input type="text" id="pol-autoridad" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Lic. María González (CEO)">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Actividad Principal</label>
+                    <input type="text" id="pol-actividad" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Manufactura y Logística">
+                </div>
+            </div>
+
+            <div class="p-4 bg-indigo-50 rounded-xl border border-indigo-100">
+                <h4 class="text-sm font-bold text-indigo-800 mb-2">Puntos Centrales del Documento</h4>
+                <ul class="text-xs text-indigo-700 list-disc list-inside space-y-1">
+                    <li>Compromiso de la Alta Dirección con la SST.</li>
+                    <li>Cumplimiento de los requisitos legales vigentes (Ley, Decretos, Resoluciones).</li>
+                    <li>Mejora Continua y Prevención de Lesiones.</li>
+                </ul>
+            </div>
+            
+            <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-xl hover:bg-indigo-700 transition-colors flex justify-center items-center gap-2 mt-4">
+                <span class="material-symbols-outlined">verified</span> Generar Política SST PDF
             </button>
         </form>
     </div>
