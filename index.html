@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SST Paraguay - Dashboard Principal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Public+Sans:wght@700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e1e3e4",
+                        "primary-container": "#002d7b",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#dae1ff",
+                        "on-secondary-container": "#fffbff",
+                        "on-error-container": "#93000a",
+                        "secondary": "#b8120b",
+                        "on-secondary-fixed-variant": "#930001",
+                        "on-surface": "#191c1d",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#663e00",
+                        "surface-tint": "#335ab4",
+                        "surface-container-low": "#f3f4f5",
+                        "primary": "#001a4e",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-tertiary-container": "#da8900",
+                        "inverse-primary": "#b3c5ff",
+                        "surface-container": "#edeeef",
+                        "on-primary": "#ffffff",
+                        "on-background": "#191c1d",
+                        "on-tertiary-fixed": "#2b1700",
+                        "secondary-container": "#dd3123",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#001849",
+                        "inverse-surface": "#2e3132",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#12419b",
+                        "surface": "#f8f9fa",
+                        "surface-bright": "#f8f9fa",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#ffdad5",
+                        "on-surface-variant": "#43474f",
+                        "on-secondary-fixed": "#410000",
+                        "tertiary-container": "#4b2c00",
+                        "secondary-fixed-dim": "#ffb4a8",
+                        "inverse-on-surface": "#f0f1f2",
+                        "outline": "#737780",
+                        "tertiary-fixed-dim": "#ffb963",
+                        "surface-variant": "#e1e3e4",
+                        "on-primary-container": "#7598f7",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-dim": "#d9dadb",
+                        "outline-variant": "#c3c6d1",
+                        "tertiary-fixed": "#ffddb9",
+                        "tertiary": "#2e1900",
+                        "background": "#f8f9fa"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Public Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .compliance-pulse-overlap {
+            margin-top: -1.5rem;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="bg-slate-50/85 dark:bg-slate-950/85 backdrop-blur-md sticky top-0 z-40 flex justify-between items-center w-full px-6 py-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/10">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="professional male portrait in business casual attire, clean background, soft studio lighting, professional headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt9WNzIj5CKBdzg4Lx0sZcI5K-F4JUMV1-6WaYlcVMuGe6zO1U7SndiM9P_68dv_uS4aRPZ8rRvEpoYj6Ybl37q1YVD-H5yoxIBGgnrUpKrtpSC0PBZzvVJfNAJ-CDci8EUvU3iZnHDuAfqXo6tyy_rZZVXz1soRu4Xtr7qa4HuEYRJ9YukOZETkeF7DmNoiZdnxNPHjUnQpKbhtQpMETa8Wq5JG8gODzknxvR1G_RRfaIZTDsbTY4eHdEbWGe40AFMRCZpW0mKbM"/>
+</div>
+<h1 class="font-headline font-black text-blue-900 dark:text-white tracking-tight text-lg">SST Paraguay</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-300 active:scale-95">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-6 pt-8 space-y-10">
+<!-- Hero Section: Compliance Pulse -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+<div class="lg:col-span-7 space-y-4">
+<p class="font-label text-sm font-semibold tracking-widest text-primary/60 uppercase">Estado de Seguridad Actual</p>
+<h2 class="font-headline text-4xl lg:text-5xl font-black text-primary leading-none tracking-tight">Vigilancia Activa</h2>
+<p class="text-on-surface-variant max-w-xl text-lg">Panel de control centralizado para la gestión de Seguridad y Salud en el Trabajo. Visualización en tiempo real de métricas de cumplimiento y riesgos operativos.</p>
+</div>
+<div class="lg:col-span-5">
+<div class="bg-primary bg-gradient-to-br from-primary to-primary-container p-8 rounded-[2rem] shadow-2xl relative overflow-hidden">
+<div class="relative z-10 space-y-1">
+<span class="text-primary-fixed-dim font-label text-xs uppercase tracking-widest">Compliance Pulse</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline text-6xl text-white font-black">124</span>
+<span class="text-primary-fixed text-lg font-bold">Días</span>
+</div>
+<p class="text-primary-fixed-dim/80 font-medium">Sin incidentes registrados en planta</p>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-[120px]" data-icon="verified_user">verified_user</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Actions -->
+<section class="flex flex-wrap gap-4">
+<button class="flex-1 min-w-[200px] bg-gradient-to-br from-secondary to-secondary-container text-white py-4 px-6 rounded-xl flex items-center justify-center gap-3 shadow-lg hover:brightness-110 transition-all duration-300 active:scale-95 group">
+<span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
+<span class="font-bold tracking-tight">Reportar Incidente</span>
+</button>
+<button class="flex-1 min-w-[200px] bg-surface-container-lowest border border-outline-variant/15 text-primary py-4 px-6 rounded-xl flex items-center justify-center gap-3 hover:bg-surface-container transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="inventory">inventory</span>
+<span class="font-bold tracking-tight">Nueva Inspección</span>
+</button>
+</section>
+<!-- Bento Grid: Key Metrics -->
+<section class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<!-- Accidentabilidad (Large Card) -->
+<div class="md:col-span-2 bg-surface-container-low rounded-[2.5rem] p-8 flex flex-col justify-between min-h-[320px]">
+<div>
+<div class="flex justify-between items-start mb-8">
+<h3 class="font-headline text-2xl font-bold text-primary">Accidentabilidad</h3>
+<span class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="trending_down">trending_down</span>
+                            -12% este mes
+                        </span>
+</div>
+<div class="flex items-center gap-8">
+<div class="space-y-1">
+<p class="font-label text-xs text-on-surface-variant uppercase tracking-wider">Índice TF</p>
+<p class="font-headline text-4xl font-bold">2.4</p>
+</div>
+<div class="h-12 w-[1px] bg-outline-variant/30"></div>
+<div class="space-y-1">
+<p class="font-label text-xs text-on-surface-variant uppercase tracking-wider">Índice TS</p>
+<p class="font-headline text-4xl font-bold">0.8</p>
+</div>
+</div>
+</div>
+<div class="w-full h-24 bg-surface-container-highest/50 rounded-2xl flex items-end justify-around p-4 gap-2">
+<div class="w-full bg-primary/20 h-1/2 rounded-t-lg"></div>
+<div class="w-full bg-primary/20 h-3/4 rounded-t-lg"></div>
+<div class="w-full bg-primary/20 h-2/3 rounded-t-lg"></div>
+<div class="w-full bg-primary/40 h-1/2 rounded-t-lg"></div>
+<div class="w-full bg-primary h-1/3 rounded-t-lg"></div>
+</div>
+</div>
+<!-- Capacitaciones -->
+<div class="bg-surface-container-lowest rounded-[2.5rem] p-8 flex flex-col justify-between shadow-sm border border-outline-variant/10">
+<div class="space-y-4">
+<div class="w-12 h-12 rounded-2xl bg-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary-fixed-dim" data-icon="school" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<h3 class="font-headline text-xl font-bold text-primary">Capacitaciones</h3>
+<p class="text-on-surface-variant text-sm">3 módulos pendientes para el equipo de logística.</p>
+</div>
+<div class="mt-6">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-bold text-on-surface">85% Completado</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[85%]"></div>
+</div>
+</div>
+</div>
+<!-- Inspecciones -->
+<div class="bg-surface-container-lowest rounded-[2.5rem] p-8 flex flex-col justify-between shadow-sm border border-outline-variant/10">
+<div class="space-y-4">
+<div class="w-12 h-12 rounded-2xl bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="fact_check">fact_check</span>
+</div>
+<h3 class="font-headline text-xl font-bold text-primary">Inspecciones</h3>
+<p class="text-on-surface-variant text-sm">Realizadas con éxito esta semana.</p>
+</div>
+<div class="mt-6 flex items-center gap-4">
+<div class="font-headline text-5xl font-black text-primary">24</div>
+<div class="text-xs font-bold text-on-surface-variant uppercase leading-tight">Total<br/>Semanal</div>
+</div>
+</div>
+</section>
+<!-- Status & Recent Activity -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2 space-y-6">
+<h3 class="font-headline text-2xl font-bold text-primary flex items-center gap-2">
+                    Actividad Reciente
+                </h3>
+<div class="space-y-4">
+<!-- Activity Item 1 -->
+<div class="bg-surface-container-low p-5 rounded-2xl flex items-center gap-4 group hover:bg-surface-container transition-colors duration-200">
+<div class="w-2 h-10 rounded-full bg-secondary"></div>
+<div class="flex-1">
+<p class="font-bold text-primary">Casi-accidente: Área de Carga</p>
+<p class="text-xs text-on-surface-variant">Reportado por Juan Pérez • Hace 2 horas</p>
+</div>
+<span class="bg-error-container text-on-error-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Crítico</span>
+</div>
+<!-- Activity Item 2 -->
+<div class="bg-surface-container-low p-5 rounded-2xl flex items-center gap-4 group hover:bg-surface-container transition-colors duration-200">
+<div class="w-2 h-10 rounded-full bg-tertiary-fixed-dim"></div>
+<div class="flex-1">
+<p class="font-bold text-primary">Mantenimiento Preventivo: Grúa A2</p>
+<p class="text-xs text-on-surface-variant">Programado para mañana • 08:00 AM</p>
+</div>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Pendiente</span>
+</div>
+<!-- Activity Item 3 -->
+<div class="bg-surface-container-low p-5 rounded-2xl flex items-center gap-4 group hover:bg-surface-container transition-colors duration-200">
+<div class="w-2 h-10 rounded-full bg-emerald-500"></div>
+<div class="flex-1">
+<p class="font-bold text-primary">Inspección de EPP Finalizada</p>
+<p class="text-xs text-on-surface-variant">Sector Industrial Sur • Sin observaciones</p>
+</div>
+<span class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Completado</span>
+</div>
+</div>
+</div>
+<!-- Risk Map / Local Info Placeholder -->
+<div class="space-y-6">
+<h3 class="font-headline text-2xl font-bold text-primary">Mapa de Riesgos</h3>
+<div class="aspect-square rounded-[2.5rem] overflow-hidden relative shadow-inner border border-outline-variant/20 bg-surface-container">
+<img class="w-full h-full object-cover opacity-60" data-alt="stylized architectural floor plan of an industrial warehouse, clean lines, professional blueprint aesthetic, overhead view" data-location="Asunción, Paraguay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCWLN8VtyUHG8udbc3xKNp-gdQNoVFzksyxHSe6dzcKxkUzLtN84Vd_shQg2ih13bE_AwZRICFl5R29fPdJvtA6DId4F6Gw2faXZ-9aCTtTuKEnCWPpDEBzo7tqVyLtfhRZ-0HngQ6-Dg4Zt7ilK_sqyORb2IUrSuNauVJtl2UCKBWPGQNPm1GGnJenxt-kPe_zrJBwUEkRunZXucQEcPluOCfZUaMS6apANdBCW9vn6Xk3VEzZpDA1oyv5lPU8tm1b0GqsIE5D_o"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent"></div>
+<!-- Heatmap indicators -->
+<div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-secondary/40 rounded-full animate-pulse border-2 border-secondary"></div>
+<div class="absolute bottom-1/4 right-1/4 w-4 h-4 bg-tertiary-fixed-dim/40 rounded-full border-2 border-tertiary-fixed-dim"></div>
+<div class="absolute bottom-8 left-8 bg-surface-container-lowest/90 backdrop-blur p-4 rounded-2xl shadow-xl border border-outline-variant/10">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase">Ubicación Actual</p>
+<p class="font-bold text-primary">Sede Central, Asunción</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-t border-slate-200/15 dark:border-slate-800/15 shadow-[0_-4px_24px_0_rgba(0,0,0,0.06)] z-50 rounded-t-3xl">
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-blue-900 to-blue-800 text-white rounded-2xl px-5 py-2 transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Resumen</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-5 py-2 hover:text-blue-700 dark:hover:text-blue-300 transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
+<span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Reportar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-5 py-2 hover:text-blue-700 dark:hover:text-blue-300 transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Calendario</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-5 py-2 hover:text-blue-700 dark:hover:text-blue-300 transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Capacitación</span>
+</a>
+</nav>
+</body></html>
