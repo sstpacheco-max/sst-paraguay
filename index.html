@@ -1034,6 +1034,80 @@
     </div>
 </div>
 
+<!-- Modal Calendario -->
+<div id="calendar-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+    <div class="bg-surface-container-lowest rounded-3xl w-full max-w-4xl p-6 shadow-2xl relative transform scale-95 transition-transform duration-300 overflow-hidden flex flex-col max-h-[90vh]">
+        <button id="close-calendar-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors z-10">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        
+        <div class="flex flex-col md:flex-row gap-6 h-full">
+            <!-- Calendario Left -->
+            <div class="flex-1">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 id="calendar-month-year" class="font-headline text-2xl font-bold text-primary italic">Mayo 2026</h3>
+                    <div class="flex gap-2">
+                        <button id="prev-month" class="p-2 hover:bg-surface-container rounded-full transition-colors"><span class="material-symbols-outlined">chevron_left</span></button>
+                        <button id="next-month" class="p-2 hover:bg-surface-container rounded-full transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold text-on-surface-variant mb-2">
+                    <div>Dom</div><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div>
+                </div>
+                <div id="calendar-days" class="grid grid-cols-7 gap-1">
+                    <!-- Inyectado por JS -->
+                </div>
+            </div>
+            
+            <!-- Sidebar Eventos -->
+            <div class="w-full md:w-80 bg-surface-container-low rounded-2xl p-4 flex flex-col gap-4">
+                <div class="flex justify-between items-center">
+                    <h4 class="font-bold text-primary">Eventos / Tareas</h4>
+                    <button id="btn-new-event" class="bg-primary text-white p-2 rounded-lg hover:brightness-110 transition-all">
+                        <span class="material-symbols-outlined text-sm">add</span>
+                    </button>
+                </div>
+                <div id="event-list" class="flex-1 overflow-y-auto space-y-3 pr-2">
+                    <!-- Inyectado por JS -->
+                    <p class="text-xs text-on-surface-variant italic text-center mt-10">Selecciona un día para ver o agregar eventos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Nuevo Evento -->
+<div id="new-event-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[70] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+    <div class="bg-white rounded-2xl w-full max-w-sm p-6 shadow-2xl relative transform scale-95 transition-transform duration-300">
+        <h4 class="font-bold text-lg mb-4 text-primary">Programar Actividad SST</h4>
+        <form id="event-form" class="space-y-4">
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Título de la Actividad</label>
+                <input type="text" id="event-title" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Capacitación Extintores">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Tipo</label>
+                <select id="event-type" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none cursor-pointer">
+                    <option value="Capacitación">Capacitación</option>
+                    <option value="Inspección">Inspección</option>
+                    <option value="Auditoría">Auditoría</option>
+                    <option value="Simulacro">Simulacro</option>
+                    <option value="Mantenimiento">Mantenimiento</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Fecha</label>
+                <input type="date" id="event-date" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+            </div>
+            <div class="flex gap-3 pt-2">
+                <button type="button" id="cancel-event" class="flex-1 py-2 text-sm font-bold text-outline hover:bg-surface-container rounded-lg transition-colors">Cancelar</button>
+                <button type="submit" class="flex-1 py-2 text-sm font-bold bg-primary text-white rounded-lg hover:brightness-110 transition-colors">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <!-- BottomNavBar -->
 <nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-t border-slate-200/15 dark:border-slate-800/15 shadow-[0_-4px_24px_0_rgba(0,0,0,0.06)] z-50 rounded-t-3xl">
 <a class="flex flex-col items-center justify-center bg-gradient-to-br from-blue-900 to-blue-800 text-white rounded-2xl px-5 py-2 transition-transform duration-200 active:scale-90" href="#">
@@ -1044,7 +1118,7 @@
 <span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
 <span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Reportar</span>
 </a>
-<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-5 py-2 hover:text-blue-700 dark:hover:text-blue-300 transition-transform duration-200 active:scale-90" href="#">
+<a id="btn-calendar" class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-5 py-2 hover:text-blue-700 dark:hover:text-blue-300 transition-transform duration-200 active:scale-90" href="#">
 <span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
 <span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Calendario</span>
 </a>
@@ -1053,5 +1127,5 @@
 <span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Capacitación</span>
 </a>
 </nav>
-<script src="app.js?v=2.8"></script>
+<script src="app.js?v=2.9"></script>
 </body></html>

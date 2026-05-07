@@ -1650,6 +1650,189 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- CALENDAR LOGIC ---
+    const btnCalendar = document.getElementById('btn-calendar');
+    const calendarModal = document.getElementById('calendar-modal');
+    const closeCalendarBtn = document.getElementById('close-calendar-modal');
+    const calendarDays = document.getElementById('calendar-days');
+    const calendarMonthYear = document.getElementById('calendar-month-year');
+    const prevMonthBtn = document.getElementById('prev-month');
+    const nextMonthBtn = document.getElementById('next-month');
+    
+    const newEventModal = document.getElementById('new-event-modal');
+    const btnNewEvent = document.getElementById('btn-new-event');
+    const cancelEventBtn = document.getElementById('cancel-event');
+    const eventForm = document.getElementById('event-form');
+    const eventList = document.getElementById('event-list');
+
+    let currentDate = new Date();
+    let selectedDate = new Date();
+
+    const renderCalendar = () => {
+        if (!calendarDays) return;
+        calendarDays.innerHTML = '';
+        
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+        
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        
+        const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        calendarMonthYear.innerText = `${monthNames[month]} ${year}`;
+        
+        // Cargar eventos
+        const events = JSON.parse(localStorage.getItem('sst_events')) || [];
+
+        // Empty slots for first week
+        for (let i = 0; i < firstDay; i++) {
+            const empty = document.createElement('div');
+            empty.className = 'h-16 md:h-24';
+            calendarDays.appendChild(empty);
+        }
+
+        // Days
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayEl = document.createElement('div');
+            const fullDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            
+            const dayEvents = events.filter(e => e.date === fullDate);
+            
+            dayEl.className = `h-16 md:h-24 border border-outline-variant/10 rounded-xl p-1 flex flex-col items-center justify-start cursor-pointer hover:bg-surface-container transition-colors relative ${fullDate === new Date().toISOString().split('T')[0] ? 'bg-primary-fixed border-primary/20' : 'bg-surface-container-lowest'}`;
+            
+            dayEl.innerHTML = `
+                <span class="text-xs font-bold ${fullDate === new Date().toISOString().split('T')[0] ? 'text-primary' : 'text-on-surface'}">${day}</span>
+                <div class="flex flex-wrap gap-1 mt-1 justify-center">
+                    ${dayEvents.map(e => `<div class="w-1.5 h-1.5 rounded-full ${getEventTypeColor(e.type)}"></div>`).join('')}
+                </div>
+            `;
+            
+            dayEl.onclick = () => {
+                selectedDate = new Date(year, month, day);
+                updateEventSidebar(fullDate);
+                // Highlight selected
+                document.querySelectorAll('#calendar-days > div').forEach(d => d.classList.remove('ring-2', 'ring-primary'));
+                dayEl.classList.add('ring-2', 'ring-primary');
+            };
+            
+            calendarDays.appendChild(dayEl);
+        }
+    };
+
+    const getEventTypeColor = (type) => {
+        switch(type) {
+            case 'Capacitación': return 'bg-blue-500';
+            case 'Inspección': return 'bg-amber-500';
+            case 'Auditoría': return 'bg-teal-500';
+            case 'Simulacro': return 'bg-rose-500';
+            case 'Mantenimiento': return 'bg-purple-500';
+            default: return 'bg-slate-500';
+        }
+    };
+
+    const updateEventSidebar = (dateStr) => {
+        const events = JSON.parse(localStorage.getItem('sst_events')) || [];
+        const dayEvents = events.filter(e => e.date === dateStr);
+        
+        if (dayEvents.length === 0) {
+            eventList.innerHTML = `<p class="text-xs text-on-surface-variant italic text-center mt-10">No hay actividades para el ${dateStr}.</p>`;
+        } else {
+            eventList.innerHTML = dayEvents.map((e, index) => `
+                <div class="bg-white p-3 rounded-xl border border-outline-variant/20 shadow-sm flex items-center gap-3">
+                    <div class="w-2 h-8 rounded-full ${getEventTypeColor(e.type)}"></div>
+                    <div class="flex-1">
+                        <p class="text-xs font-bold text-primary">${e.title}</p>
+                        <p class="text-[10px] text-on-surface-variant uppercase font-bold">${e.type}</p>
+                    </div>
+                    <button onclick="deleteSstEvent('${dateStr}', ${index})" class="text-outline hover:text-error transition-colors">
+                        <span class="material-symbols-outlined text-sm">delete</span>
+                    </button>
+                </div>
+            `).join('');
+        }
+    };
+
+    // Global delete for onclick
+    window.deleteSstEvent = (date, index) => {
+        let events = JSON.parse(localStorage.getItem('sst_events')) || [];
+        const filtered = events.filter(e => e.date === date);
+        const itemToDelete = filtered[index];
+        
+        events = events.filter(e => e !== itemToDelete);
+        localStorage.setItem('sst_events', JSON.stringify(events));
+        renderCalendar();
+        updateEventSidebar(date);
+    };
+
+    if (btnCalendar && calendarModal) {
+        btnCalendar.onclick = (e) => {
+            e.preventDefault();
+            calendarModal.classList.remove('hidden');
+            setTimeout(() => {
+                calendarModal.classList.remove('opacity-0');
+                calendarModal.querySelector('div').classList.remove('scale-95');
+                renderCalendar();
+            }, 10);
+        };
+        
+        closeCalendarBtn.onclick = () => {
+            calendarModal.classList.add('opacity-0');
+            calendarModal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => calendarModal.classList.add('hidden'), 300);
+        };
+    }
+
+    if (prevMonthBtn) {
+        prevMonthBtn.onclick = () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        };
+    }
+    
+    if (nextMonthBtn) {
+        nextMonthBtn.onclick = () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        };
+    }
+
+    if (btnNewEvent) {
+        btnNewEvent.onclick = () => {
+            document.getElementById('event-date').value = selectedDate.toISOString().split('T')[0];
+            newEventModal.classList.remove('hidden');
+            setTimeout(() => {
+                newEventModal.classList.remove('opacity-0');
+                newEventModal.querySelector('div').classList.remove('scale-95');
+            }, 10);
+        };
+    }
+
+    if (cancelEventBtn) {
+        cancelEventBtn.onclick = () => {
+            newEventModal.classList.add('opacity-0');
+            newEventModal.querySelector('div').classList.add('scale-95');
+            setTimeout(() => newEventModal.classList.add('hidden'), 300);
+        };
+    }
+
+    if (eventForm) {
+        eventForm.onsubmit = (e) => {
+            e.preventDefault();
+            const title = document.getElementById('event-title').value;
+            const type = document.getElementById('event-type').value;
+            const date = document.getElementById('event-date').value;
+            
+            const events = JSON.parse(localStorage.getItem('sst_events')) || [];
+            events.push({ title, type, date });
+            localStorage.setItem('sst_events', JSON.stringify(events));
+            
+            eventForm.reset();
+            cancelEventBtn.click();
+            renderCalendar();
+            updateEventSidebar(date);
+        };
+    }
+
 });
 
 // Helper for counting up numbers
