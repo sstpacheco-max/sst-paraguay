@@ -100,6 +100,49 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+    const updateDashboardStats = () => {
+        const inspections = getFilteredData('sst_inspecciones');
+        const accidents = getFilteredData('sst_registros_mtess');
+        const events = getFilteredData('sst_events');
+
+        // Update counts
+        const insCount = document.getElementById('stat-ins-count');
+        if (insCount) insCount.innerText = inspections.length;
+
+        const location = document.getElementById('stat-location');
+        if (location) location.innerText = currentUser.address || 'No definida';
+
+        // Update TF/TS (Fictional calculation based on data)
+        const tf = document.getElementById('stat-tf');
+        const ts = document.getElementById('stat-ts');
+        if (tf) tf.innerText = (accidents.length * 0.5).toFixed(1);
+        if (ts) ts.innerText = (accidents.length * 0.15).toFixed(1);
+
+        // Recent Activity
+        const activityList = document.getElementById('recent-activity-list');
+        if (activityList) {
+            const allActivity = [
+                ...inspections.map(i => ({ title: `Inspección: ${i.tipo}`, date: i.fecha, color: 'bg-emerald-500', label: 'Completado' })),
+                ...accidents.map(a => ({ title: `Accidente: ${a.trabajador}`, date: a.fecha, color: 'bg-secondary', label: 'Reportado' }))
+            ].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 5);
+
+            if (allActivity.length === 0) {
+                activityList.innerHTML = `<p class="text-xs italic text-on-surface-variant p-4">No hay actividad reciente.</p>`;
+            } else {
+                activityList.innerHTML = allActivity.map(act => `
+                    <div class="bg-surface-container-low p-5 rounded-2xl flex items-center gap-4 group hover:bg-surface-container transition-colors duration-200">
+                        <div class="w-2 h-10 rounded-full ${act.color}"></div>
+                        <div class="flex-1">
+                            <p class="font-bold text-primary">${act.title}</p>
+                            <p class="text-xs text-on-surface-variant">${act.date}</p>
+                        </div>
+                        <span class="bg-surface-container-highest px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">${act.label}</span>
+                    </div>
+                `).join('');
+            }
+        }
+    };
+
     const initDashboard = () => {
         if (!currentUser) return;
         
@@ -107,7 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const companyLabel = document.querySelector('header p.text-xs');
         if (companyLabel) companyLabel.innerText = `SST ${currentUser.company} (${currentUser.role.toUpperCase()})`;
         
+        updateDashboardStats();
+        
         // Re-render components with filtered data
+
         if (typeof renderCalendar === 'function') renderCalendar();
         if (typeof renderRegistroMedico === 'function') renderRegistroMedico();
         if (typeof renderRegistroMtess === 'function') renderRegistroMtess();

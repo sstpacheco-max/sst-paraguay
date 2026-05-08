@@ -284,12 +284,12 @@
 <div class="flex items-center gap-8">
 <div class="space-y-1">
 <p class="font-label text-xs text-on-surface-variant uppercase tracking-wider">Índice TF</p>
-<p class="font-headline text-4xl font-bold">2.4</p>
+<p id="stat-tf" class="font-headline text-4xl font-bold">0.0</p>
 </div>
 <div class="h-12 w-[1px] bg-outline-variant/30"></div>
 <div class="space-y-1">
 <p class="font-label text-xs text-on-surface-variant uppercase tracking-wider">Índice TS</p>
-<p class="font-headline text-4xl font-bold">0.8</p>
+<p id="stat-ts" class="font-headline text-4xl font-bold">0.0</p>
 </div>
 </div>
 </div>
@@ -329,7 +329,7 @@
 <p class="text-on-surface-variant text-sm">Realizadas con éxito esta semana.</p>
 </div>
 <div class="mt-6 flex items-center gap-4">
-<div class="font-headline text-5xl font-black text-primary">24</div>
+<div id="stat-ins-count" class="font-headline text-5xl font-black text-primary">0</div>
 <div class="text-xs font-bold text-on-surface-variant uppercase leading-tight">Total<br/>Semanal</div>
 </div>
 </div>
@@ -340,33 +340,8 @@
 <h3 class="font-headline text-2xl font-bold text-primary flex items-center gap-2">
                     Actividad Reciente
                 </h3>
-<div class="space-y-4">
-<!-- Activity Item 1 -->
-<div class="bg-surface-container-low p-5 rounded-2xl flex items-center gap-4 group hover:bg-surface-container transition-colors duration-200">
-<div class="w-2 h-10 rounded-full bg-secondary"></div>
-<div class="flex-1">
-<p class="font-bold text-primary">Casi-accidente: Área de Carga</p>
-<p class="text-xs text-on-surface-variant">Reportado por Juan Pérez • Hace 2 horas</p>
-</div>
-<span class="bg-error-container text-on-error-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Crítico</span>
-</div>
-<!-- Activity Item 2 -->
-<div class="bg-surface-container-low p-5 rounded-2xl flex items-center gap-4 group hover:bg-surface-container transition-colors duration-200">
-<div class="w-2 h-10 rounded-full bg-tertiary-fixed-dim"></div>
-<div class="flex-1">
-<p class="font-bold text-primary">Mantenimiento Preventivo: Grúa A2</p>
-<p class="text-xs text-on-surface-variant">Programado para mañana • 08:00 AM</p>
-</div>
-<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Pendiente</span>
-</div>
-<!-- Activity Item 3 -->
-<div class="bg-surface-container-low p-5 rounded-2xl flex items-center gap-4 group hover:bg-surface-container transition-colors duration-200">
-<div class="w-2 h-10 rounded-full bg-emerald-500"></div>
-<div class="flex-1">
-<p class="font-bold text-primary">Inspección de EPP Finalizada</p>
-<p class="text-xs text-on-surface-variant">Sector Industrial Sur • Sin observaciones</p>
-</div>
-<span class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Completado</span>
+<div id="recent-activity-list" class="space-y-4">
+    <!-- Items dinámicos -->
 </div>
 </div>
 </div>
@@ -381,7 +356,7 @@
 <div class="absolute bottom-1/4 right-1/4 w-4 h-4 bg-tertiary-fixed-dim/40 rounded-full border-2 border-tertiary-fixed-dim"></div>
 <div class="absolute bottom-8 left-8 bg-surface-container-lowest/90 backdrop-blur p-4 rounded-2xl shadow-xl border border-outline-variant/10">
 <p class="text-[10px] font-bold text-on-surface-variant uppercase">Ubicación Actual</p>
-<p class="font-bold text-primary">Sede Central, Asunción</p>
+<p id="stat-location" class="font-bold text-primary">Cargando...</p>
 </div>
 </div>
 </div>
@@ -1424,5 +1399,5 @@
 <span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Capacitación</span>
 </a>
 </nav>
-<script src="app.js?v=3.7"></script>
+<script src="app.js?v=3.8"></script>
 </body></html>
