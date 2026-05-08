@@ -541,63 +541,7 @@
     </div>
 </div>
 
-<!-- Modal Generador MTESS PDF -->
-<div id="mtess-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-    <div class="bg-surface-container-lowest rounded-3xl w-full max-w-2xl p-6 pb-8 shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[85vh] overflow-y-auto">
-        <button id="close-mtess-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
-            <span class="material-symbols-outlined">close</span>
-        </button>
-        <h3 class="font-headline text-2xl font-bold text-primary mb-2">Generador de Formulario MTESS</h3>
-        <p class="text-sm text-on-surface-variant mb-6">Complete los datos para generar el PDF oficial de Declaración de Accidentes listo para imprimir.</p>
-        
-        <form id="mtess-form" class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Empresa -->
-                <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Empresa</label>
-                    <input type="text" id="pdf-empresa" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" value="SST Paraguay S.A.">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">N° Patronal MTESS / RUC</label>
-                    <input type="text" id="pdf-ruc" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" value="80000001-5">
-                </div>
-                
-                <!-- Trabajador -->
-                <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Nombre Trabajador</label>
-                    <input type="text" id="pdf-trabajador" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Juan Pérez">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">C.I. Trabajador</label>
-                    <input type="text" id="pdf-ci" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: 4.555.666">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Cargo / Ocupación</label>
-                    <input type="text" id="pdf-cargo" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Operario de Máquina">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Antigüedad</label>
-                    <input type="text" id="pdf-antiguedad" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: 2 años">
-                </div>
-                
-                <!-- Detalles Accidente -->
-                <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Fecha y Hora</label>
-                    <input type="datetime-local" id="pdf-fecha" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Lugar Exacto</label>
-                    <input type="text" id="pdf-lugar" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Sector Producción, Pasillo 3">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Agente Causante</label>
-                    <input type="text" id="pdf-agente" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Máquina cortadora / Piso mojado">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Zona del Cuerpo Afectada</label>
-                    <input type="text" id="pdf-zona" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Mano derecha">
-                </div>
-                <div>
+
                     <label class="block text-xs font-bold text-on-surface-variant mb-1">¿Usaba EPP al momento?</label>
                     <select id="pdf-epp" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none cursor-pointer">
                         <option value="Sí, adecuado">Sí, adecuado</option>
@@ -1499,12 +1443,26 @@
                 <option value="Periódico">Periódico</option>
                 <option value="Egreso">Egreso</option>
             </select>
-            <button type="submit" class="w-full bg-primary text-white font-black py-4 rounded-xl shadow-lg uppercase tracking-widest text-xs">
-                Generar Orden PDF
+<!-- Modal IPERC -->
+<div id="iperc-modal" class="fixed inset-0 z-[110] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-[2rem] w-full max-w-4xl p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto text-on-surface">
+        <button id="close-iperc-modal" class="absolute top-6 right-6 text-outline hover:text-primary transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <div class="mb-6">
+            <h2 class="font-headline text-2xl font-bold text-primary">Matriz IPERC Automatizada</h2>
+            <p class="text-sm text-on-surface-variant">Evaluación de Riesgos según Dec. 14.390/92</p>
+        </div>
+        <div id="iperc-content" class="overflow-x-auto">
+            <!-- Tabla inyectada por JS -->
+        </div>
+        <div class="mt-8 pt-6 border-t border-outline-variant/10 flex justify-end gap-3">
+            <button id="btn-print-iperc" class="bg-primary text-white px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2 hover:brightness-110">
+                <span class="material-symbols-outlined text-sm">picture_as_pdf</span> Descargar Matriz PDF
             </button>
-        </form>
+        </div>
     </div>
 </div>
 
-<script src="app.js?v=4.4"></script>
+<script src="app.js?v=4.5"></script>
 </body></html>
