@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
             doc.setFontSize(10); doc.setFont("helvetica", "bold");
             doc.text("1. INTRODUCCIÃ“N Y BASE LEGAL", 20, 75);
             doc.setFont("helvetica", "normal");
-            const intro = "El presente plan se establece en cumplimiento con el Decreto NÂ° 14.390/92 (Reglamento General TÃ©cnico de Seguridad, Higiene y Medicina en el Trabajo) y la Ley NÂ° 5804/17 del Sistema Nacional de PrevenciÃ³n de Riesgos Laborales. Su objetivo es preservar la integridad fÃ­sica del personal y bienes de la instituciÃ³n.";
+            const intro = "El presente plan se establece en cumplimiento con el Decreto N° 14.390/92 (Reglamento General Técnico de Seguridad, Higiene y Medicina en el Trabajo) y la Ley N° 5804/17 del Sistema Nacional de Prevención de Riesgos Laborales. Su objetivo es preservar la integridad física del personal y bienes de la institución.";
             doc.text(doc.splitTextToSize(intro, 170), 20, 82);
 
             doc.setFont("helvetica", "bold");
@@ -102,10 +102,10 @@ document.addEventListener('DOMContentLoaded', function() {
             doc.setFont("helvetica", "bold");
             doc.text("3. IDENTIFICACIÃ“N DE AMENAZAS", 20, 125);
             const threats = [];
-            if (d.chkFuego) threats.push("Incendio / ExplosiÃ³n");
-            if (d.chkMedica) threats.push("Emergencia MÃ©dica");
-            if (d.chkElectrico) threats.push("Contacto ElÃ©ctrico / Cortocircuito");
-            if (d.chkQuimico) threats.push("Derrame de Sustancias QuÃ­micas");
+            if (d.chkFuego) threats.push("Incendio / Explosión");
+            if (d.chkMedica) threats.push("Emergencia Médica");
+            if (d.chkElectrico) threats.push("Contacto Eléctrico / Cortocircuito");
+            if (d.chkQuimico) threats.push("Derrame de Sustancias Químicas");
             doc.setFont("helvetica", "normal");
             doc.text("Amenazas detectadas: " + (threats.join(", ") || "Ninguna especificada"), 25, 132);
 
@@ -116,9 +116,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 head: [['Cargo', 'Nombre del Responsable']],
                 body: [
                     ['Jefe de Emergencias', d.jefe || '---'],
-                    ['LÃ­der Brigada de Incendio', d.brigIncendio || '---'],
+                    ['Líder Brigada de Incendio', d.brigIncendio || '---'],
                     ['Primeros Auxilios', 'Personal Designado'],
-                    ['Punto de ReuniÃ³n Final', d.punto || '---']
+                    ['Punto de Reunión Final', d.punto || '---']
                 ],
                 theme: 'striped',
                 headStyles: { fillColor: [0, 51, 153] }
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
             doc.setFont("helvetica", "bold");
             doc.text("5. PROTOCOLO GENERAL DE EVACUACIÃ“N", 20, doc.autoTable.previous.finalY + 15);
             doc.setFont("helvetica", "normal");
-            const proto = "1. ALARMA: ActivaciÃ³n de sirena o aviso sonoro. 2. ABANDONO: Salida en fila, sin correr, siguiendo rutas señalizadas. 3. REUNIÃ“N: Conteo de personal en el Punto de ReuniÃ³n: " + (d.punto || "Exterior") + ". 4. CONTROL: Solo reingresar tras autorizaciÃ³n del Jefe de Emergencias.";
+            const proto = "1. ALARMA: Activación de sirena o aviso sonoro. 2. ABANDONO: Salida en fila, sin correr, siguiendo rutas señalizadas. 3. REUNIÃ“N: Conteo de personal en el Punto de Reunión: " + (d.punto || "Exterior") + ". 4. CONTROL: Solo reingresar tras autorización del Jefe de Emergencias.";
             doc.text(doc.splitTextToSize(proto, 170), 20, doc.autoTable.previous.finalY + 22);
 
             doc.setFont("helvetica", "bold");
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
             doc.autoTable({
                 startY: doc.autoTable.previous.finalY + 50,
                 body: [
-                    ['Bomberos Voluntarios', '132', 'PolicÃ­a Nacional', '911'],
+                    ['Bomberos Voluntarios', '132', 'Policía Nacional', '911'],
                     ['SEME (Ambulancia)', '141', 'IPS Emergencias', '(021) 229 9999']
                 ],
                 styles: { halign: 'center' }
@@ -215,25 +215,25 @@ document.addEventListener('DOMContentLoaded', function() {
             doc.setFontSize(10); doc.setFont("helvetica", "bold");
             doc.text("1. OBJETIVO Y ALCANCE", 20, 75);
             doc.setFont("helvetica", "normal");
-            const intro = "Establecer las normas tÃ©cnicas de seguridad para prevenir caÃ­das de personas y objetos durante la realizaciÃ³n de trabajos en alturas (superiores a 1.80m), cumpliendo con el Decreto NÂ° 14.390/92.";
+            const intro = "Establecer las normas técnicas de seguridad para prevenir caídas de personas y objetos durante la realización de trabajos en alturas (superiores a 1.80m), cumpliendo con el Decreto N° 14.390/92.";
             doc.text(doc.splitTextToSize(intro, 170), 20, 82);
 
             doc.setFont("helvetica", "bold");
             doc.text("2. REQUERIMIENTOS DEL PERSONAL", 20, 95);
             doc.setFont("helvetica", "normal");
-            const personal = "Todo trabajador que realice tareas en alturas debe contar con: \n- Aptitud mÃ©dica vigente (EMO de Alturas).\n- CapacitaciÃ³n teÃ³rica y prÃ¡ctica en protecciÃ³n contra caÃ­das.\n- AutorizaciÃ³n escrita mediante el Permiso de Trabajo (PTA).";
+            const personal = "Todo trabajador que realice tareas en alturas debe contar con: \n- Aptitud médica vigente (EMO de Alturas).\n- Capacitación teórica y práctica en protección contra caídas.\n- Autorización escrita mediante el Permiso de Trabajo (PTA).";
             doc.text(doc.splitTextToSize(personal, 170), 20, 102);
 
             doc.setFont("helvetica", "bold");
             doc.text("3. EQUIPO DE PROTECCIÃ“N PERSONAL (EPP) OBLIGATORIO", 20, 125);
             doc.autoTable({
                 startY: 130,
-                head: [['Equipo', 'EspecificaciÃ³n Normativa']],
+                head: [['Equipo', 'Especificación Normativa']],
                 body: [
-                    ['ArnÃ©s de Cuerpo Completo', 'Tipo ParacaÃ­das, 4 argollas, norma ANSI/OSHA o equivalente.'],
-                    ['LÃ­nea de Vida Doble', 'Con absorbedor de energÃ­a y ganchos de 2 1/4".'],
+                    ['Arnés de Cuerpo Completo', 'Tipo Paracaídas, 4 argollas, norma ANSI/OSHA o equivalente.'],
+                    ['Línea de Vida Doble', 'Con absorbedor de energía y ganchos de 2 1/4".'],
                     ['Casco de Seguridad', 'Con barbiquejo de 3 puntos de apoyo.'],
-                    ['Botas de Seguridad', 'Suela antideslizante y dielÃ©ctrica si aplica.']
+                    ['Botas de Seguridad', 'Suela antideslizante y dieléctrica si aplica.']
                 ],
                 theme: 'grid',
                 headStyles: { fillColor: [0, 102, 102] }
@@ -242,12 +242,12 @@ document.addEventListener('DOMContentLoaded', function() {
             doc.setFont("helvetica", "bold");
             doc.text("4. PROCEDIMIENTO DE SEGURIDAD", 20, doc.autoTable.previous.finalY + 15);
             doc.setFont("helvetica", "normal");
-            const proc = "1. Inspeccionar el Ã¡rea y equipos antes de subir. 2. Delimitar y señalizar el nivel inferior para evitar riesgos a terceros. 3. Asegurar el punto de anclaje (resistencia min. 2.2kN). 4. Mantener siempre un punto de conexiÃ³n a la lÃ­nea de vida.";
+            const proc = "1. Inspeccionar el área y equipos antes de subir. 2. Delimitar y señalizar el nivel inferior para evitar riesgos a terceros. 3. Asegurar el punto de anclaje (resistencia min. 2.2kN). 4. Mantener siempre un punto de conexión a la línea de vida.";
             doc.text(doc.splitTextToSize(proc, 170), 20, doc.autoTable.previous.finalY + 22);
 
             doc.setFont("helvetica", "bold");
             doc.text("5. MARCO LEGAL (PARAGUAY)", 20, doc.autoTable.previous.finalY + 45);
-            doc.text("Reglamento General TÃ©cnico de Seguridad, Higiene y Medicina en el Trabajo - Decreto 14.390/92.", 20, doc.autoTable.previous.finalY + 52);
+            doc.text("Reglamento General Técnico de Seguridad, Higiene y Medicina en el Trabajo - Decreto 14.390/92.", 20, doc.autoTable.previous.finalY + 52);
         }
 
         else if (type === 'PTA') {
