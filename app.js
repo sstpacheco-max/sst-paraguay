@@ -178,7 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Animación de bienvenida
         animateValue(document.querySelector('.pulse-number'), 100, 142, 1500);
     };
-    };
 
     // Auto-login if session exists
     if (currentUser) {
