@@ -1,28 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- AUTH SYSTEM ---
-    const USERS = [
-        { id: 'admin', pass: 'admin123', role: 'admin', company: 'Global' },
-        // Empresa A (Industrial)
-        { id: 'userA1', pass: 'A123', role: 'user', company: 'Industrias ABC' },
-        { id: 'userA2', pass: 'A123', role: 'user', company: 'Industrias ABC' },
-        { id: 'userA3', pass: 'A123', role: 'user', company: 'Industrias ABC' },
-        // Empresa B (Construcción)
-        { id: 'userB1', pass: 'B123', role: 'user', company: 'Constructora XYZ' },
-        { id: 'userB2', pass: 'B123', role: 'user', company: 'Constructora XYZ' },
-        { id: 'userB3', pass: 'B123', role: 'user', company: 'Constructora XYZ' }
-    ];
+    const getStoredUsers = () => {
+        const stored = JSON.parse(localStorage.getItem('sst_users')) || [];
+        // Default Admin always exists
+        if (!stored.find(u => u.id === 'admin')) {
+            stored.push({ id: 'admin', pass: 'admin123', role: 'admin', company: 'Global' });
+        }
+        return stored;
+    };
 
     let currentUser = JSON.parse(sessionStorage.getItem('sst_current_user'));
     const loginOverlay = document.getElementById('login-overlay');
     const loginForm = document.getElementById('login-form');
     const loginError = document.getElementById('login-error');
+    
+    // Registration elements
+    const btnShowRegister = document.getElementById('btn-show-register');
+    const registerModal = document.getElementById('register-modal');
+    const closeRegisterBtn = document.getElementById('close-register-modal');
+    const registerForm = document.getElementById('register-form');
 
     const handleLogin = (e) => {
         e.preventDefault();
         const user = document.getElementById('login-user').value;
         const pass = document.getElementById('login-pass').value;
+        const users = getStoredUsers();
 
-        const found = USERS.find(u => u.id === user && u.pass === pass);
+        const found = users.find(u => u.id === user && u.pass === pass);
         if (found) {
             sessionStorage.setItem('sst_current_user', JSON.stringify(found));
             currentUser = found;
@@ -36,6 +40,41 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (loginForm) loginForm.onsubmit = handleLogin;
+
+    // Registration Logic
+    if (btnShowRegister && registerModal) {
+        btnShowRegister.onclick = () => registerModal.classList.remove('hidden');
+        closeRegisterBtn.onclick = () => registerModal.classList.add('hidden');
+    }
+
+    if (registerForm) {
+        registerForm.onsubmit = (e) => {
+            e.preventDefault();
+            const users = getStoredUsers();
+            const newUser = {
+                id: document.getElementById('reg-user').value,
+                pass: document.getElementById('reg-pass').value,
+                role: 'user',
+                company: document.getElementById('reg-company').value,
+                ruc: document.getElementById('reg-ruc').value,
+                address: document.getElementById('reg-address').value,
+                workers: document.getElementById('reg-workers').value,
+                risk: document.getElementById('reg-risk').value,
+                activity: document.getElementById('reg-activity').value
+            };
+
+            if (users.find(u => u.id === newUser.id)) {
+                return alert("El nombre de usuario ya existe.");
+            }
+
+            users.push(newUser);
+            localStorage.setItem('sst_users', JSON.stringify(users));
+            alert("¡Empresa Registrada con éxito! Ahora puedes iniciar sesión.");
+            registerModal.classList.add('hidden');
+            registerForm.reset();
+        };
+    }
+
 
     // Helper to get data filtered by company
     const getFilteredData = (key) => {

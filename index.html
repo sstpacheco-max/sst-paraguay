@@ -129,6 +129,10 @@
                 </button>
             </form>
             
+            <div class="mt-4 text-center">
+                <button id="btn-show-register" class="text-[10px] font-bold text-primary uppercase tracking-widest hover:underline">¿No tienes cuenta? Registra tu Empresa</button>
+            </div>
+            
             <div class="mt-8 pt-6 border-t border-outline-variant/20">
                 <div class="flex items-center justify-between text-[10px] text-on-surface-variant font-bold uppercase tracking-tighter">
                     <span>Versión 4.0 Pro</span>
@@ -137,6 +141,76 @@
             </div>
         </div>
     </div>
+
+    <!-- Register Modal -->
+    <div id="register-modal" class="fixed inset-0 z-[110] bg-slate-900/95 backdrop-blur-md hidden flex items-center justify-center p-4 transition-all duration-300">
+        <div class="bg-white rounded-[2.5rem] w-full max-w-2xl p-8 shadow-2xl relative overflow-y-auto max-h-[90vh]">
+            <button id="close-register-modal" class="absolute top-6 right-6 text-outline hover:text-primary transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            
+            <div class="mb-8">
+                <h2 class="font-headline text-3xl font-black text-primary tracking-tighter italic">REGISTRO DE EMPRESA</h2>
+                <p class="text-sm text-on-surface-variant">Completa los datos para habilitar tu gestión SST</p>
+            </div>
+            
+            <form id="register-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="md:col-span-2 space-y-4">
+                    <p class="text-xs font-bold text-primary uppercase tracking-widest border-b border-primary/10 pb-2">Datos de Acceso</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">Nombre de Usuario</label>
+                            <input type="text" id="reg-user" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="Ej: admin_empresa">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">Contraseña</label>
+                            <input type="password" id="reg-pass" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="••••••••">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 space-y-4 mt-4">
+                    <p class="text-xs font-bold text-primary uppercase tracking-widest border-b border-primary/10 pb-2">Información Corporativa</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">Razón Social</label>
+                            <input type="text" id="reg-company" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="Nombre de la empresa">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">Identificación / RUC</label>
+                            <input type="text" id="reg-ruc" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="80000000-0">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">Dirección de Ubicación</label>
+                            <input type="text" id="reg-address" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="Calle, Ciudad, Departamento">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">Cant. de Trabajadores</label>
+                            <input type="number" id="reg-workers" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="Ej: 50">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">Nivel de Riesgo</label>
+                            <select id="reg-risk" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none">
+                                <option value="Bajo">Bajo</option>
+                                <option value="Medio">Medio</option>
+                                <option value="Alto">Alto</option>
+                                <option value="Muy Alto">Muy Alto</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">Actividad Comercial</label>
+                            <textarea id="reg-activity" required rows="2" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="Ej: Fabricación de productos químicos, Servicios de limpieza, etc."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="md:col-span-2 bg-primary text-white font-black py-4 rounded-xl shadow-lg hover:brightness-110 transition-all uppercase tracking-widest text-xs mt-4">
+                    Crear Cuenta y Finalizar Registro
+                </button>
+            </form>
+        </div>
+    </div>
+
 
 <!-- TopAppBar -->
 <header class="bg-slate-50/85 dark:bg-slate-950/85 backdrop-blur-md sticky top-0 z-40 flex justify-between items-center w-full px-6 py-3">
@@ -1350,5 +1424,5 @@
 <span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Capacitación</span>
 </a>
 </nav>
-<script src="app.js?v=3.6"></script>
+<script src="app.js?v=3.7"></script>
 </body></html>
