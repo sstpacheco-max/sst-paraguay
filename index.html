@@ -1,99 +1,19 @@
 <!DOCTYPE html>
-
-<html class="light" lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SST Paraguay - Dashboard Principal</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Public+Sans:wght@700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="styles.css?v=1.1"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "surface-container-highest": "#e1e3e4",
-                        "primary-container": "#002d7b",
-                        "surface-container-lowest": "#ffffff",
-                        "error-container": "#ffdad6",
-                        "primary-fixed": "#dae1ff",
-                        "on-secondary-container": "#fffbff",
-                        "on-error-container": "#93000a",
-                        "secondary": "#b8120b",
-                        "on-secondary-fixed-variant": "#930001",
-                        "on-surface": "#191c1d",
-                        "error": "#ba1a1a",
-                        "on-tertiary-fixed-variant": "#663e00",
-                        "surface-tint": "#335ab4",
-                        "surface-container-low": "#f3f4f5",
-                        "primary": "#001a4e",
-                        "primary-fixed-dim": "#b3c5ff",
-                        "on-tertiary-container": "#da8900",
-                        "inverse-primary": "#b3c5ff",
-                        "surface-container": "#edeeef",
-                        "on-primary": "#ffffff",
-                        "on-background": "#191c1d",
-                        "on-tertiary-fixed": "#2b1700",
-                        "secondary-container": "#dd3123",
-                        "on-secondary": "#ffffff",
-                        "on-primary-fixed": "#001849",
-                        "inverse-surface": "#2e3132",
-                        "on-tertiary": "#ffffff",
-                        "on-primary-fixed-variant": "#12419b",
-                        "surface": "#f8f9fa",
-                        "surface-bright": "#f8f9fa",
-                        "on-error": "#ffffff",
-                        "secondary-fixed": "#ffdad5",
-                        "on-surface-variant": "#43474f",
-                        "on-secondary-fixed": "#410000",
-                        "tertiary-container": "#4b2c00",
-                        "secondary-fixed-dim": "#ffb4a8",
-                        "inverse-on-surface": "#f0f1f2",
-                        "outline": "#737780",
-                        "tertiary-fixed-dim": "#ffb963",
-                        "surface-variant": "#e1e3e4",
-                        "on-primary-container": "#7598f7",
-                        "surface-container-high": "#e7e8e9",
-                        "surface-dim": "#d9dadb",
-                        "outline-variant": "#c3c6d1",
-                        "tertiary-fixed": "#ffddb9",
-                        "tertiary": "#2e1900",
-                        "background": "#f8f9fa"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "fontFamily": {
-                        "headline": ["Public Sans"],
-                        "body": ["Inter"],
-                        "label": ["Inter"]
-                    }
-                },
-            },
-        }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .compliance-pulse-overlap {
-            margin-top: -1.5rem;
-        }
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>SST Paraguay - Dashboard Principal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Public+Sans:wght@700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="styles.css?v=1.1"/>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .compliance-pulse-overlap { margin-top: -1.5rem; }
+        body { min-height: 100vh; }
     </style>
-<style>
-    body {
-      min-height: max(884px, 100dvh);
-    }
-  </style>
-  </head>
+</head>
 <body class="bg-surface text-on-surface font-body min-h-screen pb-24 overflow-x-hidden">
     <!-- Login Overlay OCULTO en v5.0 (modo global) -->
     <div id="login-overlay" class="hidden">
@@ -108,7 +28,7 @@
             
             <div class="mb-8">
                 <h2 class="font-headline text-3xl font-black text-primary tracking-tighter italic">REGISTRO DE EMPRESA</h2>
-                <p class="text-sm text-on-surface-variant">Completa los datos para habilitar tu gestión SST</p>
+                <p class="text-sm text-on-surface-variant">Completa los datos para habilitar tu gestiÃ³n SST</p>
             </div>
             
             <form id="register-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -117,37 +37,37 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">Nombre de Usuario</label>
-                            <input type="text" id="reg-user" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="Ej: admin_empresa">
+                            <input type="text" id="reg-user" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="Ej: admin_empresa">
                         </div>
                         <div>
-                            <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">Contraseña</label>
-                            <input type="password" id="reg-pass" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="••••••••">
+                            <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">ContraseÃ±a</label>
+                            <input type="password" id="reg-pass" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
                         </div>
                     </div>
                 </div>
 
                 <div class="md:col-span-2 space-y-4 mt-4">
-                    <p class="text-xs font-bold text-primary uppercase tracking-widest border-b border-primary/10 pb-2">Información Corporativa</p>
+                    <p class="text-xs font-bold text-primary uppercase tracking-widest border-b border-primary/10 pb-2">InformaciÃ³n Corporativa</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">Razón Social</label>
-                            <input type="text" id="reg-company" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="Nombre de la empresa">
+                            <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">RazÃ³n Social</label>
+                            <input type="text" id="reg-company" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="Nombre de la empresa">
                         </div>
                         <div>
-                            <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">Identificación / RUC</label>
-                            <input type="text" id="reg-ruc" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="80000000-0">
+                            <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">IdentificaciÃ³n / RUC</label>
+                            <input type="text" id="reg-ruc" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="80000000-0">
                         </div>
                         <div class="md:col-span-2">
-                            <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">Dirección de Ubicación</label>
-                            <input type="text" id="reg-address" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="Calle, Ciudad, Departamento">
+                            <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">DirecciÃ³n de UbicaciÃ³n</label>
+                            <input type="text" id="reg-address" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="Calle, Ciudad, Departamento">
                         </div>
                         <div>
                             <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">Cant. de Trabajadores</label>
-                            <input type="number" id="reg-workers" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="Ej: 50">
+                            <input type="number" id="reg-workers" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="Ej: 50">
                         </div>
                         <div>
                             <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">Nivel de Riesgo</label>
-                            <select id="reg-risk" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none">
+                            <select id="reg-risk" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none">
                                 <option value="Bajo">Bajo</option>
                                 <option value="Medio">Medio</option>
                                 <option value="Alto">Alto</option>
@@ -156,7 +76,7 @@
                         </div>
                         <div class="md:col-span-2">
                             <label class="block text-[10px] font-bold text-on-surface-variant uppercase mb-1">Actividad Comercial</label>
-                            <textarea id="reg-activity" required rows="2" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="Ej: Fabricación de productos químicos, Servicios de limpieza, etc."></textarea>
+                            <textarea id="reg-activity" rows="2" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm outline-none" placeholder="Ej: FabricaciÃ³n de productos quÃ­micos, Servicios de limpieza, etc."></textarea>
                         </div>
                     </div>
                 </div>
@@ -195,7 +115,7 @@
 <div class="lg:col-span-7 space-y-4">
 <p class="font-label text-sm font-semibold tracking-widest text-primary/60 uppercase">Estado de Seguridad Actual</p>
 <h2 class="font-headline text-4xl lg:text-5xl font-black text-primary leading-none tracking-tight">Vigilancia Activa</h2>
-<p class="text-on-surface-variant max-w-xl text-lg">Panel de control centralizado para la gestión de Seguridad y Salud en el Trabajo. Visualización en tiempo real de métricas de cumplimiento y riesgos operativos.</p>
+<p class="text-on-surface-variant max-w-xl text-lg">Panel de control centralizado para la gestiÃ³n de Seguridad y Salud en el Trabajo. VisualizaciÃ³n en tiempo real de mÃ©tricas de cumplimiento y riesgos operativos.</p>
 </div>
 <div class="lg:col-span-5">
 <div class="bg-primary bg-gradient-to-br from-primary to-primary-container p-8 rounded-[2rem] shadow-2xl relative overflow-hidden">
@@ -203,7 +123,7 @@
 <span class="text-primary-fixed-dim font-label text-xs uppercase tracking-widest">Compliance Pulse</span>
 <div class="flex items-baseline gap-2">
 <span class="font-headline text-6xl text-white font-black pulse-number">124</span>
-<span class="text-primary-fixed text-lg font-bold">Días</span>
+<span class="text-primary-fixed text-lg font-bold">DÃ­as</span>
 </div>
 <p class="text-primary-fixed-dim/80 font-medium">Sin incidentes registrados en planta</p>
 </div>
@@ -220,7 +140,7 @@
 </button>
 </section>
 
-<!-- IPERC Modal duplicado eliminado en v5.2 (el original completo está en línea ~583) -->
+<!-- IPERC Modal duplicado eliminado en v5.2 (el original completo estÃ¡ en lÃ­nea ~583) -->
 
 
 <!-- Bento Grid: Key Metrics -->
@@ -237,12 +157,12 @@
 </div>
 <div class="flex items-center gap-8">
 <div class="space-y-1">
-<p class="font-label text-xs text-on-surface-variant uppercase tracking-wider">Índice TF</p>
+<p class="font-label text-xs text-on-surface-variant uppercase tracking-wider">Ãndice TF</p>
 <p id="stat-tf" class="font-headline text-4xl font-bold">0.0</p>
 </div>
 <div class="h-12 w-[1px] bg-outline-variant/30"></div>
 <div class="space-y-1">
-<p class="font-label text-xs text-on-surface-variant uppercase tracking-wider">Índice TS</p>
+<p class="font-label text-xs text-on-surface-variant uppercase tracking-wider">Ãndice TS</p>
 <p id="stat-ts" class="font-headline text-4xl font-bold">0.0</p>
 </div>
 </div>
@@ -262,7 +182,7 @@
 <span class="material-symbols-outlined text-tertiary-fixed-dim" data-icon="school" style="font-variation-settings: 'FILL' 1;">school</span>
 </div>
 <h3 class="font-headline text-xl font-bold text-primary">Capacitaciones</h3>
-<p class="text-on-surface-variant text-sm">3 módulos pendientes para el equipo de logística.</p>
+<p class="text-on-surface-variant text-sm">3 mÃ³dulos pendientes para el equipo de logÃ­stica.</p>
 </div>
 <div class="mt-6">
 <div class="flex justify-between items-center mb-2">
@@ -280,7 +200,7 @@
 <span class="material-symbols-outlined text-primary" data-icon="fact_check">fact_check</span>
 </div>
 <h3 class="font-headline text-xl font-bold text-primary">Inspecciones</h3>
-<p class="text-on-surface-variant text-sm">Realizadas con éxito esta semana.</p>
+<p class="text-on-surface-variant text-sm">Realizadas con Ã©xito esta semana.</p>
 </div>
 <div class="mt-6 flex items-center gap-4">
 <div id="stat-ins-count" class="font-headline text-5xl font-black text-primary">0</div>
@@ -295,7 +215,7 @@
                     Actividad Reciente
                 </h3>
 <div id="recent-activity-list" class="space-y-4">
-    <!-- Items dinámicos -->
+    <!-- Items dinÃ¡micos -->
 </div>
 </div>
 </div>
@@ -303,13 +223,13 @@
 <div class="space-y-6">
 <h3 class="font-headline text-2xl font-bold text-primary">Mapa de Riesgos</h3>
 <div class="aspect-square rounded-[2.5rem] overflow-hidden relative shadow-inner border border-outline-variant/20 bg-surface-container">
-<img class="w-full h-full object-cover opacity-60" data-alt="stylized architectural floor plan of an industrial warehouse, clean lines, professional blueprint aesthetic, overhead view" data-location="Asunción, Paraguay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCWLN8VtyUHG8udbc3xKNp-gdQNoVFzksyxHSe6dzcKxkUzLtN84Vd_shQg2ih13bE_AwZRICFl5R29fPdJvtA6DId4F6Gw2faXZ-9aCTtTuKEnCWPpDEBzo7tqVyLtfhRZ-0HngQ6-Dg4Zt7ilK_sqyORb2IUrSuNauVJtl2UCKBWPGQNPm1GGnJenxt-kPe_zrJBwUEkRunZXucQEcPluOCfZUaMS6apANdBCW9vn6Xk3VEzZpDA1oyv5lPU8tm1b0GqsIE5D_o"/>
+<img class="w-full h-full object-cover opacity-60" data-alt="stylized architectural floor plan of an industrial warehouse, clean lines, professional blueprint aesthetic, overhead view" data-location="AsunciÃ³n, Paraguay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCWLN8VtyUHG8udbc3xKNp-gdQNoVFzksyxHSe6dzcKxkUzLtN84Vd_shQg2ih13bE_AwZRICFl5R29fPdJvtA6DId4F6Gw2faXZ-9aCTtTuKEnCWPpDEBzo7tqVyLtfhRZ-0HngQ6-Dg4Zt7ilK_sqyORb2IUrSuNauVJtl2UCKBWPGQNPm1GGnJenxt-kPe_zrJBwUEkRunZXucQEcPluOCfZUaMS6apANdBCW9vn6Xk3VEzZpDA1oyv5lPU8tm1b0GqsIE5D_o"/>
 <div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent"></div>
 <!-- Heatmap indicators -->
 <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-secondary/40 rounded-full animate-pulse border-2 border-secondary"></div>
 <div class="absolute bottom-1/4 right-1/4 w-4 h-4 bg-tertiary-fixed-dim/40 rounded-full border-2 border-tertiary-fixed-dim"></div>
 <div class="absolute bottom-8 left-8 bg-surface-container-lowest/90 backdrop-blur p-4 rounded-2xl shadow-xl border border-outline-variant/10">
-<p class="text-[10px] font-bold text-on-surface-variant uppercase">Ubicación Actual</p>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase">UbicaciÃ³n Actual</p>
 <p id="stat-location" class="font-bold text-primary">Cargando...</p>
 </div>
 </div>
@@ -325,21 +245,21 @@
         <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/20 shadow-sm relative overflow-hidden">
             <div class="absolute top-0 left-0 w-1.5 h-full bg-primary"></div>
             <h4 class="font-bold text-primary mb-1">Decreto 14.390/92</h4>
-            <p class="text-xs text-on-surface-variant mb-4">Reglamento Gral. Técnico de Seguridad, Higiene y Medicina</p>
+            <p class="text-xs text-on-surface-variant mb-4">Reglamento Gral. TÃ©cnico de Seguridad, Higiene y Medicina</p>
             <ul class="space-y-3 text-sm">
                 <li class="flex items-center gap-2"><span class="material-symbols-outlined text-success text-lg">check_circle</span> Matriz IPERC Actualizada</li>
                 <li class="flex items-center gap-2"><span class="material-symbols-outlined text-warning text-lg">pending</span> Plan de Contingencia (Bomberos)</li>
-                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-success text-lg">check_circle</span> Monitoreo Ocupacional al día</li>
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-success text-lg">check_circle</span> Monitoreo Ocupacional al dÃ­a</li>
             </ul>
         </div>
 
         <!-- Ley 213/93 & CIPA -->
         <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/20 shadow-sm relative overflow-hidden">
             <div class="absolute top-0 left-0 w-1.5 h-full bg-secondary"></div>
-            <h4 class="font-bold text-primary mb-1">Comisión Interna (CIPA)</h4>
-            <p class="text-xs text-on-surface-variant mb-4">Obligatorio según Resolución MTESS para >100 emp.</p>
+            <h4 class="font-bold text-primary mb-1">ComisiÃ³n Interna (CIPA)</h4>
+            <p class="text-xs text-on-surface-variant mb-4">Obligatorio segÃºn ResoluciÃ³n MTESS para >100 emp.</p>
             <ul class="space-y-3 text-sm">
-                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-success text-lg">check_circle</span> Acta de Conformación MTESS</li>
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-success text-lg">check_circle</span> Acta de ConformaciÃ³n MTESS</li>
                 <li class="flex items-center gap-2"><span class="material-symbols-outlined text-error text-lg">cancel</span> Libro de Actas Rubricado (Atrasado)</li>
                 <li class="flex items-center gap-2"><span class="material-symbols-outlined text-success text-lg">check_circle</span> Reuniones Mensuales</li>
             </ul>
@@ -349,9 +269,9 @@
         <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/20 shadow-sm relative overflow-hidden">
             <div class="absolute top-0 left-0 w-1.5 h-full bg-amber-500"></div>
             <h4 class="font-bold text-primary mb-1">Resoluciones IPS</h4>
-            <p class="text-xs text-on-surface-variant mb-4">Vigilancia Médica y Reporte de Siniestralidad</p>
+            <p class="text-xs text-on-surface-variant mb-4">Vigilancia MÃ©dica y Reporte de Siniestralidad</p>
             <ul class="space-y-3 text-sm">
-                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-warning text-lg">pending</span> 3 Exámenes Admisionales Pendientes</li>
+                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-warning text-lg">pending</span> 3 ExÃ¡menes Admisionales Pendientes</li>
                 <li class="flex items-center gap-2"><span class="material-symbols-outlined text-success text-lg">check_circle</span> RISSO Aprobado por el MTESS</li>
                 <li class="flex items-center gap-2"><span class="material-symbols-outlined text-success text-lg">check_circle</span> 0 Reportes de Accidente este mes</li>
             </ul>
@@ -359,20 +279,20 @@
     </div>
 </section>
 
-<!-- Módulos Operativos SG-SST -->
+<!-- MÃ³dulos Operativos SG-SST -->
 <section class="space-y-6">
     <h3 class="font-headline text-2xl font-bold text-primary flex items-center gap-2">
-        <span class="material-symbols-outlined">apps</span> Aplicación del Sistema (Módulos)
+        <span class="material-symbols-outlined">apps</span> AplicaciÃ³n del Sistema (MÃ³dulos)
     </h3>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 shadow-sm flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center"><span class="material-symbols-outlined">policy</span></div>
-                <h4 class="font-bold text-primary">Gestión Documental</h4>
+                <h4 class="font-bold text-primary">GestiÃ³n Documental</h4>
             </div>
-            <p class="text-sm text-on-surface-variant flex-1">Generación de RISSO, Políticas SST y planes de emergencia listos para presentar al Ministerio.</p>
+            <p class="text-sm text-on-surface-variant flex-1">GeneraciÃ³n de RISSO, PolÃ­ticas SST y planes de emergencia listos para presentar al Ministerio.</p>
             <div class="flex flex-col gap-2 mt-auto">
-                <button id="btn-politica" class="w-full text-indigo-700 bg-indigo-50 py-2 rounded-lg text-sm font-bold hover:bg-indigo-100 transition-colors">Política de SST</button>
+                <button id="btn-politica" class="w-full text-indigo-700 bg-indigo-50 py-2 rounded-lg text-sm font-bold hover:bg-indigo-100 transition-colors">PolÃ­tica de SST</button>
                 <button id="btn-contingencia" class="w-full text-blue-700 bg-blue-50 py-2 rounded-lg text-sm font-bold hover:bg-blue-100 transition-colors">Plan de Contingencia</button>
             </div>
         </div>
@@ -382,16 +302,16 @@
                 <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center"><span class="material-symbols-outlined">warning</span></div>
                 <h4 class="font-bold text-primary">Matriz IPERC</h4>
             </div>
-            <p class="text-sm text-on-surface-variant flex-1">Identificación de Peligros y Evaluación de Riesgos por puesto de trabajo según Dec. 14.390/92.</p>
+            <p class="text-sm text-on-surface-variant flex-1">IdentificaciÃ³n de Peligros y EvaluaciÃ³n de Riesgos por puesto de trabajo segÃºn Dec. 14.390/92.</p>
             <button id="btn-iperc" class="w-full text-rose-700 bg-rose-50 py-2 rounded-lg text-sm font-bold hover:bg-rose-100 transition-colors">Evaluar Riesgos</button>
         </div>
 
         <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 shadow-sm flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center"><span class="material-symbols-outlined">medical_services</span></div>
-                <h4 class="font-bold text-primary">Vigilancia Médica (MTESS)</h4>
+                <h4 class="font-bold text-primary">Vigilancia MÃ©dica (MTESS)</h4>
             </div>
-            <p class="text-sm text-on-surface-variant flex-1">Generador de Órdenes de Exámenes Médicos (Admisional/Periódico) según Res. MTESS Nº 03/2022 y Decreto 5078/2021.</p>
+            <p class="text-sm text-on-surface-variant flex-1">Generador de Ã“rdenes de ExÃ¡menes MÃ©dicos (Admisional/PeriÃ³dico) segÃºn Res. MTESS NÂº 03/2022 y Decreto 5078/2021.</p>
             <div class="flex flex-col gap-2 mt-auto">
                 <button id="btn-medico" class="w-full text-emerald-700 bg-emerald-50 py-2 rounded-lg text-sm font-bold hover:bg-emerald-100 transition-colors">Emitir Orden (EMO)</button>
                 <button id="btn-registro-medico" class="w-full text-teal-700 bg-teal-50 py-2 rounded-lg text-sm font-bold hover:bg-teal-100 transition-colors border border-teal-200">Ver Registro (Excel)</button>
@@ -401,18 +321,18 @@
         <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 shadow-sm flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center"><span class="material-symbols-outlined">security</span></div>
-                <h4 class="font-bold text-primary">EPPs y Capacitación</h4>
+                <h4 class="font-bold text-primary">EPPs y CapacitaciÃ³n</h4>
             </div>
-            <p class="text-sm text-on-surface-variant flex-1">Registros de entrega de Equipos de Protección y planillas de asistencia obligatorias.</p>
+            <p class="text-sm text-on-surface-variant flex-1">Registros de entrega de Equipos de ProtecciÃ³n y planillas de asistencia obligatorias.</p>
             <button id="btn-epp" class="w-full text-amber-700 bg-amber-50 py-2 rounded-lg text-sm font-bold hover:bg-amber-100 transition-colors">Gestionar EPPs</button>
         </div>
 
         <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10 shadow-sm flex flex-col gap-4 hover:-translate-y-1 transition-transform duration-300">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center"><span class="material-symbols-outlined">groups</span></div>
-                <h4 class="font-bold text-primary">Comisión CIPA</h4>
+                <h4 class="font-bold text-primary">ComisiÃ³n CIPA</h4>
             </div>
-            <p class="text-sm text-on-surface-variant flex-1">Conformación de comité, registro de actas de reuniones mensuales y seguimiento de hallazgos.</p>
+            <p class="text-sm text-on-surface-variant flex-1">ConformaciÃ³n de comitÃ©, registro de actas de reuniones mensuales y seguimiento de hallazgos.</p>
             <button id="btn-cipa" class="w-full text-purple-700 bg-purple-50 py-2 rounded-lg text-sm font-bold hover:bg-purple-100 transition-colors">Administrar CIPA</button>
         </div>
 
@@ -421,7 +341,7 @@
                 <div class="w-10 h-10 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center"><span class="material-symbols-outlined">assignment_late</span></div>
                 <h4 class="font-bold text-primary">Formularios MTESS</h4>
             </div>
-            <p class="text-sm text-on-surface-variant flex-1">Generador automático de declaraciones de accidentes laborales para el Ministerio del Trabajo.</p>
+            <p class="text-sm text-on-surface-variant flex-1">Generador automÃ¡tico de declaraciones de accidentes laborales para el Ministerio del Trabajo.</p>
             <div class="flex flex-col gap-2 mt-auto">
                 <button id="btn-mtess" class="w-full text-slate-700 bg-slate-50 py-2 rounded-lg text-sm font-bold hover:bg-slate-100 transition-colors">Generar Formularios</button>
                 <button id="btn-registro-mtess" class="w-full text-slate-700 bg-slate-50 py-2 rounded-lg text-sm font-bold hover:bg-slate-100 transition-colors border border-slate-200">Ver Registro (Excel)</button>
@@ -432,11 +352,11 @@
                 <div class="w-10 h-10 rounded-full bg-cyan-100 text-cyan-700 flex items-center justify-center"><span class="material-symbols-outlined">construction</span></div>
                 <h4 class="font-bold text-primary">Procedimientos y Permisos</h4>
             </div>
-            <p class="text-sm text-on-surface-variant flex-1">Generador de POE, Permisos de Trabajo de Alto Riesgo (PTA) y protocolos de auditoría.</p>
+            <p class="text-sm text-on-surface-variant flex-1">Generador de POE, Permisos de Trabajo de Alto Riesgo (PTA) y protocolos de auditorÃ­a.</p>
             <div class="flex flex-col gap-2 mt-auto">
                 <button id="btn-altura" class="w-full text-cyan-700 bg-cyan-50 py-2 rounded-lg text-sm font-bold hover:bg-cyan-100 transition-colors">POE Trabajos en Alturas</button>
                 <button id="btn-pta-altura" class="w-full text-orange-700 bg-orange-50 py-2 rounded-lg text-sm font-bold hover:bg-orange-100 transition-colors border border-orange-200">Emitir Permiso (PTA) Alturas</button>
-                <button id="btn-auditoria" class="w-full text-teal-700 bg-teal-50 py-2 rounded-lg text-sm font-bold hover:bg-teal-100 transition-colors">Procedimiento Auditoría</button>
+                <button id="btn-auditoria" class="w-full text-teal-700 bg-teal-50 py-2 rounded-lg text-sm font-bold hover:bg-teal-100 transition-colors">Procedimiento AuditorÃ­a</button>
             </div>
         </div>
     </div>
@@ -449,7 +369,7 @@
         <button id="close-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
             <span class="material-symbols-outlined">close</span>
         </button>
-        <h3 class="font-headline text-2xl font-bold text-primary mb-2">Reportar Novedad Rápida</h3>
+        <h3 class="font-headline text-2xl font-bold text-primary mb-2">Reportar Novedad RÃ¡pida</h3>
         <p class="text-sm text-on-surface-variant mb-6">Complete los datos preliminares para asentar en el libro de inspecciones.</p>
         
         <form id="novedad-form" class="space-y-4">
@@ -463,12 +383,12 @@
                 </select>
             </div>
             <div>
-                <label class="block text-sm font-bold text-on-surface-variant mb-1">Cédula de Identidad (Colaborador)</label>
+                <label class="block text-sm font-bold text-on-surface-variant mb-1">CÃ©dula de Identidad (Colaborador)</label>
                 <input type="text" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary outline-none" placeholder="Ej: 4.555.666">
             </div>
             <div>
-                <label class="block text-sm font-bold text-on-surface-variant mb-1">Descripción Breve del Suceso</label>
-                <textarea rows="3" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary outline-none" placeholder="Describa cómo y dónde ocurrió..."></textarea>
+                <label class="block text-sm font-bold text-on-surface-variant mb-1">DescripciÃ³n Breve del Suceso</label>
+                <textarea rows="3" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary outline-none" placeholder="Describa cÃ³mo y dÃ³nde ocurriÃ³..."></textarea>
             </div>
             <button type="submit" class="w-full bg-primary text-white font-bold py-3 rounded-xl hover:bg-primary-container transition-colors flex justify-center items-center gap-2 mt-4">
                 <span class="material-symbols-outlined">save</span> Guardar Registro
@@ -477,7 +397,7 @@
     </div>
 </div>
 
-<!-- Fragmento huérfano eliminado en v5.2 -->
+<!-- Fragmento huÃ©rfano eliminado en v5.2 -->
 
 <!-- Modal Generador EPP -->
 <div id="epp-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
@@ -486,31 +406,31 @@
             <span class="material-symbols-outlined">close</span>
         </button>
         <h3 class="font-headline text-2xl font-bold text-amber-700 mb-2">Registro de Entrega de EPP</h3>
-        <p class="text-sm text-on-surface-variant mb-6">Genera el Acta de recepción y compromiso de uso (Art. 277 CT).</p>
+        <p class="text-sm text-on-surface-variant mb-6">Genera el Acta de recepciÃ³n y compromiso de uso (Art. 277 CT).</p>
         
         <form id="epp-form" class="space-y-4">
             <div>
                 <label class="block text-xs font-bold text-on-surface-variant mb-1">Nombre Trabajador</label>
-                <input type="text" id="epp-trabajador" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                <input type="text" id="epp-trabajador" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
             </div>
             <div>
                 <label class="block text-xs font-bold text-on-surface-variant mb-1">C.I.</label>
-                <input type="text" id="epp-ci" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                <input type="text" id="epp-ci" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
             </div>
             <div>
                 <label class="block text-xs font-bold text-on-surface-variant mb-1">Cargo / Sector</label>
-                <input type="text" id="epp-cargo" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                <input type="text" id="epp-cargo" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
             </div>
             <div>
                 <label class="block text-xs font-bold text-on-surface-variant mb-1">Equipos Entregados (Separados por coma)</label>
-                <textarea id="epp-equipos" rows="2" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Casco blanco, Botas punta de acero talla 42, Gafas de seguridad"></textarea>
+                <textarea id="epp-equipos" rows="2" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Casco blanco, Botas punta de acero talla 42, Gafas de seguridad"></textarea>
             </div>
             <div>
                 <label class="block text-xs font-bold text-on-surface-variant mb-1">Motivo</label>
                 <select id="epp-motivo" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                    <option>Primera dotación</option>
-                    <option>Reposición por desgaste</option>
-                    <option>Reposición por pérdida</option>
+                    <option>Primera dotaciÃ³n</option>
+                    <option>ReposiciÃ³n por desgaste</option>
+                    <option>ReposiciÃ³n por pÃ©rdida</option>
                 </select>
             </div>
             <button type="submit" class="w-full bg-amber-600 text-white font-bold py-3 rounded-xl hover:bg-amber-700 transition-colors flex justify-center items-center gap-2 mt-4">
@@ -526,31 +446,31 @@
         <button id="close-cipa-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
             <span class="material-symbols-outlined">close</span>
         </button>
-        <h3 class="font-headline text-2xl font-bold text-purple-700 mb-2">Acta de Reunión CIPA</h3>
+        <h3 class="font-headline text-2xl font-bold text-purple-700 mb-2">Acta de ReuniÃ³n CIPA</h3>
         <p class="text-sm text-on-surface-variant mb-6">Generar Acta Oficial para el libro rubricado del MTESS.</p>
         
         <form id="cipa-form" class="space-y-4">
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">N° de Reunión / Mes</label>
-                    <input type="text" id="cipa-nro" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Ordinaria 05/2026">
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">NÂ° de ReuniÃ³n / Mes</label>
+                    <input type="text" id="cipa-nro" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Ordinaria 05/2026">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-on-surface-variant mb-1">Fecha</label>
-                    <input type="date" id="cipa-fecha" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="date" id="cipa-fecha" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                 </div>
             </div>
             <div>
                 <label class="block text-xs font-bold text-on-surface-variant mb-1">Presidente CIPA Presente</label>
-                <input type="text" id="cipa-presi" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                <input type="text" id="cipa-presi" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
             </div>
             <div>
                 <label class="block text-xs font-bold text-on-surface-variant mb-1">Temas Tratados</label>
-                <textarea id="cipa-temas" rows="3" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="1. Revisión de botiquines. 2. Análisis del accidente del día 12..."></textarea>
+                <textarea id="cipa-temas" rows="3" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="1. RevisiÃ³n de botiquines. 2. AnÃ¡lisis del accidente del dÃ­a 12..."></textarea>
             </div>
             <div>
                 <label class="block text-xs font-bold text-on-surface-variant mb-1">Conclusiones / Acuerdos</label>
-                <textarea id="cipa-acuerdos" rows="3" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Se acuerda comprar 5 nuevos botiquines..."></textarea>
+                <textarea id="cipa-acuerdos" rows="3" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Se acuerda comprar 5 nuevos botiquines..."></textarea>
             </div>
             <button type="submit" class="w-full bg-purple-600 text-white font-bold py-3 rounded-xl hover:bg-purple-700 transition-colors flex justify-center items-center gap-2 mt-4">
                 <span class="material-symbols-outlined">picture_as_pdf</span> Generar Acta PDF
@@ -565,40 +485,40 @@
         <button id="close-iperc-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
             <span class="material-symbols-outlined">close</span>
         </button>
-        <h3 class="font-headline text-2xl font-bold text-rose-700 mb-2">Evaluación IPERC</h3>
-        <p class="text-sm text-on-surface-variant mb-6">Identificación de Peligros y Evaluación de Riesgos (Dec. 14.390/92 MTESS).</p>
+        <h3 class="font-headline text-2xl font-bold text-rose-700 mb-2">EvaluaciÃ³n IPERC</h3>
+        <p class="text-sm text-on-surface-variant mb-6">IdentificaciÃ³n de Peligros y EvaluaciÃ³n de Riesgos (Dec. 14.390/92 MTESS).</p>
         
         <form id="iperc-form" class="space-y-4">
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Área / Sector</label>
-                    <input type="text" id="iperc-area" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Producción">
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Ãrea / Sector</label>
+                    <input type="text" id="iperc-area" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: ProducciÃ³n">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-on-surface-variant mb-1">Puesto de Trabajo</label>
-                    <input type="text" id="iperc-puesto" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Operador de Máquina">
+                    <input type="text" id="iperc-puesto" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Operador de MÃ¡quina">
                 </div>
             </div>
             <div>
                 <label class="block text-xs font-bold text-on-surface-variant mb-1">Tarea a Evaluar</label>
-                <input type="text" id="iperc-tarea" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Corte mecánico de piezas">
+                <input type="text" id="iperc-tarea" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Corte mecÃ¡nico de piezas">
             </div>
             <hr class="border-outline-variant/20 my-4">
-            <h4 class="text-sm font-bold text-rose-700">Identificación de Peligros y Controles</h4>
+            <h4 class="text-sm font-bold text-rose-700">IdentificaciÃ³n de Peligros y Controles</h4>
             
             <div class="p-4 bg-surface-container-low rounded-xl border border-outline-variant/30 space-y-4">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-bold text-on-surface-variant mb-1">Peligro Típico (Auto-completar)</label>
+                        <label class="block text-xs font-bold text-on-surface-variant mb-1">Peligro TÃ­pico (Auto-completar)</label>
                         <select id="iperc-peligro-select" class="w-full bg-white border border-outline-variant/50 rounded-lg px-2 py-2 text-sm outline-none cursor-pointer">
                             <option value="">-- Seleccionar o escribir abajo --</option>
                             <option value="Ruido elevado">Ruido elevado</option>
                             <option value="Piso mojado / irregular">Piso mojado / irregular</option>
-                            <option value="Partículas en proyección">Partículas en proyección</option>
+                            <option value="PartÃ­culas en proyecciÃ³n">PartÃ­culas en proyecciÃ³n</option>
                             <option value="Carga manual pesada">Carga manual pesada</option>
                             <option value="Trabajos en altura">Trabajos en altura</option>
-                            <option value="Contacto eléctrico">Contacto eléctrico</option>
-                            <option value="Polvo en suspensión">Polvo en suspensión</option>
+                            <option value="Contacto elÃ©ctrico">Contacto elÃ©ctrico</option>
+                            <option value="Polvo en suspensiÃ³n">Polvo en suspensiÃ³n</option>
                             <option value="Posturas prolongadas">Posturas prolongadas</option>
                         </select>
                     </div>
@@ -624,9 +544,9 @@
                     <div>
                         <label class="block text-xs font-bold text-on-surface-variant mb-1">Severidad (S)</label>
                         <select id="iperc-sev" class="w-full bg-white border border-outline-variant/50 rounded-lg px-2 py-2 text-sm outline-none cursor-pointer">
-                            <option value="1">1 - Ligeramente Dañino</option>
-                            <option value="2">2 - Dañino</option>
-                            <option value="3">3 - Extr. Dañino</option>
+                            <option value="1">1 - Ligeramente DaÃ±ino</option>
+                            <option value="2">2 - DaÃ±ino</option>
+                            <option value="3">3 - Extr. DaÃ±ino</option>
                         </select>
                     </div>
                     <div>
@@ -643,7 +563,7 @@
                 </div>
                 
                 <button type="button" id="btn-add-peligro" class="w-full bg-slate-800 text-white font-bold py-2 rounded-lg hover:bg-slate-700 transition-colors text-sm flex items-center justify-center gap-2">
-                    <span class="material-symbols-outlined text-sm">add</span> Añadir a la Matriz
+                    <span class="material-symbols-outlined text-sm">add</span> AÃ±adir a la Matriz
                 </button>
             </div>
 
@@ -665,101 +585,105 @@
         <button id="close-contingencia-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
             <span class="material-symbols-outlined">close</span>
         </button>
-        <h3 class="font-headline text-2xl font-bold text-blue-700 mb-2">Plan de Contingencia y Evacuación</h3>
-        <p class="text-sm text-on-surface-variant mb-6">Generador automático de Plan de Emergencias Básico según exigencias del MTESS y CBVP (Bomberos).</p>
+        <h3 class="font-headline text-2xl font-bold text-blue-700 mb-2">Plan de Contingencia y EvacuaciÃ³n</h3>
+        <p class="text-sm text-on-surface-variant mb-4">Modelo profesional basado en Resoluciones MTESS y EstÃ¡ndares UNE.</p>
         
         <form id="contingencia-form" class="space-y-4">
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Nombre de la Empresa / Razón Social</label>
-                    <input type="text" id="cont-empresa" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: SST Paraguay S.A.">
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Nombre de la Empresa</label>
+                    <input type="text" id="cont-empresa" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Constructora ABC">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">RUC</label>
-                    <input type="text" id="cont-ruc" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: 80000000-1">
-                </div>
-            </div>
-            
-            <div>
-                <label class="block text-xs font-bold text-on-surface-variant mb-1">Dirección de la Sede / Planta</label>
-                <input type="text" id="cont-direccion" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Av. Artigas y Perú, Asunción">
-            </div>
-
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Líder de Brigada / Responsable SST</label>
-                    <input type="text" id="cont-lider" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Ing. Juan Pérez">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Teléfono de Contacto (Líder)</label>
-                    <input type="text" id="cont-tel" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: 0981 123 456">
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">DirecciÃ³n de la Sede</label>
+                    <input type="text" id="cont-lugar" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Calle San Juan, CDE">
                 </div>
             </div>
 
             <div>
-                <label class="block text-xs font-bold text-on-surface-variant mb-1">Punto de Encuentro de Evacuación Principal</label>
-                <input type="text" id="cont-punto" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Estacionamiento principal frente a portería">
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">Punto de ReuniÃ³n Final</label>
+                <input type="text" id="cont-punto" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Zona de Estacionamiento Norte">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Jefe de Emergencias</label>
+                    <input type="text" id="cont-jefe" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Nombre completo">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">LÃ­der de Brigada de Incendio</label>
+                    <input type="text" id="cont-brig-incendio" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Nombre del lÃ­der">
+                </div>
             </div>
 
             <div class="p-4 bg-blue-50 rounded-xl border border-blue-100">
-                <h4 class="text-sm font-bold text-blue-800 mb-2">Contenido Automático</h4>
-                <ul class="text-xs text-blue-700 list-disc list-inside space-y-1">
-                    <li>Se incluirán números de emergencia nacionales (132, 911, 141).</li>
-                    <li>Se redactará el protocolo estándar de evacuación (Alarma, Rutas, Conteo).</li>
-                    <li>Se incluirá protocolo para Incendios y Primeros Auxilios.</li>
-                </ul>
+                <h4 class="text-sm font-bold text-blue-800 mb-2">Amenazas Identificadas</h4>
+                <div class="grid grid-cols-2 gap-2">
+                    <label class="flex items-center gap-2 text-xs text-blue-700 cursor-pointer">
+                        <input type="checkbox" id="cont-chk-fuego" checked class="accent-blue-600"> Incendio / ExplosiÃ³n
+                    </label>
+                    <label class="flex items-center gap-2 text-xs text-blue-700 cursor-pointer">
+                        <input type="checkbox" id="cont-chk-medica" checked class="accent-blue-600"> Emergencia MÃ©dica
+                    </label>
+                    <label class="flex items-center gap-2 text-xs text-blue-700 cursor-pointer">
+                        <input type="checkbox" id="cont-chk-electrico" class="accent-blue-600"> Contacto ElÃ©ctrico
+                    </label>
+                    <label class="flex items-center gap-2 text-xs text-blue-700 cursor-pointer">
+                        <input type="checkbox" id="cont-chk-quimico" class="accent-blue-600"> Derrame QuÃ­mico
+                    </label>
+                </div>
             </div>
             
             <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-colors flex justify-center items-center gap-2 mt-4">
-                <span class="material-symbols-outlined">description</span> Generar Plan de Contingencia PDF
+                <span class="material-symbols-outlined">description</span> Generar Plan de Contingencia Pro
             </button>
         </form>
     </div>
 </div>
 
-<!-- Modal Generador Política SST -->
+<!-- Modal Generador PolÃ­tica SST -->
 <div id="politica-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
     <div class="bg-surface-container-lowest rounded-3xl w-full max-w-2xl p-6 pb-8 shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[85vh] overflow-y-auto">
         <button id="close-politica-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
             <span class="material-symbols-outlined">close</span>
         </button>
-        <h3 class="font-headline text-2xl font-bold text-indigo-700 mb-2">Política de Salud y Seguridad</h3>
-        <p class="text-sm text-on-surface-variant mb-6">Generación de documento formal de Política SST para la empresa en cumplimiento con el MTESS.</p>
+        <h3 class="font-headline text-2xl font-bold text-indigo-700 mb-2">PolÃ­tica de Salud y Seguridad</h3>
+        <p class="text-sm text-on-surface-variant mb-6">GeneraciÃ³n de documento formal de PolÃ­tica SST para la empresa en cumplimiento con el MTESS.</p>
         
         <form id="politica-form" class="space-y-4">
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Razón Social</label>
-                    <input type="text" id="pol-empresa" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: SST Paraguay S.A.">
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">RazÃ³n Social</label>
+                    <input type="text" id="pol-empresa" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: SST Paraguay S.A.">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-on-surface-variant mb-1">RUC</label>
-                    <input type="text" id="pol-ruc" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: 80000000-1">
+                    <input type="text" id="pol-ruc" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: 80000000-1">
                 </div>
             </div>
             
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Máxima Autoridad (Firma)</label>
-                    <input type="text" id="pol-autoridad" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Lic. María González (CEO)">
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">MÃ¡xima Autoridad (Firma)</label>
+                    <input type="text" id="pol-autoridad" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Lic. MarÃ­a GonzÃ¡lez (CEO)">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-on-surface-variant mb-1">Actividad Principal</label>
-                    <input type="text" id="pol-actividad" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Manufactura y Logística">
+                    <input type="text" id="pol-actividad" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Manufactura y LogÃ­stica">
                 </div>
             </div>
 
             <div class="p-4 bg-indigo-50 rounded-xl border border-indigo-100">
                 <h4 class="text-sm font-bold text-indigo-800 mb-2">Puntos Centrales del Documento</h4>
                 <ul class="text-xs text-indigo-700 list-disc list-inside space-y-1">
-                    <li>Compromiso de la Alta Dirección con la SST.</li>
+                    <li>Compromiso de la Alta DirecciÃ³n con la SST.</li>
                     <li>Cumplimiento de los requisitos legales vigentes (Ley, Decretos, Resoluciones).</li>
-                    <li>Mejora Continua y Prevención de Lesiones.</li>
+                    <li>Mejora Continua y PrevenciÃ³n de Lesiones.</li>
                 </ul>
             </div>
             
             <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-xl hover:bg-indigo-700 transition-colors flex justify-center items-center gap-2 mt-4">
-                <span class="material-symbols-outlined">verified</span> Generar Política SST PDF
+                <span class="material-symbols-outlined">verified</span> Generar PolÃ­tica SST PDF
             </button>
         </form>
     </div>
@@ -777,12 +701,12 @@
         <form id="altura-form" class="space-y-4">
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Razón Social</label>
-                    <input type="text" id="alt-empresa" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Constructora XYZ">
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">RazÃ³n Social</label>
+                    <input type="text" id="alt-empresa" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Constructora XYZ">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-on-surface-variant mb-1">Responsable SST</label>
-                    <input type="text" id="alt-responsable" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Ing. Carlos Pérez">
+                    <input type="text" id="alt-responsable" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Ing. Carlos PÃ©rez">
                 </div>
             </div>
             <button type="submit" class="w-full bg-cyan-600 text-white font-bold py-3 rounded-xl hover:bg-cyan-700 transition-colors flex justify-center items-center gap-2 mt-4">
@@ -805,34 +729,34 @@
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label class="block text-xs font-bold text-on-surface-variant mb-1">Nombre del Trabajador Autorizado</label>
-                    <input type="text" id="pta-trabajador" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Juan Pérez">
+                    <input type="text" id="pta-trabajador" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Juan PÃ©rez">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-on-surface-variant mb-1">Supervisor Emisor del PTA</label>
-                    <input type="text" id="pta-supervisor" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Ing. Carlos Gómez">
+                    <input type="text" id="pta-supervisor" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Ing. Carlos GÃ³mez">
                 </div>
             </div>
             
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label class="block text-xs font-bold text-on-surface-variant mb-1">Lugar Exacto del Trabajo</label>
-                    <input type="text" id="pta-lugar" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Techo Nave 1">
+                    <input type="text" id="pta-lugar" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Techo Nave 1">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-on-surface-variant mb-1">Nivel de Riesgo Evaluado</label>
-                    <select id="pta-riesgo" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                        <option value="Medio">Medio (Techos/Líneas de vida)</option>
+                    <select id="pta-riesgo" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                        <option value="Medio">Medio (Techos/LÃ­neas de vida)</option>
                         <option value="Bajo">Bajo (Plataforma/Andamio)</option>
-                        <option value="Alto">Alto (Suspensión/Torres)</option>
+                        <option value="Alto">Alto (SuspensiÃ³n/Torres)</option>
                     </select>
                 </div>
             </div>
 
             <div class="p-4 bg-orange-50 rounded-xl border border-orange-100">
-                <h4 class="text-sm font-bold text-orange-800 mb-2">Verificación Obligatoria (Checklist automático)</h4>
+                <h4 class="text-sm font-bold text-orange-800 mb-2">VerificaciÃ³n Obligatoria (Checklist automÃ¡tico)</h4>
                 <ul class="text-xs text-orange-700 list-disc list-inside space-y-1">
-                    <li>Sistema ABC verificado e inspeccionado sin daños.</li>
-                    <li>Examen médico apto para alturas vigente.</li>
+                    <li>Sistema ABC verificado e inspeccionado sin daÃ±os.</li>
+                    <li>Examen mÃ©dico apto para alturas vigente.</li>
                     <li>Entorno despejado y clima favorable.</li>
                 </ul>
             </div>
@@ -844,35 +768,35 @@
     </div>
 </div>
 
-<!-- Modal Generador Auditoría -->
+<!-- Modal Generador AuditorÃ­a -->
 <div id="auditoria-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
     <div class="bg-surface-container-lowest rounded-3xl w-full max-w-2xl p-6 pb-8 shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[85vh] overflow-y-auto">
         <button id="close-auditoria-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
             <span class="material-symbols-outlined">close</span>
         </button>
-        <h3 class="font-headline text-2xl font-bold text-teal-700 mb-2">Procedimiento de Auditoría SST</h3>
-        <p class="text-sm text-on-surface-variant mb-6">Generador del procedimiento de auditorías internas para el SG-SST.</p>
+        <h3 class="font-headline text-2xl font-bold text-teal-700 mb-2">Procedimiento de AuditorÃ­a SST</h3>
+        <p class="text-sm text-on-surface-variant mb-6">Generador del procedimiento de auditorÃ­as internas para el SG-SST.</p>
         
         <form id="auditoria-form" class="space-y-4">
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Razón Social</label>
-                    <input type="text" id="aud-empresa" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Industrias ABC">
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">RazÃ³n Social</label>
+                    <input type="text" id="aud-empresa" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Industrias ABC">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Auditor Líder</label>
-                    <input type="text" id="aud-lider" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Lic. Ana Rojas">
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Auditor LÃ­der</label>
+                    <input type="text" id="aud-lider" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Lic. Ana Rojas">
                 </div>
             </div>
             
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Fecha de Auditoría</label>
-                    <input type="date" id="aud-fecha" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Fecha de AuditorÃ­a</label>
+                    <input type="date" id="aud-fecha" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-on-surface-variant mb-1">Alcance</label>
-                    <input type="text" id="aud-alcance" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Planta Industrial / Oficinas">
+                    <input type="text" id="aud-alcance" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Planta Industrial / Oficinas">
                 </div>
             </div>
 
@@ -883,9 +807,9 @@
                     <div class="bg-white p-3 rounded-xl border border-outline-variant/15 space-y-2">
                         <label class="flex items-start gap-3 cursor-pointer">
                             <input type="checkbox" class="mt-1 aud-check" data-item="Registro de Especialista MTESS" checked>
-                            <div class="text-xs flex-1"><span class="font-bold block">Reg. Especialista</span> Registro vigente del técnico/licenciado ante el MTESS.</div>
+                            <div class="text-xs flex-1"><span class="font-bold block">Reg. Especialista</span> Registro vigente del tÃ©cnico/licenciado ante el MTESS.</div>
                         </label>
-                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones específicas...">
+                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones especÃ­ficas...">
                     </div>
                     <!-- Item 2 -->
                     <div class="bg-white p-3 rounded-xl border border-outline-variant/15 space-y-2">
@@ -893,92 +817,92 @@
                             <input type="checkbox" class="mt-1 aud-check" data-item="Reglamento Interno (RISSO) Homologado" checked>
                             <div class="text-xs flex-1"><span class="font-bold block">RISSO</span> Reglamento Interno de Seguridad y Salud homologado.</div>
                         </label>
-                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones específicas...">
+                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones especÃ­ficas...">
                     </div>
                     <!-- Item 3 -->
                     <div class="bg-white p-3 rounded-xl border border-outline-variant/15 space-y-2">
                         <label class="flex items-start gap-3 cursor-pointer">
                             <input type="checkbox" class="mt-1 aud-check" data-item="Matriz IPERC Actualizada" checked>
-                            <div class="text-xs flex-1"><span class="font-bold block">IPERC</span> Evaluación de riesgos por puesto de trabajo.</div>
+                            <div class="text-xs flex-1"><span class="font-bold block">IPERC</span> EvaluaciÃ³n de riesgos por puesto de trabajo.</div>
                         </label>
-                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones específicas...">
+                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones especÃ­ficas...">
                     </div>
                     <!-- Item 4 -->
                     <div class="bg-white p-3 rounded-xl border border-outline-variant/15 space-y-2">
                         <label class="flex items-start gap-3 cursor-pointer">
-                            <input type="checkbox" class="mt-1 aud-check" data-item="Comisión CIPA Constituida">
-                            <div class="text-xs flex-1"><span class="font-bold block">CIPA</span> Comité mixto y actas de reunión mensuales.</div>
+                            <input type="checkbox" class="mt-1 aud-check" data-item="ComisiÃ³n CIPA Constituida">
+                            <div class="text-xs flex-1"><span class="font-bold block">CIPA</span> ComitÃ© mixto y actas de reuniÃ³n mensuales.</div>
                         </label>
-                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones específicas...">
+                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones especÃ­ficas...">
                     </div>
                     <!-- Item 5 -->
                     <div class="bg-white p-3 rounded-xl border border-outline-variant/15 space-y-2">
                         <label class="flex items-start gap-3 cursor-pointer">
-                            <input type="checkbox" class="mt-1 aud-check" data-item="Vigilancia Médica (EMO)" checked>
-                            <div class="text-xs flex-1"><span class="font-bold block">Medicina</span> Exámenes médicos admisionales y periódicos (Res. 03/22).</div>
+                            <input type="checkbox" class="mt-1 aud-check" data-item="Vigilancia MÃ©dica (EMO)" checked>
+                            <div class="text-xs flex-1"><span class="font-bold block">Medicina</span> ExÃ¡menes mÃ©dicos admisionales y periÃ³dicos (Res. 03/22).</div>
                         </label>
-                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones específicas...">
+                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones especÃ­ficas...">
                     </div>
                     <!-- Item 6 -->
                     <div class="bg-white p-3 rounded-xl border border-outline-variant/15 space-y-2">
                         <label class="flex items-start gap-3 cursor-pointer">
-                            <input type="checkbox" class="mt-1 aud-check" data-item="Prevención de Incendios">
-                            <div class="text-xs flex-1"><span class="font-bold block">Incendios</span> Extintores, señalética y plan de evacuación.</div>
+                            <input type="checkbox" class="mt-1 aud-check" data-item="PrevenciÃ³n de Incendios">
+                            <div class="text-xs flex-1"><span class="font-bold block">Incendios</span> Extintores, seÃ±alÃ©tica y plan de evacuaciÃ³n.</div>
                         </label>
-                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones específicas...">
+                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones especÃ­ficas...">
                     </div>
                     <!-- Item 7 -->
                     <div class="bg-white p-3 rounded-xl border border-outline-variant/15 space-y-2">
                         <label class="flex items-start gap-3 cursor-pointer">
                             <input type="checkbox" class="mt-1 aud-check" data-item="Entrega de EPP con planilla">
-                            <div class="text-xs flex-1"><span class="font-bold block">EPP</span> Equipos de protección con registro de entrega firmado.</div>
+                            <div class="text-xs flex-1"><span class="font-bold block">EPP</span> Equipos de protecciÃ³n con registro de entrega firmado.</div>
                         </label>
-                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones específicas...">
+                        <input type="text" class="aud-obs-item w-full bg-surface-container-low border-0 rounded-lg px-3 py-1.5 text-[11px] outline-none" placeholder="Observaciones especÃ­ficas...">
                     </div>
                 </div>
             </div>
 
             <div class="mt-4">
                 <label class="block text-xs font-bold text-on-surface-variant mb-1">Observaciones / Hallazgos</label>
-                <textarea id="aud-obs" rows="2" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Se observa falta de señalética en depósito..."></textarea>
+                <textarea id="aud-obs" rows="2" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Se observa falta de seÃ±alÃ©tica en depÃ³sito..."></textarea>
             </div>
 
             <button type="submit" class="w-full bg-teal-600 text-white font-bold py-3 rounded-xl hover:bg-teal-700 transition-colors flex justify-center items-center gap-2 mt-4">
-                <span class="material-symbols-outlined">fact_check</span> Generar Informe de Auditoría
+                <span class="material-symbols-outlined">fact_check</span> Generar Informe de AuditorÃ­a
             </button>
         </form>
     </div>
 </div>
 
-<!-- Modal Orden Médica EMO -->
+<!-- Modal Orden MÃ©dica EMO -->
 <div id="medico-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
     <div class="bg-surface-container-lowest rounded-3xl w-full max-w-2xl p-6 pb-8 shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[85vh] overflow-y-auto">
         <button id="close-medico-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
             <span class="material-symbols-outlined">close</span>
         </button>
-        <h3 class="font-headline text-2xl font-bold text-emerald-700 mb-2">Orden de Examen Médico (EMO)</h3>
-        <p class="text-sm text-on-surface-variant mb-6">Generador de orden médica laboral según Resolución MTESS Nº 03/2022.</p>
+        <h3 class="font-headline text-2xl font-bold text-emerald-700 mb-2">Orden de Examen MÃ©dico (EMO)</h3>
+        <p class="text-sm text-on-surface-variant mb-6">Generador de orden mÃ©dica laboral segÃºn ResoluciÃ³n MTESS NÂº 03/2022.</p>
         
         <form id="medico-form" class="space-y-4">
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Razón Social de la Empresa</label>
-                    <input type="text" id="med-empresa" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Industria Guaraní S.A.">
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">RazÃ³n Social de la Empresa</label>
+                    <input type="text" id="med-empresa" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Industria GuaranÃ­ S.A.">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-on-surface-variant mb-1">Nombre del Trabajador</label>
-                    <input type="text" id="med-trabajador" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: María López">
+                    <input type="text" id="med-trabajador" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: MarÃ­a LÃ³pez">
                 </div>
             </div>
             
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Cédula de Identidad (C.I.)</label>
-                    <input type="text" id="med-cedula" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: 4.555.666">
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">CÃ©dula de Identidad (C.I.)</label>
+                    <input type="text" id="med-cedula" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: 4.555.666">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-on-surface-variant mb-1">Puesto de Trabajo a ocupar/ocupado</label>
-                    <input type="text" id="med-puesto" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Operador de Montacargas">
+                    <input type="text" id="med-puesto" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Operador de Montacargas">
                 </div>
             </div>
 
@@ -989,29 +913,29 @@
                         <input type="radio" name="med-tipo" value="Admisional" checked class="text-emerald-600 focus:ring-emerald-500">
                         <span class="text-sm font-medium">Examen Admisional (Pre-ingreso)</span>
                     </label>
-                    <p class="text-xs text-on-surface-variant ml-6 mb-2">Incluye: Examen Clínico, Hemograma completo, Eritrosedimentación, Perfil Lipídico, Glicemia y Tipificación Sanguínea.</p>
+                    <p class="text-xs text-on-surface-variant ml-6 mb-2">Incluye: Examen ClÃ­nico, Hemograma completo, EritrosedimentaciÃ³n, Perfil LipÃ­dico, Glicemia y TipificaciÃ³n SanguÃ­nea.</p>
                     
                     <label class="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="med-tipo" value="Periódico" class="text-emerald-600 focus:ring-emerald-500">
-                        <span class="text-sm font-medium">Examen Periódico (Anual/Semestral)</span>
+                        <input type="radio" name="med-tipo" value="PeriÃ³dico" class="text-emerald-600 focus:ring-emerald-500">
+                        <span class="text-sm font-medium">Examen PeriÃ³dico (Anual/Semestral)</span>
                     </label>
-                    <p class="text-xs text-on-surface-variant ml-6">Incluye: Examen Clínico y Hemograma completo (Más específicos según el riesgo del puesto).</p>
+                    <p class="text-xs text-on-surface-variant ml-6">Incluye: Examen ClÃ­nico y Hemograma completo (MÃ¡s especÃ­ficos segÃºn el riesgo del puesto).</p>
                 </div>
             </div>
 
             <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100 mt-4">
                 <h4 class="text-sm font-bold text-emerald-800 mb-2">Responsabilidad del Empleador</h4>
-                <p class="text-xs text-emerald-700">Según el Art. 4 de la Res. 03/2022, el costo de estos exámenes es íntegramente a cargo del empleador. El trabajador debe presentar los resultados en formato de Certificado de Aptitud Médica.</p>
+                <p class="text-xs text-emerald-700">SegÃºn el Art. 4 de la Res. 03/2022, el costo de estos exÃ¡menes es Ã­ntegramente a cargo del empleador. El trabajador debe presentar los resultados en formato de Certificado de Aptitud MÃ©dica.</p>
             </div>
             
             <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl hover:bg-emerald-700 transition-colors flex justify-center items-center gap-2 mt-4">
-                <span class="material-symbols-outlined">print</span> Emitir Orden Médica PDF
+                <span class="material-symbols-outlined">print</span> Emitir Orden MÃ©dica PDF
             </button>
         </form>
     </div>
 </div>
 
-<!-- Modal Registro Vigilancia Médica -->
+<!-- Modal Registro Vigilancia MÃ©dica -->
 <div id="registro-medico-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
     <div class="bg-surface-container-lowest rounded-3xl w-full max-w-4xl p-6 shadow-2xl relative transform scale-95 transition-transform duration-300">
         <button id="close-registro-medico" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
@@ -1019,7 +943,7 @@
         </button>
         <div class="flex justify-between items-center mb-6">
             <div>
-                <h3 class="font-headline text-2xl font-bold text-teal-800 mb-1">Registro de Vigilancia Médica</h3>
+                <h3 class="font-headline text-2xl font-bold text-teal-800 mb-1">Registro de Vigilancia MÃ©dica</h3>
                 <p class="text-sm text-on-surface-variant">Control de Colaboradores con EMO (Res. 03/2022)</p>
             </div>
             <button id="btn-export-csv" class="bg-teal-600 text-white px-4 py-2 rounded-lg font-bold text-sm hover:bg-teal-700 transition-colors flex items-center gap-2">
@@ -1088,54 +1012,54 @@
     </div>
 </div>
 
-<!-- Modal Inspecciones Dinámicas -->
+<!-- Modal Inspecciones DinÃ¡micas -->
 <div id="inspeccion-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
     <div class="bg-surface-container-lowest rounded-3xl w-full max-w-2xl p-6 pb-8 shadow-2xl relative transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto">
         <button id="close-inspeccion-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
             <span class="material-symbols-outlined">close</span>
         </button>
-        <h3 class="font-headline text-2xl font-bold text-blue-800 mb-2">Nueva Inspección de Seguridad</h3>
-        <p class="text-sm text-on-surface-variant mb-6">Seleccione el tipo de inspección para cargar el formulario correspondiente.</p>
+        <h3 class="font-headline text-2xl font-bold text-blue-800 mb-2">Nueva InspecciÃ³n de Seguridad</h3>
+        <p class="text-sm text-on-surface-variant mb-6">Seleccione el tipo de inspecciÃ³n para cargar el formulario correspondiente.</p>
         
         <form id="inspeccion-form" class="space-y-4">
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Tipo de Inspección</label>
-                    <select id="ins-tipo" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none cursor-pointer">
-                        <option value="Extintores">Inspección de Extintores</option>
-                        <option value="Botiquín">Inspección de Botiquín</option>
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Tipo de InspecciÃ³n</label>
+                    <select id="ins-tipo" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none cursor-pointer">
+                        <option value="Extintores">InspecciÃ³n de Extintores</option>
+                        <option value="BotiquÃ­n">InspecciÃ³n de BotiquÃ­n</option>
                         <option value="Orden y Limpieza">Orden y Limpieza (5S)</option>
                         <option value="Herramientas">Herramientas Manuales</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-on-surface-variant mb-1">Responsable</label>
-                    <input type="text" id="ins-responsable" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Nombre del inspector">
+                    <input type="text" id="ins-responsable" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Nombre del inspector">
                 </div>
             </div>
             
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Área / Sector</label>
-                    <input type="text" id="ins-area" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Almacén Sur">
+                    <label class="block text-xs font-bold text-on-surface-variant mb-1">Ãrea / Sector</label>
+                    <input type="text" id="ins-area" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: AlmacÃ©n Sur">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-on-surface-variant mb-1">Fecha</label>
-                    <input type="date" id="ins-fecha" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="date" id="ins-fecha" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                 </div>
             </div>
 
-            <!-- Contenedor Dinámico de Checklist -->
+            <!-- Contenedor DinÃ¡mico de Checklist -->
             <div class="mt-4 border-t border-outline-variant/20 pt-4">
                 <h4 id="ins-checklist-title" class="text-xs font-bold text-blue-900 uppercase mb-3">Checklist: Extintores</h4>
                 <div id="ins-checklist-container" class="space-y-3">
-                    <!-- Inyectado dinámicamente por JS -->
+                    <!-- Inyectado dinÃ¡micamente por JS -->
                 </div>
             </div>
 
             <div class="mt-4">
                 <label class="block text-xs font-bold text-on-surface-variant mb-1">Conclusiones Generales</label>
-                <textarea id="ins-obs" rows="2" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Observaciones generales de la inspección..."></textarea>
+                <textarea id="ins-obs" rows="2" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Observaciones generales de la inspecciÃ³n..."></textarea>
             </div>
 
             <button type="submit" class="w-full bg-blue-700 text-white font-bold py-3 rounded-xl hover:bg-blue-800 transition-colors flex justify-center items-center gap-2 mt-4 shadow-lg">
@@ -1167,7 +1091,7 @@
                     <tr>
                         <th class="px-4 py-3 font-bold">Fecha</th>
                         <th class="px-4 py-3 font-bold">Tipo</th>
-                        <th class="px-4 py-3 font-bold">Área</th>
+                        <th class="px-4 py-3 font-bold">Ãrea</th>
                         <th class="px-4 py-3 font-bold">Responsable</th>
                         <th class="px-4 py-3 font-bold text-center">% Cumplimiento</th>
                     </tr>
@@ -1199,7 +1123,7 @@
                 </div>
                 
                 <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold text-on-surface-variant mb-2">
-                    <div>Dom</div><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div>
+                    <div>Dom</div><div>Lun</div><div>Mar</div><div>MiÃ©</div><div>Jue</div><div>Vie</div><div>SÃ¡b</div>
                 </div>
                 <div id="calendar-days" class="grid grid-cols-7 gap-1">
                     <!-- Inyectado por JS -->
@@ -1216,7 +1140,7 @@
                 </div>
                 <div id="event-list" class="flex-1 overflow-y-auto space-y-3 pr-2">
                     <!-- Inyectado por JS -->
-                    <p class="text-xs text-on-surface-variant italic text-center mt-10">Selecciona un día para ver o agregar eventos.</p>
+                    <p class="text-xs text-on-surface-variant italic text-center mt-10">Selecciona un dÃ­a para ver o agregar eventos.</p>
                 </div>
             </div>
         </div>
@@ -1229,22 +1153,22 @@
         <h4 class="font-bold text-lg mb-4 text-primary">Programar Actividad SST</h4>
         <form id="event-form" class="space-y-4">
             <div>
-                <label class="block text-xs font-bold text-on-surface-variant mb-1">Título de la Actividad</label>
-                <input type="text" id="event-title" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: Capacitación Extintores">
+                <label class="block text-xs font-bold text-on-surface-variant mb-1">TÃ­tulo de la Actividad</label>
+                <input type="text" id="event-title" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ej: CapacitaciÃ³n Extintores">
             </div>
             <div>
                 <label class="block text-xs font-bold text-on-surface-variant mb-1">Tipo</label>
                 <select id="event-type" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none cursor-pointer">
-                    <option value="Capacitación">Capacitación</option>
-                    <option value="Inspección">Inspección</option>
-                    <option value="Auditoría">Auditoría</option>
+                    <option value="CapacitaciÃ³n">CapacitaciÃ³n</option>
+                    <option value="InspecciÃ³n">InspecciÃ³n</option>
+                    <option value="AuditorÃ­a">AuditorÃ­a</option>
                     <option value="Simulacro">Simulacro</option>
                     <option value="Mantenimiento">Mantenimiento</option>
                 </select>
             </div>
             <div>
                 <label class="block text-xs font-bold text-on-surface-variant mb-1">Fecha</label>
-                <input type="date" id="event-date" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                <input type="date" id="event-date" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
             </div>
             <div class="flex gap-3 pt-2">
                 <button type="button" id="cancel-event" class="flex-1 py-2 text-sm font-bold text-outline hover:bg-surface-container rounded-lg transition-colors">Cancelar</button>
@@ -1280,30 +1204,30 @@
         <button id="close-mtess-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
             <span class="material-symbols-outlined">close</span>
         </button>
-        <h3 class="font-headline text-2xl font-bold text-secondary mb-1">Declaración de Accidente de Trabajo</h3>
-        <p class="text-sm text-on-surface-variant mb-6">Formulario oficial según Decreto 14.390/92 y Ley 5804/17 — MTESS Paraguay</p>
+        <h3 class="font-headline text-2xl font-bold text-secondary mb-1">DeclaraciÃ³n de Accidente de Trabajo</h3>
+        <p class="text-sm text-on-surface-variant mb-6">Formulario oficial segÃºn Decreto 14.390/92 y Ley 5804/17 â€” MTESS Paraguay</p>
         <form id="mtess-form" class="space-y-6">
 
-            <!-- SECCIÓN 1: DATOS DEL EMPLEADOR -->
+            <!-- SECCIÃ“N 1: DATOS DEL EMPLEADOR -->
             <fieldset class="border border-outline-variant/20 rounded-xl p-4 space-y-3">
                 <legend class="text-xs font-bold text-secondary uppercase tracking-widest px-2">I. Datos del Empleador</legend>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <input type="text" id="mt-empresa" placeholder="Razón Social" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                    <input type="text" id="mt-ruc" placeholder="RUC / N° Patronal MTESS" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                    <input type="text" id="mt-actividad" placeholder="Actividad Económica (CIIU)" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-empresa" placeholder="RazÃ³n Social" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-ruc" placeholder="RUC / NÂ° Patronal MTESS" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-actividad" placeholder="Actividad EconÃ³mica (CIIU)" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <input type="text" id="mt-dir-empresa" placeholder="Dirección del Establecimiento" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                    <input type="text" id="mt-tel-empresa" placeholder="Teléfono / Email" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-dir-empresa" placeholder="DirecciÃ³n del Establecimiento" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-tel-empresa" placeholder="TelÃ©fono / Email" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                 </div>
             </fieldset>
 
-            <!-- SECCIÓN 2: DATOS DEL TRABAJADOR -->
+            <!-- SECCIÃ“N 2: DATOS DEL TRABAJADOR -->
             <fieldset class="border border-outline-variant/20 rounded-xl p-4 space-y-3">
                 <legend class="text-xs font-bold text-secondary uppercase tracking-widest px-2">II. Datos del Trabajador Accidentado</legend>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <input type="text" id="mt-nombre" placeholder="Nombre y Apellido Completo" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                    <input type="text" id="mt-ci" placeholder="Cédula de Identidad" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-nombre" placeholder="Nombre y Apellido Completo" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-ci" placeholder="CÃ©dula de Identidad" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                     <input type="number" id="mt-edad" placeholder="Edad" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
@@ -1311,10 +1235,10 @@
                         <option value="">Sexo</option><option value="Masculino">Masculino</option><option value="Femenino">Femenino</option>
                     </select>
                     <select id="mt-civil" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                        <option value="">Estado Civil</option><option>Soltero/a</option><option>Casado/a</option><option>Unión Libre</option><option>Viudo/a</option><option>Divorciado/a</option>
+                        <option value="">Estado Civil</option><option>Soltero/a</option><option>Casado/a</option><option>UniÃ³n Libre</option><option>Viudo/a</option><option>Divorciado/a</option>
                     </select>
-                    <input type="text" id="mt-cargo" placeholder="Cargo / Ocupación" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                    <input type="text" id="mt-antiguedad" placeholder="Antigüedad (ej: 2 años)" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-cargo" placeholder="Cargo / OcupaciÃ³n" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-antiguedad" placeholder="AntigÃ¼edad (ej: 2 aÃ±os)" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                     <input type="text" id="mt-salario" placeholder="Salario Mensual (Gs.)" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
@@ -1323,47 +1247,47 @@
                 </div>
             </fieldset>
 
-            <!-- SECCIÓN 3: DATOS DEL ACCIDENTE -->
+            <!-- SECCIÃ“N 3: DATOS DEL ACCIDENTE -->
             <fieldset class="border border-outline-variant/20 rounded-xl p-4 space-y-3">
                 <legend class="text-xs font-bold text-secondary uppercase tracking-widest px-2">III. Datos del Accidente</legend>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <input type="datetime-local" id="mt-fecha" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                    <input type="text" id="mt-lugar" placeholder="Lugar exacto del accidente" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="datetime-local" id="mt-fecha" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-lugar" placeholder="Lugar exacto del accidente" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                     <select id="mt-tipo" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                         <option value="">Tipo de Accidente</option>
-                        <option>Caída de personas</option><option>Caída de objetos</option>
+                        <option>CaÃ­da de personas</option><option>CaÃ­da de objetos</option>
                         <option>Golpe contra objetos</option><option>Atrapamiento</option>
-                        <option>Sobreesfuerzo</option><option>Contacto eléctrico</option>
-                        <option>Contacto con sustancias</option><option>Accidente de tránsito (in itinere)</option>
-                        <option>Proyección de partículas</option><option>Otro</option>
+                        <option>Sobreesfuerzo</option><option>Contacto elÃ©ctrico</option>
+                        <option>Contacto con sustancias</option><option>Accidente de trÃ¡nsito (in itinere)</option>
+                        <option>ProyecciÃ³n de partÃ­culas</option><option>Otro</option>
                     </select>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <input type="text" id="mt-agente" placeholder="Agente Causante (ej: Máquina cortadora)" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-agente" placeholder="Agente Causante (ej: MÃ¡quina cortadora)" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                     <input type="text" id="mt-zona" placeholder="Zona del Cuerpo Afectada" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                     <select id="mt-epp" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                        <option value="">¿Usaba EPP?</option>
-                        <option>Sí, adecuado</option><option>Sí, pero inadecuado</option><option>No usaba</option>
+                        <option value="">Â¿Usaba EPP?</option>
+                        <option>SÃ­, adecuado</option><option>SÃ­, pero inadecuado</option><option>No usaba</option>
                     </select>
                 </div>
-                <textarea id="mt-desc" rows="3" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Descripción detallada de cómo ocurrió el accidente, condiciones inseguras o actos subestándares..."></textarea>
+                <textarea id="mt-desc" rows="3" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="DescripciÃ³n detallada de cÃ³mo ocurriÃ³ el accidente, condiciones inseguras o actos subestÃ¡ndares..."></textarea>
             </fieldset>
 
-            <!-- SECCIÓN 4: DATOS MÉDICOS -->
+            <!-- SECCIÃ“N 4: DATOS MÃ‰DICOS -->
             <fieldset class="border border-outline-variant/20 rounded-xl p-4 space-y-3">
-                <legend class="text-xs font-bold text-secondary uppercase tracking-widest px-2">IV. Datos Médicos</legend>
+                <legend class="text-xs font-bold text-secondary uppercase tracking-widest px-2">IV. Datos MÃ©dicos</legend>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                     <select id="mt-lesion" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                        <option value="">Tipo de Lesión</option>
-                        <option>Fractura</option><option>Herida cortante</option><option>Contusión</option>
-                        <option>Quemadura</option><option>Luxación</option><option>Esguince</option>
-                        <option>Amputación</option><option>Intoxicación</option><option>Otro</option>
+                        <option value="">Tipo de LesiÃ³n</option>
+                        <option>Fractura</option><option>Herida cortante</option><option>ContusiÃ³n</option>
+                        <option>Quemadura</option><option>LuxaciÃ³n</option><option>Esguince</option>
+                        <option>AmputaciÃ³n</option><option>IntoxicaciÃ³n</option><option>Otro</option>
                     </select>
-                    <input type="text" id="mt-diagnostico" placeholder="Diagnóstico Médico" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                    <input type="number" id="mt-dias" placeholder="Días de Incapacidad" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-diagnostico" placeholder="DiagnÃ³stico MÃ©dico" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="number" id="mt-dias" placeholder="DÃ­as de Incapacidad" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <input type="text" id="mt-centro" placeholder="Centro Médico que Atendió" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-centro" placeholder="Centro MÃ©dico que AtendiÃ³" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                     <select id="mt-gravedad" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                         <option value="">Gravedad</option>
                         <option>Leve (sin baja)</option><option>Moderado (con baja temporal)</option><option>Grave</option><option>Muy Grave</option><option>Mortal</option>
@@ -1371,7 +1295,7 @@
                 </div>
             </fieldset>
 
-            <!-- SECCIÓN 5: TESTIGOS -->
+            <!-- SECCIÃ“N 5: TESTIGOS -->
             <fieldset class="border border-outline-variant/20 rounded-xl p-4 space-y-3">
                 <legend class="text-xs font-bold text-secondary uppercase tracking-widest px-2">V. Testigos</legend>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -1381,7 +1305,7 @@
             </fieldset>
 
             <button type="submit" class="w-full bg-secondary text-white font-black py-4 rounded-xl shadow-lg uppercase tracking-widest text-xs">
-                Generar Declaración Oficial PDF
+                Generar DeclaraciÃ³n Oficial PDF
             </button>
         </form>
     </div>
@@ -1394,25 +1318,25 @@
             <span class="material-symbols-outlined">close</span>
         </button>
         <h3 class="font-headline text-2xl font-bold text-orange-700 mb-1">Permiso de Trabajo en Alturas (PTA)</h3>
-        <p class="text-sm text-on-surface-variant mb-6">Decreto 14.390/92 | Ley 5804/17 — Obligatorio para trabajos ≥ 1,80 m</p>
+        <p class="text-sm text-on-surface-variant mb-6">Decreto 14.390/92 | Ley 5804/17 â€” Obligatorio para trabajos â‰¥ 1,80 m</p>
         <form id="pta-form" class="space-y-5">
 
             <!-- DATOS GENERALES -->
             <fieldset class="border border-outline-variant/20 rounded-xl p-4 space-y-3">
                 <legend class="text-xs font-bold text-orange-700 uppercase tracking-widest px-2">I. Datos Generales</legend>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <input type="text" id="pta-empresa" placeholder="Empresa / Contratista" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                    <input type="text" id="pta-area" placeholder="Área / Sector de Trabajo" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                    <input type="text" id="pta-ubicacion" placeholder="Ubicación Exacta (edificio, piso, torre)" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="pta-empresa" placeholder="Empresa / Contratista" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="pta-area" placeholder="Ãrea / Sector de Trabajo" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="pta-ubicacion" placeholder="UbicaciÃ³n Exacta (edificio, piso, torre)" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <input type="date" id="pta-fecha" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                    <input type="time" id="pta-hora-ini" placeholder="Hora Inicio" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                    <input type="time" id="pta-hora-fin" placeholder="Hora Fin Estimada" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="date" id="pta-fecha" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="time" id="pta-hora-ini" placeholder="Hora Inicio" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="time" id="pta-hora-fin" placeholder="Hora Fin Estimada" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <input type="text" id="pta-altura" placeholder="Altura de Trabajo (ej: 6 metros)" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                    <textarea id="pta-tarea" rows="2" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Descripción de la tarea a ejecutar..."></textarea>
+                    <input type="text" id="pta-altura" placeholder="Altura de Trabajo (ej: 6 metros)" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <textarea id="pta-tarea" rows="2" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="DescripciÃ³n de la tarea a ejecutar..."></textarea>
                 </div>
             </fieldset>
 
@@ -1420,49 +1344,49 @@
             <fieldset class="border border-outline-variant/20 rounded-xl p-4 space-y-3">
                 <legend class="text-xs font-bold text-orange-700 uppercase tracking-widest px-2">II. Personal Autorizado</legend>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <input type="text" id="pta-trab1" placeholder="Trabajador 1: Nombre / C.I." required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="pta-trab1" placeholder="Trabajador 1: Nombre / C.I." class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                     <input type="text" id="pta-trab2" placeholder="Trabajador 2: Nombre / C.I." class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                     <input type="text" id="pta-trab3" placeholder="Trabajador 3: Nombre / C.I." class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <input type="text" id="pta-supervisor" placeholder="Supervisor de Alturas / Vigía" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
-                    <input type="text" id="pta-responsable" placeholder="Responsable SST que autoriza" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="pta-supervisor" placeholder="Supervisor de Alturas / VigÃ­a" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="pta-responsable" placeholder="Responsable SST que autoriza" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                 </div>
             </fieldset>
 
-            <!-- VERIFICACIÓN DE REQUISITOS -->
+            <!-- VERIFICACIÃ“N DE REQUISITOS -->
             <fieldset class="border border-outline-variant/20 rounded-xl p-4 space-y-3">
-                <legend class="text-xs font-bold text-orange-700 uppercase tracking-widest px-2">III. Verificación de Requisitos (Marcar lo cumplido)</legend>
+                <legend class="text-xs font-bold text-orange-700 uppercase tracking-widest px-2">III. VerificaciÃ³n de Requisitos (Marcar lo cumplido)</legend>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
                     <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
-                        <input type="checkbox" id="pta-chk-medico" class="accent-orange-600"> Certificado médico de aptitud vigente
+                        <input type="checkbox" id="pta-chk-medico" class="accent-orange-600"> Certificado mÃ©dico de aptitud vigente
                     </label>
                     <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
-                        <input type="checkbox" id="pta-chk-capac" class="accent-orange-600"> Capacitación en alturas aprobada
+                        <input type="checkbox" id="pta-chk-capac" class="accent-orange-600"> CapacitaciÃ³n en alturas aprobada
                     </label>
                     <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
-                        <input type="checkbox" id="pta-chk-arnes" class="accent-orange-600"> Arnés de cuerpo completo inspeccionado
+                        <input type="checkbox" id="pta-chk-arnes" class="accent-orange-600"> ArnÃ©s de cuerpo completo inspeccionado
                     </label>
                     <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
-                        <input type="checkbox" id="pta-chk-linea" class="accent-orange-600"> Línea de vida con absorbedor verificada
+                        <input type="checkbox" id="pta-chk-linea" class="accent-orange-600"> LÃ­nea de vida con absorbedor verificada
                     </label>
                     <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
-                        <input type="checkbox" id="pta-chk-anclaje" class="accent-orange-600"> Puntos de anclaje certificados (≥2.265 kg)
+                        <input type="checkbox" id="pta-chk-anclaje" class="accent-orange-600"> Puntos de anclaje certificados (â‰¥2.265 kg)
                     </label>
                     <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
                         <input type="checkbox" id="pta-chk-casco" class="accent-orange-600"> Casco con barbiquejo / calzado antideslizante
                     </label>
                     <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
-                        <input type="checkbox" id="pta-chk-señal" class="accent-orange-600"> Área inferior delimitada y señalizada
+                        <input type="checkbox" id="pta-chk-seÃ±al" class="accent-orange-600"> Ãrea inferior delimitada y seÃ±alizada
                     </label>
                     <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
                         <input type="checkbox" id="pta-chk-rescate" class="accent-orange-600"> Plan de rescate disponible y equipo designado
                     </label>
                     <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
-                        <input type="checkbox" id="pta-chk-clima" class="accent-orange-600"> Condiciones climáticas aptas (sin lluvia/viento >40 km/h)
+                        <input type="checkbox" id="pta-chk-clima" class="accent-orange-600"> Condiciones climÃ¡ticas aptas (sin lluvia/viento >40 km/h)
                     </label>
                     <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
-                        <input type="checkbox" id="pta-chk-ats" class="accent-orange-600"> ATS (Análisis de Trabajo Seguro) realizado
+                        <input type="checkbox" id="pta-chk-ats" class="accent-orange-600"> ATS (AnÃ¡lisis de Trabajo Seguro) realizado
                     </label>
                 </div>
             </fieldset>
@@ -1473,9 +1397,9 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <select id="pta-tipo-acceso" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
                         <option value="">Tipo de Acceso / Plataforma</option>
-                        <option>Andamio certificado</option><option>Escalera portátil</option>
+                        <option>Andamio certificado</option><option>Escalera portÃ¡til</option>
                         <option>Plataforma elevadora (PEMP)</option><option>Techo / Cubierta</option>
-                        <option>Estructura metálica</option><option>Poste / Torre</option>
+                        <option>Estructura metÃ¡lica</option><option>Poste / Torre</option>
                         <option>Otro</option>
                     </select>
                     <input type="text" id="pta-herramientas" placeholder="Herramientas a utilizar (ej: taladro, amoladora)" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
@@ -1490,5 +1414,7 @@
     </div>
 </div>
 
-<script src="app.js?v=5.3.1"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+<script src="app.js?v=5.3.5"></script>
 </body></html>
