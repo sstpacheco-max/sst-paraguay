@@ -90,18 +90,13 @@ document.addEventListener('DOMContentLoaded', function() {
             doc.text("MATRIZ IPERC - EVALUACIÓN DE RIESGOS", 105, 55, { align: 'center' });
             doc.setFontSize(9); doc.setFont("helvetica", "normal");
             doc.text("Dec. 14.390/92 - Identificación de Peligros y Evaluación de Riesgos", 20, 63);
-            const rows = [
-                ['Caídas a nivel','Mecánico','Desorden',2,2,4,'MODERADO','5S y Señalización'],
-                ['Caídas en altura','Mecánico','Plataformas',1,4,4,'ALTO','Arnés homologado'],
-                ['Contacto eléctrico','Físico','Tableros',1,4,4,'ALTO','Bloqueo LOTO'],
-                ['Posturas forzadas','Ergonómico','Sedentarismo',3,2,6,'MODERADO','Pausas activas'],
-                ['Ruido industrial','Físico','Maquinaria',2,2,4,'MODERADO','Protectores auditivos'],
-                ['Sustancias químicas','Químico','Solventes',2,3,6,'IMPORTANTE','Guantes y mascarilla'],
-                ['Incendio','Físico','Mat. inflamables',1,5,5,'CRITICO','Extintores y simulacros'],
-            ];
+            // Usar datos guardados en localStorage
+            const saved = JSON.parse(localStorage.getItem('sst_iperc')) || [];
+            if (saved.length === 0) { alert("No hay peligros registrados. Agregue al menos uno."); return; }
+            const rows = saved.map(h => [h.area, h.peligro, h.riesgo, h.prob, h.sev, h.nivel, h.nivelLabel, h.control]);
             doc.autoTable({
                 startY: 70,
-                head: [['Peligro','Tipo','Fuente','P','S','N','Nivel','Control']],
+                head: [['Área','Peligro','Riesgo','P','S','N','Nivel','Control']],
                 body: rows,
                 styles: { fontSize: 7, cellPadding: 2 },
                 headStyles: { fillColor: [0, 31, 95] },
@@ -206,25 +201,29 @@ document.addEventListener('DOMContentLoaded', function() {
     bind('btn-logout', () => { sessionStorage.clear(); window.location.reload(); });
 
     // ════════════════════════════════════════════
-    //  FORMULARIOS
+    //  IPERC - SISTEMA COMPLETO CON PERSISTENCIA
     // ════════════════════════════════════════════
-
-    // IPERC Form (el original completo con auto-calc)
     const ipercProb = document.getElementById('iperc-prob');
     const ipercSev = document.getElementById('iperc-sev');
     const ipercNivel = document.getElementById('iperc-nivel');
     const ipercPeligroSelect = document.getElementById('iperc-peligro-select');
     const ipercPeligroInput = document.getElementById('iperc-peligro');
+    const ipercLista = document.getElementById('iperc-lista');
+
+    function getNivelInfo(p, s) {
+        const n = p * s;
+        if (n <= 1) return { n, label: 'TRIVIAL', cls: 'bg-emerald-100 text-emerald-800' };
+        if (n <= 2) return { n, label: 'TOLERABLE', cls: 'bg-green-100 text-green-800' };
+        if (n <= 4) return { n, label: 'MODERADO', cls: 'bg-amber-100 text-amber-800' };
+        if (n <= 6) return { n, label: 'IMPORTANTE', cls: 'bg-orange-100 text-orange-800' };
+        return { n, label: 'INTOLERABLE', cls: 'bg-red-100 text-red-800' };
+    }
 
     function calcNivel() {
         if (!ipercProb || !ipercSev || !ipercNivel) return;
-        const p = parseInt(ipercProb.value); const s = parseInt(ipercSev.value);
-        const n = p * s;
-        const niveles = { 1: ['TRIVIAL','bg-emerald-100 text-emerald-800'], 2: ['TOLERABLE','bg-green-100 text-green-800'], 3: ['MODERADO','bg-amber-100 text-amber-800'], 4: ['IMPORTANTE','bg-orange-100 text-orange-800'], 6: ['IMPORTANTE','bg-orange-100 text-orange-800'], 9: ['INTOLERABLE','bg-red-100 text-red-800'] };
-        const closest = Object.keys(niveles).map(Number).sort((a,b) => Math.abs(a-n) - Math.abs(b-n))[0];
-        const [label, cls] = niveles[closest];
-        ipercNivel.className = 'w-full font-bold text-center rounded-lg px-2 py-2 text-sm ' + cls;
-        ipercNivel.innerText = n + ' - ' + label;
+        const info = getNivelInfo(parseInt(ipercProb.value), parseInt(ipercSev.value));
+        ipercNivel.className = 'w-full font-bold text-center rounded-lg px-2 py-2 text-sm ' + info.cls;
+        ipercNivel.innerText = info.n + ' - ' + info.label;
     }
     if (ipercProb) ipercProb.addEventListener('change', calcNivel);
     if (ipercSev) ipercSev.addEventListener('change', calcNivel);
@@ -232,26 +231,76 @@ document.addEventListener('DOMContentLoaded', function() {
         if (ipercPeligroInput && ipercPeligroSelect.value) ipercPeligroInput.value = ipercPeligroSelect.value;
     });
 
-    // Añadir peligro a la lista
-    const ipercLista = document.getElementById('iperc-lista');
+    // Renderizar lista de peligros guardados
+    function renderIpercList() {
+        if (!ipercLista) return;
+        const data = JSON.parse(localStorage.getItem('sst_iperc')) || [];
+        if (data.length === 0) {
+            ipercLista.classList.add('hidden');
+            ipercLista.innerHTML = '';
+            return;
+        }
+        ipercLista.classList.remove('hidden');
+        ipercLista.innerHTML = data.map((h, i) => {
+            const info = getNivelInfo(h.prob, h.sev);
+            return `<div class="${info.cls} p-3 rounded-lg text-xs flex items-center justify-between gap-2">
+                <div class="flex-1">
+                    <b>${h.area}</b> → ${h.peligro} | Riesgo: ${h.riesgo} | P:${h.prob} × S:${h.sev} = <b>${info.n} (${info.label})</b>
+                    <br><span class="italic opacity-70">Control: ${h.control}</span>
+                </div>
+                <button data-del-iperc="${i}" class="text-red-600 hover:text-red-800 font-bold text-lg leading-none" title="Eliminar">✕</button>
+            </div>`;
+        }).join('');
+
+        // Botones eliminar
+        ipercLista.querySelectorAll('[data-del-iperc]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const idx = parseInt(btn.dataset.delIperc);
+                const d = JSON.parse(localStorage.getItem('sst_iperc')) || [];
+                d.splice(idx, 1);
+                localStorage.setItem('sst_iperc', JSON.stringify(d));
+                renderIpercList();
+            });
+        });
+    }
+
+    // Añadir peligro → guardar en localStorage
     bind('btn-add-peligro', () => {
+        const area = document.getElementById('iperc-area')?.value;
         const peligro = ipercPeligroInput?.value;
         const riesgo = document.getElementById('iperc-riesgo')?.value;
         const control = document.getElementById('iperc-control')?.value;
-        if (!peligro || !riesgo) { alert("Complete el peligro y riesgo."); return; }
-        if (ipercLista) {
-            ipercLista.classList.remove('hidden');
-            ipercLista.innerHTML += `<div class="bg-rose-50 p-2 rounded-lg text-xs flex justify-between"><span><b>${peligro}</b> → ${riesgo}</span><span class="italic opacity-60">${control}</span></div>`;
-        }
+        const prob = parseInt(ipercProb?.value || 1);
+        const sev = parseInt(ipercSev?.value || 1);
+        if (!peligro || !riesgo) { alert("Complete al menos el Peligro y el Riesgo."); return; }
+        const info = getNivelInfo(prob, sev);
+        const entry = { area: area||'General', peligro, riesgo, prob, sev, nivel: info.n, nivelLabel: info.label, control: control||'Pendiente' };
+        const data = JSON.parse(localStorage.getItem('sst_iperc')) || [];
+        data.push(entry);
+        localStorage.setItem('sst_iperc', JSON.stringify(data));
+        renderIpercList();
+        // Limpiar campos
+        if (ipercPeligroInput) ipercPeligroInput.value = '';
+        if (ipercPeligroSelect) ipercPeligroSelect.value = '';
+        const r = document.getElementById('iperc-riesgo'); if (r) r.value = '';
+        const c = document.getElementById('iperc-control'); if (c) c.value = '';
+        alert('✅ Peligro agregado a la matriz.');
     });
 
-    // IPERC Form submit → PDF
+    // Al abrir IPERC, renderizar lista guardada
+    document.querySelectorAll('#btn-iperc').forEach(el => {
+        el.addEventListener('click', () => {
+            renderIpercList();
+            openModal('iperc-modal');
+        });
+    });
+
+    // IPERC Form submit → generar PDF con datos guardados
     const ipercForm = document.getElementById('iperc-form');
     if (ipercForm) {
         ipercForm.addEventListener('submit', (e) => {
             e.preventDefault();
             genPDF('IPERC');
-            closeModal('iperc-modal');
         });
     }
 
