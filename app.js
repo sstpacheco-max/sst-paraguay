@@ -325,6 +325,72 @@ document.addEventListener('DOMContentLoaded', function() {
             c.forEach(([l,v]) => { doc.setFont("helvetica","bold"); doc.text(l,20,y); doc.setFont("helvetica","normal"); doc.text(v,65,y,{maxWidth:125}); y+=12; });
         }
 
+        else if (type === 'PTA') {
+            doc.setFont("helvetica", "bold"); doc.setFontSize(13);
+            doc.text("PERMISO DE TRABAJO EN ALTURAS (PTA)", 105, 48, { align: 'center' });
+            doc.setFontSize(8); doc.setFont("helvetica", "normal");
+            doc.text("Decreto 14.390/92 | Ley 5804/17 — Obligatorio para trabajos ≥ 1,80 m sobre nivel del piso", 105, 55, { align: 'center' });
+
+            // Alerta roja
+            doc.setFillColor(220,38,38); doc.rect(15,60,180,8,'F'); doc.setTextColor(255); doc.setFont("helvetica","bold"); doc.setFontSize(8);
+            doc.text("ESTE PERMISO ES VÁLIDO ÚNICAMENTE PARA LA FECHA, HORARIO Y UBICACIÓN INDICADOS", 105, 65, {align:'center'}); doc.setTextColor(0);
+
+            function ptaSec(t, y) { doc.setFont("helvetica","bold"); doc.setFontSize(9); doc.setFillColor(234,88,12); doc.setTextColor(255); doc.rect(15,y-4,180,7,'F'); doc.text(t,20,y+1); doc.setTextColor(0); return y+9; }
+            function ptaField(l, v, x, y, w) { doc.setFont("helvetica","bold"); doc.setFontSize(8); doc.text(l,x,y); doc.setFont("helvetica","normal"); doc.text(String(v||'---'),x,y+4,{maxWidth:w||80}); }
+
+            let y = 76;
+            y = ptaSec("I. DATOS GENERALES DEL TRABAJO", y);
+            ptaField("Empresa:", d.empresa, 20, y, 55); ptaField("Área:", d.area, 80, y, 50); ptaField("Ubicación:", d.ubicacion, 140, y, 50);
+            y += 12; ptaField("Fecha:", d.fecha, 20, y, 40); ptaField("Hora Inicio:", d.horaIni, 65, y, 25); ptaField("Hora Fin:", d.horaFin, 100, y, 25); ptaField("Altura:", d.altura, 135, y, 25);
+            y += 12; ptaField("Tarea:", d.tarea, 20, y, 170);
+
+            y = ptaSec("II. PERSONAL AUTORIZADO", y+14);
+            ptaField("Trabajador 1:", d.trab1, 20, y, 55); ptaField("Trabajador 2:", d.trab2, 80, y, 50); ptaField("Trabajador 3:", d.trab3, 140, y, 50);
+            y += 10; ptaField("Supervisor / Vigía:", d.supervisor, 20, y, 70); ptaField("Responsable SST:", d.responsable, 100, y, 80);
+
+            y = ptaSec("III. VERIFICACIÓN DE REQUISITOS DE SEGURIDAD", y+14);
+            const checks = [
+                ['Certificado médico vigente', d.chkMedico],['Capacitación en alturas aprobada', d.chkCapac],
+                ['Arnés inspeccionado', d.chkArnes],['Línea de vida verificada', d.chkLinea],
+                ['Puntos de anclaje certificados', d.chkAnclaje],['Casco y calzado de seguridad', d.chkCasco],
+                ['Área inferior señalizada', d.chkSenal],['Plan de rescate disponible', d.chkRescate],
+                ['Condiciones climáticas aptas', d.chkClima],['ATS realizado', d.chkAts]
+            ];
+            doc.autoTable({
+                startY: y,
+                head: [['Requisito','Cumple']],
+                body: checks.map(([req, ok]) => [req, ok ? 'SÍ ✓' : 'NO ✗']),
+                styles: { fontSize: 7, cellPadding: 2 },
+                headStyles: { fillColor: [234,88,12] },
+                columnStyles: { 1: { halign:'center', fontStyle:'bold' } },
+                didParseCell: function(data) {
+                    if (data.section === 'body' && data.column.index === 1) {
+                        data.cell.styles.textColor = data.cell.raw === 'SÍ ✓' ? [22,163,74] : [220,38,38];
+                    }
+                }
+            });
+            y = doc.lastAutoTable.finalY + 6;
+
+            ptaSec("IV. EQUIPOS Y OBSERVACIONES", y);
+            y += 12; ptaField("Tipo de Acceso:", d.tipoAcceso, 20, y, 70); ptaField("Herramientas:", d.herramientas, 100, y, 90);
+            y += 10; ptaField("Observaciones:", d.obs, 20, y, 170);
+
+            // Advertencia legal
+            y += 14; doc.setFillColor(255,250,230); doc.rect(15,y-3,180,14,'F');
+            doc.setFont("helvetica","normal"); doc.setFontSize(7);
+            doc.text("ADVERTENCIA: El incumplimiento de las condiciones de este permiso obliga la suspensión inmediata del trabajo.", 20, y+1);
+            doc.text("El Supervisor/Vigía debe permanecer en el área durante toda la ejecución de la tarea (Dec. 14.390/92, Art. 393).", 20, y+5);
+            doc.text("Contactos de emergencia: Bomberos 132 | Policía 911 | IPS (021) 229-9999 | SEME (021) 204-800", 20, y+9);
+
+            // Firmas
+            y += 22;
+            doc.line(20, y, 65, y); doc.line(75, y, 135, y); doc.line(145, y, 195, y);
+            doc.setFontSize(7); doc.setFont("helvetica","normal");
+            doc.text("Trabajador Ejecutante", 42, y+4, {align:'center'});
+            doc.text("Supervisor de Alturas", 105, y+4, {align:'center'});
+            doc.text("Responsable SST", 170, y+4, {align:'center'});
+        }
+
         doc.setFontSize(7); doc.setTextColor(150);
         doc.text("SST Paraguay - Gestión Profesional de Riesgos", 105, 287, { align: 'center' });
         doc.save(type + "_SST_Paraguay.pdf");
@@ -336,7 +402,7 @@ document.addEventListener('DOMContentLoaded', function() {
     bind('btn-politica', () => genPDF('POLITICA'));
     bind('btn-contingencia', () => genPDF('CONTINGENCIA'));
     bind('btn-altura', () => genPDF('POE_ALTURAS'));
-    bind('btn-pta-altura', () => alert("📋 PTA Alturas: En desarrollo para próxima versión."));
+    bind('btn-pta-altura', () => openModal('pta-modal'));
     bind('btn-auditoria', () => alert("🔍 Auditoría Interna: En desarrollo para próxima versión."));
 
     // IPERC (hay 2 botones con id="btn-iperc" en el HTML — hero y módulos)
@@ -588,6 +654,31 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     updateDashboard();
+
+    // PTA Form
+    const ptaForm = document.getElementById('pta-form');
+    if (ptaForm) {
+        ptaForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const v = id => document.getElementById(id)?.value || '';
+            const chk = id => document.getElementById(id)?.checked || false;
+            genPDF('PTA', {
+                empresa: v('pta-empresa'), area: v('pta-area'), ubicacion: v('pta-ubicacion'),
+                fecha: v('pta-fecha'), horaIni: v('pta-hora-ini'), horaFin: v('pta-hora-fin'),
+                altura: v('pta-altura'), tarea: v('pta-tarea'),
+                trab1: v('pta-trab1'), trab2: v('pta-trab2'), trab3: v('pta-trab3'),
+                supervisor: v('pta-supervisor'), responsable: v('pta-responsable'),
+                chkMedico: chk('pta-chk-medico'), chkCapac: chk('pta-chk-capac'),
+                chkArnes: chk('pta-chk-arnes'), chkLinea: chk('pta-chk-linea'),
+                chkAnclaje: chk('pta-chk-anclaje'), chkCasco: chk('pta-chk-casco'),
+                chkSenal: chk('pta-chk-señal'), chkRescate: chk('pta-chk-rescate'),
+                chkClima: chk('pta-chk-clima'), chkAts: chk('pta-chk-ats'),
+                tipoAcceso: v('pta-tipo-acceso'), herramientas: v('pta-herramientas'),
+                obs: v('pta-obs')
+            });
+            closeModal('pta-modal');
+        });
+    }
 
     // Ocultar overlays de login/registro (modo global)
     const lo = document.getElementById('login-overlay');

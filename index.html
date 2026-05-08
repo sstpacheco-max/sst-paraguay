@@ -1387,5 +1387,108 @@
     </div>
 </div>
 
-<script src="app.js?v=5.2"></script>
+<!-- Modal PTA - Permiso de Trabajo en Alturas -->
+<div id="pta-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4">
+    <div class="bg-surface-container-lowest rounded-3xl w-full max-w-5xl p-6 pb-8 shadow-2xl relative max-h-[85vh] overflow-y-auto">
+        <button id="close-pta-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <h3 class="font-headline text-2xl font-bold text-orange-700 mb-1">Permiso de Trabajo en Alturas (PTA)</h3>
+        <p class="text-sm text-on-surface-variant mb-6">Decreto 14.390/92 | Ley 5804/17 — Obligatorio para trabajos ≥ 1,80 m</p>
+        <form id="pta-form" class="space-y-5">
+
+            <!-- DATOS GENERALES -->
+            <fieldset class="border border-outline-variant/20 rounded-xl p-4 space-y-3">
+                <legend class="text-xs font-bold text-orange-700 uppercase tracking-widest px-2">I. Datos Generales</legend>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <input type="text" id="pta-empresa" placeholder="Empresa / Contratista" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="pta-area" placeholder="Área / Sector de Trabajo" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="pta-ubicacion" placeholder="Ubicación Exacta (edificio, piso, torre)" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <input type="date" id="pta-fecha" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="time" id="pta-hora-ini" placeholder="Hora Inicio" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="time" id="pta-hora-fin" placeholder="Hora Fin Estimada" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <input type="text" id="pta-altura" placeholder="Altura de Trabajo (ej: 6 metros)" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <textarea id="pta-tarea" rows="2" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Descripción de la tarea a ejecutar..."></textarea>
+                </div>
+            </fieldset>
+
+            <!-- PERSONAL AUTORIZADO -->
+            <fieldset class="border border-outline-variant/20 rounded-xl p-4 space-y-3">
+                <legend class="text-xs font-bold text-orange-700 uppercase tracking-widest px-2">II. Personal Autorizado</legend>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <input type="text" id="pta-trab1" placeholder="Trabajador 1: Nombre / C.I." required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="pta-trab2" placeholder="Trabajador 2: Nombre / C.I." class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="pta-trab3" placeholder="Trabajador 3: Nombre / C.I." class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <input type="text" id="pta-supervisor" placeholder="Supervisor de Alturas / Vigía" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="pta-responsable" placeholder="Responsable SST que autoriza" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                </div>
+            </fieldset>
+
+            <!-- VERIFICACIÓN DE REQUISITOS -->
+            <fieldset class="border border-outline-variant/20 rounded-xl p-4 space-y-3">
+                <legend class="text-xs font-bold text-orange-700 uppercase tracking-widest px-2">III. Verificación de Requisitos (Marcar lo cumplido)</legend>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                    <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
+                        <input type="checkbox" id="pta-chk-medico" class="accent-orange-600"> Certificado médico de aptitud vigente
+                    </label>
+                    <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
+                        <input type="checkbox" id="pta-chk-capac" class="accent-orange-600"> Capacitación en alturas aprobada
+                    </label>
+                    <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
+                        <input type="checkbox" id="pta-chk-arnes" class="accent-orange-600"> Arnés de cuerpo completo inspeccionado
+                    </label>
+                    <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
+                        <input type="checkbox" id="pta-chk-linea" class="accent-orange-600"> Línea de vida con absorbedor verificada
+                    </label>
+                    <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
+                        <input type="checkbox" id="pta-chk-anclaje" class="accent-orange-600"> Puntos de anclaje certificados (≥2.265 kg)
+                    </label>
+                    <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
+                        <input type="checkbox" id="pta-chk-casco" class="accent-orange-600"> Casco con barbiquejo / calzado antideslizante
+                    </label>
+                    <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
+                        <input type="checkbox" id="pta-chk-señal" class="accent-orange-600"> Área inferior delimitada y señalizada
+                    </label>
+                    <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
+                        <input type="checkbox" id="pta-chk-rescate" class="accent-orange-600"> Plan de rescate disponible y equipo designado
+                    </label>
+                    <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
+                        <input type="checkbox" id="pta-chk-clima" class="accent-orange-600"> Condiciones climáticas aptas (sin lluvia/viento >40 km/h)
+                    </label>
+                    <label class="flex items-center gap-2 bg-surface-container-low p-2 rounded-lg cursor-pointer hover:bg-orange-50">
+                        <input type="checkbox" id="pta-chk-ats" class="accent-orange-600"> ATS (Análisis de Trabajo Seguro) realizado
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- EQUIPOS Y HERRAMIENTAS -->
+            <fieldset class="border border-outline-variant/20 rounded-xl p-4 space-y-3">
+                <legend class="text-xs font-bold text-orange-700 uppercase tracking-widest px-2">IV. Equipos, Herramientas y Observaciones</legend>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <select id="pta-tipo-acceso" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                        <option value="">Tipo de Acceso / Plataforma</option>
+                        <option>Andamio certificado</option><option>Escalera portátil</option>
+                        <option>Plataforma elevadora (PEMP)</option><option>Techo / Cubierta</option>
+                        <option>Estructura metálica</option><option>Poste / Torre</option>
+                        <option>Otro</option>
+                    </select>
+                    <input type="text" id="pta-herramientas" placeholder="Herramientas a utilizar (ej: taladro, amoladora)" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                </div>
+                <textarea id="pta-obs" rows="2" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Observaciones adicionales, riesgos especiales identificados..."></textarea>
+            </fieldset>
+
+            <button type="submit" class="w-full bg-orange-600 text-white font-black py-4 rounded-xl shadow-lg uppercase tracking-widest text-xs hover:bg-orange-700 transition-colors">
+                Emitir Permiso de Trabajo en Alturas (PDF)
+            </button>
+        </form>
+    </div>
+</div>
+
+<script src="app.js?v=5.3"></script>
 </body></html>
