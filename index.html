@@ -95,18 +95,8 @@
   </style>
   </head>
 <body class="bg-surface text-on-surface font-body min-h-screen pb-24 overflow-x-hidden">
-    <!-- Login Overlay -->
-    <div id="login-overlay" class="fixed inset-0 z-[100] bg-slate-900 flex items-center justify-center p-4 transition-all duration-500">
-        <div class="absolute inset-0 opacity-20 bg-[url('background.png')] bg-cover bg-center"></div>
-        <div class="bg-white/95 backdrop-blur-xl p-8 rounded-[2.5rem] w-full max-w-md shadow-2xl relative z-10 border border-white/20">
-            <div class="text-center mb-8">
-                <div class="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl">
-                    <span class="material-symbols-outlined text-4xl text-white">shield_person</span>
-                </div>
-                <h1 class="font-headline text-3xl font-black text-primary tracking-tighter italic">SST PARAGUAY</h1>
-                <p class="text-sm text-on-surface-variant font-medium mt-1">Portal de Gestión de Seguridad y Salud</p>
-            </div>
-        </div>
+    <!-- Login Overlay OCULTO en v5.0 (modo global) -->
+    <div id="login-overlay" class="hidden">
     </div>
 
     <!-- Register Modal -->
