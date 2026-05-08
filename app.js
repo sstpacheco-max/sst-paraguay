@@ -165,11 +165,145 @@ document.addEventListener('DOMContentLoaded', function() {
 
         else if (type === 'POE_ALTURAS') {
             doc.setFont("helvetica", "bold"); doc.setFontSize(14);
-            doc.text("PROCEDIMIENTO OPERATIVO ESTÁNDAR", 105, 55, { align: 'center' });
-            doc.text("TRABAJO EN ALTURAS", 105, 63, { align: 'center' });
-            doc.setFontSize(10); doc.setFont("helvetica", "normal");
-            const p = ["1. Verificar capacitación del trabajador.","2. Inspeccionar arnés y línea de vida.","3. Usar plataformas certificadas con barandas.","4. Nunca trabajar solo en altura.","5. Ante anomalía, detener y reportar."];
-            let y = 78; p.forEach(t => { doc.text(t, 20, y, {maxWidth:170}); y+=10; });
+            doc.text("PROCEDIMIENTO OPERATIVO ESTÁNDAR (POE)", 105, 48, { align: 'center' });
+            doc.text("TRABAJO EN ALTURAS", 105, 56, { align: 'center' });
+            doc.setFontSize(8); doc.setFont("helvetica", "normal");
+            doc.text("Decreto 14.390/92 | Ley 5804/17 | Resoluciones MTESS — República del Paraguay", 105, 63, { align: 'center' });
+
+            function secTitle(t, y) { doc.setFont("helvetica","bold"); doc.setFontSize(9); doc.setFillColor(0,31,95); doc.setTextColor(255); doc.rect(15,y-4,180,7,'F'); doc.text(t,20,y+1); doc.setTextColor(0); return y+10; }
+            function para(t, x, y, fs) { doc.setFont("helvetica","normal"); doc.setFontSize(fs||8); const lines = doc.splitTextToSize(t, 170-(x-20)); doc.text(lines, x, y); return y + lines.length * (fs ? fs*0.45 : 3.6) + 2; }
+            function bullet(t, x, y) { doc.setFont("helvetica","normal"); doc.setFontSize(8); doc.text("•", x, y); const lines = doc.splitTextToSize(t, 170-(x-15)); doc.text(lines, x+5, y); return y + lines.length * 3.6 + 1; }
+            function subTitle(t, y) { doc.setFont("helvetica","bold"); doc.setFontSize(8); doc.text(t, 20, y); return y+5; }
+
+            let y = 72;
+
+            // 1. OBJETIVO
+            y = secTitle("1. OBJETIVO Y ALCANCE", y);
+            y = para("Establecer las medidas de prevención, protección y control para la ejecución segura de trabajos en alturas iguales o superiores a 1,80 metros, en cumplimiento del Decreto 14.390/92, la Ley 5804/17 de SST y las resoluciones del Ministerio de Trabajo, Empleo y Seguridad Social (MTESS).", 20, y);
+            y = para("Aplica a todo el personal propio, contratistas y subcontratistas que ejecuten trabajos en alturas en cualquier instalación de la organización.", 20, y+2);
+
+            // 2. REFERENCIAS LEGALES
+            y = secTitle("2. REFERENCIAS LEGALES", y+5);
+            y = bullet("Decreto 14.390/92: Reglamento General Técnico de Seguridad, Higiene y Medicina en el Trabajo (Título IV, Cap. I al IV).", 20, y);
+            y = bullet("Ley 5804/17: Ley Nacional de Seguridad y Salud en el Trabajo.", 20, y);
+            y = bullet("Código del Trabajo (Ley 213/93): Art. 272 al 282 — Obligaciones del empleador en materia de SST.", 20, y);
+            y = bullet("Resoluciones MTESS aplicables sobre trabajos de alto riesgo y capacitación obligatoria.", 20, y);
+
+            // 3. DEFINICIONES
+            y = secTitle("3. DEFINICIONES", y+5);
+            y = bullet("Trabajo en Altura: Toda labor que se realice a 1,80 m o más sobre el nivel del piso o donde exista riesgo de caída.", 20, y);
+            y = bullet("Sistema de Protección Contra Caídas (SPCC): Conjunto de equipos (arnés, línea de vida, punto de anclaje) destinados a detener una caída.", 20, y);
+            y = bullet("Permiso de Trabajo en Alturas (PTA): Documento de autorización previo a la ejecución de la tarea.", 20, y);
+            y = bullet("Línea de Vida: Cable o cuerda horizontal/vertical que permite la conexión del arnés a un punto seguro.", 20, y);
+            y = bullet("Punto de Anclaje: Elemento estructural certificado con resistencia mínima de 2.265 kg (5.000 lb).", 20, y);
+
+            // NUEVA PÁGINA
+            doc.addPage();
+            // Repetir cabecera mini
+            doc.setFillColor(0,31,95); doc.rect(0,0,210,12,'F'); doc.setTextColor(255); doc.setFont("helvetica","bold"); doc.setFontSize(9);
+            doc.text("POE — TRABAJO EN ALTURAS (continuación)", 105, 8, {align:'center'}); doc.setTextColor(0);
+            y = 22;
+
+            // 4. RESPONSABILIDADES
+            y = secTitle("4. RESPONSABILIDADES", y);
+            y = subTitle("4.1. Empleador:", y);
+            y = bullet("Garantizar la capacitación teórico-práctica de todo trabajador antes de autorizar labores en altura.", 25, y);
+            y = bullet("Proveer los EPP contra caídas (arnés de cuerpo completo, líneas de vida, cascos con barbiquejo).", 25, y);
+            y = bullet("Designar un Supervisor de Alturas certificado por turno de trabajo.", 25, y);
+            y = bullet("Asegurar la existencia de un Plan de Rescate documentado y probado mediante simulacros.", 25, y);
+            y = subTitle("4.2. Supervisor de Alturas:", y+2);
+            y = bullet("Emitir el Permiso de Trabajo en Alturas (PTA) antes de cada tarea.", 25, y);
+            y = bullet("Inspeccionar los equipos de protección y puntos de anclaje antes de cada uso.", 25, y);
+            y = bullet("Verificar aptitud médica vigente del trabajador (certificado de aptitud para trabajos en altura).", 25, y);
+            y = subTitle("4.3. Trabajador:", y+2);
+            y = bullet("Asistir a las capacitaciones obligatorias y aprobar las evaluaciones.", 25, y);
+            y = bullet("Inspeccionar su equipo personal antes de cada uso según checklist.", 25, y);
+            y = bullet("Reportar inmediatamente cualquier condición insegura o anomalía en los equipos.", 25, y);
+            y = bullet("No trabajar en alturas bajo efecto de alcohol, drogas o medicamentos que alteren la capacidad.", 25, y);
+
+            // 5. REQUISITOS PREVIOS
+            y = secTitle("5. REQUISITOS PREVIOS AL TRABAJO", y+5);
+            y = bullet("Certificado médico de aptitud para trabajos en altura vigente (no mayor a 12 meses).", 20, y);
+            y = bullet("Capacitación específica en trabajo en alturas (mínimo 8 horas teórico-prácticas, con evaluación aprobada).", 20, y);
+            y = bullet("Permiso de Trabajo en Alturas (PTA) firmado por el supervisor y el responsable de SST.", 20, y);
+            y = bullet("Análisis de Trabajo Seguro (ATS) de la tarea específica a realizar.", 20, y);
+            y = bullet("Verificación de condiciones climáticas: NO se trabaja con vientos > 40 km/h, tormentas eléctricas o lluvia.", 20, y);
+
+            // 6. SISTEMAS DE PROTECCIÓN
+            y = secTitle("6. SISTEMAS DE PROTECCIÓN CONTRA CAÍDAS", y+5);
+            y = subTitle("6.1. Protección Colectiva (Prioridad):", y);
+            y = bullet("Barandas perimetrales: altura mínima 1,05 m con travesaño intermedio y rodapié de 15 cm.", 25, y);
+            y = bullet("Redes de seguridad certificadas instaladas por debajo del plano de trabajo.", 25, y);
+            y = bullet("Señalización de borde y delimitación de zonas de riesgo con cinta reflectiva.", 25, y);
+
+            // NUEVA PÁGINA
+            doc.addPage();
+            doc.setFillColor(0,31,95); doc.rect(0,0,210,12,'F'); doc.setTextColor(255); doc.setFont("helvetica","bold"); doc.setFontSize(9);
+            doc.text("POE — TRABAJO EN ALTURAS (continuación)", 105, 8, {align:'center'}); doc.setTextColor(0);
+            y = 22;
+
+            y = subTitle("6.2. Protección Individual (Cuando la colectiva no es viable):", y);
+            y = bullet("Arnés de cuerpo completo con al menos 4 puntos de ajuste (piernas, pecho, espalda).", 25, y);
+            y = bullet("Línea de vida con absorbedor de impacto (máx. 1,80 m de longitud sin extensión).", 25, y);
+            y = bullet("Conector tipo mosquetón con doble seguro (resistencia mín. 22 kN).", 25, y);
+            y = bullet("Casco dieléctrico con barbiquejo (3 puntos de sujeción).", 25, y);
+            y = bullet("Calzado antideslizante con puntera de seguridad.", 25, y);
+
+            // 7. CHECKLIST PRE-TRABAJO
+            y = secTitle("7. INSPECCIÓN PRE-TRABAJO (CHECKLIST)", y+5);
+            const checks = [
+                "¿El trabajador tiene certificado médico vigente para alturas?",
+                "¿El arnés está en buen estado (sin cortes, quemaduras, costuras dañadas)?",
+                "¿Los mosquetones tienen doble seguro y cierran correctamente?",
+                "¿La línea de vida tiene absorbedor de impacto funcional?",
+                "¿Los puntos de anclaje fueron verificados y certificados?",
+                "¿Las condiciones climáticas son aptas (sin lluvia, tormenta o viento fuerte)?",
+                "¿El PTA está firmado por el supervisor y el responsable de SST?",
+                "¿El plan de rescate está disponible y el equipo de rescate designado?",
+                "¿El área inferior está delimitada y libre de personal no autorizado?",
+                "¿Se realizó el ATS (Análisis de Trabajo Seguro) de la tarea?"
+            ];
+            checks.forEach(c => { y = bullet("☐  " + c, 20, y); });
+
+            // 8. PROCEDIMIENTO
+            y = secTitle("8. PROCEDIMIENTO DE EJECUCIÓN", y+5);
+            const pasos = [
+                "Realizar la charla de 5 minutos de seguridad con todo el equipo de trabajo.",
+                "Verificar que todos los trabajadores tienen sus EPP completos e inspeccionados.",
+                "Emitir y firmar el Permiso de Trabajo en Alturas (PTA).",
+                "Delimitar y señalizar el área de trabajo inferior con conos y cinta de seguridad.",
+                "Instalar sistemas de protección colectiva (barandas, redes) cuando sea posible.",
+                "Conectar el arnés a la línea de vida o punto de anclaje ANTES de exponer al vacío.",
+                "Ejecutar la tarea manteniendo comunicación constante con el supervisor.",
+                "Al finalizar, desconectarse del sistema solo cuando esté en zona segura.",
+                "Retirar señalización y liberar el área inferior únicamente con autorización."
+            ];
+            pasos.forEach((p, i) => { y = bullet((i+1) + ". " + p, 20, y); });
+
+            // 9. PLAN DE RESCATE
+            if (y > 220) { doc.addPage(); doc.setFillColor(0,31,95); doc.rect(0,0,210,12,'F'); doc.setTextColor(255); doc.setFont("helvetica","bold"); doc.setFontSize(9); doc.text("POE — TRABAJO EN ALTURAS (continuación)", 105, 8, {align:'center'}); doc.setTextColor(0); y = 22; }
+            y = secTitle("9. PLAN DE RESCATE", y+5);
+            y = para("Conforme al Decreto 14.390/92, todo trabajo en alturas debe contar con un plan de rescate documentado. El rescate debe iniciarse dentro de los primeros 6 minutos tras la caída (riesgo de síndrome de suspensión).", 20, y);
+            y = bullet("Equipo de rescate designado y entrenado (mín. 2 personas por turno).", 20, y);
+            y = bullet("Equipo de rescate disponible: sistema de descenso controlado, camilla rígida, kit de primeros auxilios.", 20, y);
+            y = bullet("Contactos de emergencia: Bomberos (132), SEME (021-204-800), IPS (021-229-9999).", 20, y);
+
+            // 10. PROHIBICIONES
+            y = secTitle("10. PROHIBICIONES", y+5);
+            y = bullet("Trabajar en alturas sin PTA vigente y firmado.", 20, y);
+            y = bullet("Usar equipos de protección dañados, vencidos o sin certificación.", 20, y);
+            y = bullet("Trabajar bajo efectos de alcohol, drogas o medicamentos que alteren capacidades.", 20, y);
+            y = bullet("Trabajar solo en alturas — siempre se requiere vigía o compañero.", 20, y);
+            y = bullet("Improvisar puntos de anclaje (tuberías, canaletas, estructuras no certificadas).", 20, y);
+            y = bullet("Trabajar con condiciones climáticas adversas (vientos >40 km/h, tormentas, lluvia).", 20, y);
+
+            // Firmas
+            y = Math.max(y + 15, 240);
+            doc.line(20, y, 80, y); doc.line(90, y, 145, y); doc.line(155, y, 195, y);
+            doc.setFontSize(7);
+            doc.text("Elaborado por: Resp. SST", 50, y+4, {align:'center'});
+            doc.text("Revisado por: Gerencia", 117, y+4, {align:'center'});
+            doc.text("Aprobado por: Dirección", 175, y+4, {align:'center'});
         }
 
         else if (type === 'EPP') {
