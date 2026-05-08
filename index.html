@@ -129,8 +129,9 @@
                 </button>
             </form>
             
-            <div class="mt-4 text-center">
+            <div class="mt-4 text-center flex flex-col gap-2">
                 <button id="btn-show-register" class="text-[10px] font-bold text-primary uppercase tracking-widest hover:underline">¿No tienes cuenta? Registra tu Empresa</button>
+                <button id="btn-clear-system" class="text-[9px] font-medium text-slate-400 uppercase tracking-widest hover:text-red-500 transition-colors">Limpiar Caché del Sistema</button>
             </div>
             
             <div class="mt-8 pt-6 border-t border-outline-variant/20">
@@ -1483,5 +1484,27 @@
     </div>
 </div>
 
-<script src="app.js?v=4.3"></script>
+<!-- Modal Registro Médico -->
+<div id="medico-modal" class="fixed inset-0 z-[110] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-[2rem] w-full max-w-2xl p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+        <button id="close-medico-modal" class="absolute top-6 right-6 text-outline hover:text-primary">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <h2 class="font-headline text-2xl font-bold text-primary mb-6">Orden de Examen Médico</h2>
+        <form id="medico-form" class="space-y-4">
+            <input type="text" id="med-trabajador" placeholder="Nombre del Trabajador" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm">
+            <input type="text" id="med-ci" placeholder="Cédula de Identidad" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm">
+            <select id="med-tipo" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm">
+                <option value="Admisional">Admisional</option>
+                <option value="Periódico">Periódico</option>
+                <option value="Egreso">Egreso</option>
+            </select>
+            <button type="submit" class="w-full bg-primary text-white font-black py-4 rounded-xl shadow-lg uppercase tracking-widest text-xs">
+                Generar Orden PDF
+            </button>
+        </form>
+    </div>
+</div>
+
+<script src="app.js?v=4.4"></script>
 </body></html>
