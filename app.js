@@ -76,19 +76,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // Helper to get data filtered by company
     const getFilteredData = (key) => {
         const raw = JSON.parse(localStorage.getItem(key)) || [];
-        if (currentUser.role === 'admin') return raw;
-        return raw.filter(item => item.companyId === currentUser.company);
+        if (!currentUser || currentUser.role === 'admin') return raw;
+        // Usamos .id (username) para aislamiento total
+        return raw.filter(item => item.companyId === currentUser.id);
     };
 
     // Helper to save data with company tag
     const saveDataWithCompany = (key, data) => {
         const raw = JSON.parse(localStorage.getItem(key)) || [];
-        data.companyId = currentUser.company; // Tag with company
+        if (currentUser) data.companyId = currentUser.id;
         raw.push(data);
         localStorage.setItem(key, JSON.stringify(raw));
+        // Actualizar dashboard inmediatamente tras guardar
+        updateDashboardStats();
+    };
+
+    const animateValue = (obj, start, end, duration) => {
+        if (!obj) return;
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            obj.innerHTML = Math.floor(progress * (end - start) + start);
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
     };
 
     // Logout Logic
@@ -158,6 +174,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof renderRegistroMedico === 'function') renderRegistroMedico();
         if (typeof renderRegistroMtess === 'function') renderRegistroMtess();
         if (typeof renderHistorialIns === 'function') renderHistorialIns();
+        
+        // Animación de bienvenida
+        animateValue(document.querySelector('.pulse-number'), 100, 142, 1500);
+    };
     };
 
     // Auto-login if session exists
@@ -166,10 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initDashboard();
     }
 
-    // Animate the Pulse Number
-    animateValue(document.querySelector('.pulse-number'), 100, 142, 1500);
-
-    // Form Submission
+    // Form Submission (MTESS Simple)
     const form = document.getElementById('novedad-form');
     if (form) {
         form.addEventListener('submit', (e) => {
@@ -2326,6 +2343,108 @@ document.addEventListener('DOMContentLoaded', () => {
                 auditoriaForm.reset();
                 closeAuditoriaFunc();
             }, 2000);
+        };
+    }
+
+    // IPERC Matrix Logic
+    const btnIperc = document.getElementById('btn-iperc');
+    const ipercModal = document.getElementById('iperc-modal');
+    const closeIpercBtn = document.getElementById('close-iperc-modal');
+    const ipercContent = document.getElementById('iperc-content');
+    const btnPrintIperc = document.getElementById('btn-print-iperc');
+
+    const generateIpercData = () => {
+        const risk = currentUser.risk || 'Medio';
+        const activity = currentUser.activity || 'General';
+        
+        // Simulación de peligros por actividad
+        let hazards = [
+            { p: 'Posturas forzadas', r: 'Ergonómico', l: 'Bajo', m: 'Pausas activas' },
+            { p: 'Contacto eléctrico', r: 'Eléctrico', l: 'Medio', m: 'Mantenimiento preventivo' }
+        ];
+
+        if (risk === 'Alto' || risk === 'Muy Alto') {
+            hazards.push({ p: 'Caídas a distinto nivel', r: 'Mecánico', l: 'Alto', m: 'Uso de arnés y líneas de vida' });
+            hazards.push({ p: 'Atrapamiento por maquinaria', r: 'Mecánico', l: 'Alto', m: 'Guardas de seguridad' });
+        }
+
+        return hazards;
+    };
+
+    const renderIperc = () => {
+        if (!ipercContent) return;
+        const hazards = generateIpercData();
+        
+        ipercContent.innerHTML = `
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-primary text-white text-[10px] uppercase">
+                            <th class="p-3 border border-white/20">Peligro Identificado</th>
+                            <th class="p-3 border border-white/20">Riesgo Asociado</th>
+                            <th class="p-3 border border-white/20">Nivel de Riesgo</th>
+                            <th class="p-3 border border-white/20">Medida de Control Propuesta</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-xs">
+                        ${hazards.map(h => `
+                            <tr class="border-b border-outline-variant/10">
+                                <td class="p-3 font-bold text-primary">${h.p}</td>
+                                <td class="p-3">${h.r}</td>
+                                <td class="p-3 font-black ${h.l === 'Alto' ? 'text-red-600' : 'text-orange-500'}">${h.l}</td>
+                                <td class="p-3 italic text-on-surface-variant">${h.m}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+            <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 text-[11px] text-blue-800">
+                <strong>Nota:</strong> Esta matriz ha sido generada automáticamente basada en el perfil de <strong>${currentUser.company}</strong> (Riesgo ${currentUser.risk}). Se recomienda validación por un profesional matriculado.
+            </div>
+        `;
+    };
+
+    if (btnIperc && ipercModal) {
+        btnIperc.onclick = () => {
+            renderIperc();
+            ipercModal.classList.remove('hidden');
+        };
+        closeIpercBtn.onclick = () => ipercModal.classList.add('hidden');
+    }
+
+    if (btnPrintIperc) {
+        btnPrintIperc.onclick = () => {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('l', 'mm', 'a4');
+            const hazards = generateIpercData();
+
+            doc.setFontSize(18);
+            doc.text(`MATRIZ IPERC - ${currentUser.company.toUpperCase()}`, 148.5, 20, null, null, "center");
+            
+            doc.setFontSize(10);
+            doc.text(`RUC: ${currentUser.ruc} | Riesgo: ${currentUser.risk} | Trabajadores: ${currentUser.workers}`, 148.5, 28, null, null, "center");
+            
+            let y = 40;
+            doc.setFillColor(0, 45, 123);
+            doc.rect(10, y, 277, 8, 'F');
+            doc.setTextColor(255,255,255);
+            doc.setFontSize(9);
+            doc.text("PELIGRO", 15, y+5);
+            doc.text("RIESGO", 80, y+5);
+            doc.text("NIVEL", 150, y+5);
+            doc.text("CONTROL", 200, y+5);
+
+            doc.setTextColor(0,0,0);
+            y += 15;
+            hazards.forEach(h => {
+                doc.text(h.p, 15, y);
+                doc.text(h.r, 80, y);
+                doc.text(h.l, 150, y);
+                doc.text(doc.splitTextToSize(h.m, 80), 200, y);
+                y += 12;
+            });
+
+            doc.save(`IPERC_${currentUser.company.replace(/\s/g, '_')}.pdf`);
         };
     }
 

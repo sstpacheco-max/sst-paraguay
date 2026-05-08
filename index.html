@@ -254,21 +254,35 @@
 </div>
 </section>
 <!-- Quick Actions -->
-<section class="flex flex-wrap gap-4">
-<button id="btn-reportar" class="flex-1 min-w-[200px] bg-gradient-to-br from-secondary to-secondary-container text-white py-4 px-6 rounded-xl flex items-center justify-center gap-3 shadow-lg hover:brightness-110 transition-all duration-300 active:scale-95 group">
-<span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
-<span class="font-bold tracking-tight">Reportar Incidente (MTESS)</span>
+<button id="btn-iperc" class="flex-1 min-w-[200px] bg-gradient-to-br from-primary to-blue-800 text-white py-4 px-6 rounded-xl flex items-center justify-center gap-3 shadow-lg hover:brightness-110 transition-all duration-300 active:scale-95">
+    <span class="material-symbols-outlined">grid_on</span>
+    <span class="font-bold tracking-tight">Generar Matriz IPERC</span>
 </button>
-<div class="flex-1 min-w-[200px] flex gap-2">
-    <button id="btn-inspeccion" class="flex-1 bg-surface-container-lowest border border-outline-variant/15 text-primary py-4 px-6 rounded-xl flex items-center justify-center gap-3 hover:bg-surface-container transition-all duration-300">
-        <span class="material-symbols-outlined" data-icon="inventory">inventory</span>
-        <span class="font-bold tracking-tight">Nueva Inspección</span>
-    </button>
-    <button id="btn-historial-inspeccion" class="bg-blue-50 text-blue-700 border border-blue-100 px-4 rounded-xl hover:bg-blue-100 transition-all shadow-sm" title="Ver Historial">
-        <span class="material-symbols-outlined">history</span>
-    </button>
-</div>
 </section>
+
+<!-- IPERC Modal -->
+<div id="iperc-modal" class="fixed inset-0 z-[110] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-[2rem] w-full max-w-4xl p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+        <button id="close-iperc-modal" class="absolute top-6 right-6 text-outline hover:text-primary transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <div class="mb-6">
+            <h2 class="font-headline text-2xl font-bold text-primary">Matriz IPERC Automatizada</h2>
+            <p class="text-sm text-on-surface-variant">Identificación de Peligros, Evaluación de Riesgos y Medidas de Control</p>
+        </div>
+        
+        <div id="iperc-content" class="space-y-6">
+            <!-- Dinámico -->
+        </div>
+        
+        <div class="mt-8 pt-6 border-t border-outline-variant/10 flex justify-end gap-3">
+            <button id="btn-print-iperc" class="bg-primary text-white px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2 hover:brightness-110">
+                <span class="material-symbols-outlined text-sm">picture_as_pdf</span> Descargar Matriz PDF
+            </button>
+        </div>
+    </div>
+</div>
+
 <!-- Bento Grid: Key Metrics -->
 <section class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
 <!-- Accidentabilidad (Large Card) -->
@@ -1399,5 +1413,5 @@
 <span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Capacitación</span>
 </a>
 </nav>
-<script src="app.js?v=3.8"></script>
+<script src="app.js?v=3.9"></script>
 </body></html>
