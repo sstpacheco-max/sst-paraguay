@@ -12,11 +12,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // ════════════════════════════════════════════
     function openModal(id) {
         const m = document.getElementById(id);
-        if (m) m.classList.remove('hidden');
+        if (!m) return;
+        m.classList.remove('hidden');
+        // Forzar reflow para que la transición funcione
+        void m.offsetWidth;
+        m.classList.remove('opacity-0');
+        // Animar el contenido interior si tiene scale-95
+        const inner = m.querySelector('.scale-95');
+        if (inner) inner.classList.remove('scale-95');
     }
     function closeModal(id) {
         const m = document.getElementById(id);
-        if (m) m.classList.add('hidden');
+        if (!m) return;
+        m.classList.add('opacity-0');
+        const inner = m.firstElementChild;
+        if (inner) inner.classList.add('scale-95');
+        setTimeout(() => m.classList.add('hidden'), 300);
     }
     function bind(id, fn) {
         const el = document.getElementById(id);
@@ -27,7 +38,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('[id^="close-"]').forEach(btn => {
         btn.addEventListener('click', () => {
             const parent = btn.closest('.fixed');
-            if (parent) parent.classList.add('hidden');
+            if (parent) {
+                parent.classList.add('opacity-0');
+                const inner = parent.firstElementChild;
+                if (inner) inner.classList.add('scale-95');
+                setTimeout(() => parent.classList.add('hidden'), 300);
+            }
         });
     });
 
