@@ -218,7 +218,10 @@
 <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/10">
 <img alt="User profile photo" class="w-full h-full object-cover" data-alt="professional male portrait in business casual attire, clean background, soft studio lighting, professional headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt9WNzIj5CKBdzg4Lx0sZcI5K-F4JUMV1-6WaYlcVMuGe6zO1U7SndiM9P_68dv_uS4aRPZ8rRvEpoYj6Ybl37q1YVD-H5yoxIBGgnrUpKrtpSC0PBZzvVJfNAJ-CDci8EUvU3iZnHDuAfqXo6tyy_rZZVXz1soRu4Xtr7qa4HuEYRJ9YukOZETkeF7DmNoiZdnxNPHjUnQpKbhtQpMETa8Wq5JG8gODzknxvR1G_RRfaIZTDsbTY4eHdEbWGe40AFMRCZpW0mKbM"/>
 </div>
-<h1 class="font-headline font-black text-blue-900 dark:text-white tracking-tight text-lg">Portal SG-SST Paraguay</h1>
+<div class="flex flex-col">
+    <h1 class="font-headline font-black text-blue-900 dark:text-white tracking-tight text-lg">Portal SG-SST Paraguay</h1>
+    <p id="company-name-label" class="text-[10px] font-bold text-primary/60 uppercase tracking-widest leading-none"></p>
+</div>
 </div>
 <div class="flex items-center gap-2">
 <button id="btn-logout" class="flex items-center gap-2 p-2 text-red-600 hover:bg-red-50 rounded-xl transition-all duration-300 active:scale-95 text-xs font-bold uppercase">
@@ -242,7 +245,7 @@
 <div class="relative z-10 space-y-1">
 <span class="text-primary-fixed-dim font-label text-xs uppercase tracking-widest">Compliance Pulse</span>
 <div class="flex items-baseline gap-2">
-<span class="font-headline text-6xl text-white font-black">124</span>
+<span class="font-headline text-6xl text-white font-black pulse-number">124</span>
 <span class="text-primary-fixed text-lg font-bold">Días</span>
 </div>
 <p class="text-primary-fixed-dim/80 font-medium">Sin incidentes registrados en planta</p>
@@ -1396,22 +1399,89 @@
 
 <!-- BottomNavBar -->
 <nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/85 dark:bg-slate-950/85 backdrop-blur-md border-t border-slate-200/15 dark:border-slate-800/15 shadow-[0_-4px_24px_0_rgba(0,0,0,0.06)] z-50 rounded-t-3xl">
-<a class="flex flex-col items-center justify-center bg-gradient-to-br from-blue-900 to-blue-800 text-white rounded-2xl px-5 py-2 transition-transform duration-200 active:scale-90" href="#">
-<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Resumen</span>
-</a>
-<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-5 py-2 hover:text-blue-700 dark:hover:text-blue-300 transition-transform duration-200 active:scale-90" href="#">
-<span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
-<span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Reportar</span>
-</a>
-<a id="btn-calendar" class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-5 py-2 hover:text-blue-700 dark:hover:text-blue-300 transition-transform duration-200 active:scale-90" href="#">
-<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
-<span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Calendario</span>
-</a>
-<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-5 py-2 hover:text-blue-700 dark:hover:text-blue-300 transition-transform duration-200 active:scale-90" href="#">
-<span class="material-symbols-outlined" data-icon="school">school</span>
-<span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Capacitación</span>
-</a>
+<button id="nav-dashboard" class="flex flex-col items-center justify-center bg-gradient-to-br from-blue-900 to-blue-800 text-white rounded-2xl px-5 py-2 transition-transform duration-200 active:scale-90">
+    <span class="material-symbols-outlined">dashboard</span>
+    <span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Resumen</span>
+</button>
+<button id="nav-reportar" class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-5 py-2 hover:text-blue-700 dark:hover:text-blue-300 transition-transform duration-200 active:scale-90">
+    <span class="material-symbols-outlined">report_problem</span>
+    <span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Reportar</span>
+</button>
+<button id="nav-calendar" class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-5 py-2 hover:text-blue-700 dark:hover:text-blue-300 transition-transform duration-200 active:scale-90">
+    <span class="material-symbols-outlined">calendar_month</span>
+    <span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Calendario</span>
+</button>
+<button id="nav-inspecciones" class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 px-5 py-2 hover:text-blue-700 dark:hover:text-blue-300 transition-transform duration-200 active:scale-90">
+    <span class="material-symbols-outlined">inventory</span>
+    <span class="font-inter text-[10px] font-semibold tracking-wide uppercase mt-1">Inspecciones</span>
+</button>
 </nav>
-<script src="app.js?v=4.0"></script>
+
+<!-- Modal Inspección -->
+<div id="inspeccion-modal" class="fixed inset-0 z-[110] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-[2rem] w-full max-w-2xl p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+        <button id="close-inspeccion-modal" class="absolute top-6 right-6 text-outline hover:text-primary transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <h2 class="font-headline text-2xl font-bold text-primary mb-6">Nueva Inspección Técnica</h2>
+        <form id="inspeccion-form" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold mb-1">Tipo de Inspección</label>
+                    <select id="ins-tipo" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm">
+                        <option value="Instalaciones">Instalaciones</option>
+                        <option value="Maquinaria">Maquinaria</option>
+                        <option value="EPP">EPP</option>
+                        <option value="Eléctrico">Eléctrico</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold mb-1">Fecha</label>
+                    <input type="date" id="ins-fecha" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm">
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input type="text" id="ins-responsable" placeholder="Responsable / Auditor" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm">
+                <input type="text" id="ins-area" placeholder="Área / Sector" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm">
+            </div>
+            
+            <div id="ins-checklist-container" class="space-y-2 max-h-60 overflow-y-auto p-2 bg-slate-50 rounded-xl">
+                <!-- Inyectado por JS -->
+            </div>
+
+            <button type="submit" class="w-full bg-primary text-white font-black py-4 rounded-xl shadow-lg uppercase tracking-widest text-xs">
+                Finalizar y Guardar Registro
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Reporte MTESS -->
+<div id="mtess-modal" class="fixed inset-0 z-[110] bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-[2rem] w-full max-w-4xl p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+        <button id="close-mtess-modal" class="absolute top-6 right-6 text-outline hover:text-primary">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <h2 class="font-headline text-2xl font-bold text-secondary mb-6 italic uppercase tracking-tighter">Reporte de Accidente de Trabajo (MTESS)</h2>
+        <form id="mtess-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+                <p class="text-xs font-bold text-secondary uppercase border-b border-secondary/10 pb-2">Información del Trabajador</p>
+                <input type="text" id="pdf-trabajador" placeholder="Nombre Completo" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm">
+                <input type="text" id="pdf-ci" placeholder="Cédula de Identidad" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm">
+                <input type="text" id="pdf-cargo" placeholder="Cargo u Ocupación" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm">
+            </div>
+            <div class="space-y-4">
+                <p class="text-xs font-bold text-secondary uppercase border-b border-secondary/10 pb-2">Detalles del Accidente</p>
+                <input type="datetime-local" id="pdf-fecha" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm">
+                <input type="text" id="pdf-lugar" placeholder="Lugar Exacto" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm">
+                <textarea id="pdf-desc" placeholder="Descripción detallada del suceso..." required rows="3" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm"></textarea>
+            </div>
+            <button type="submit" class="md:col-span-2 bg-secondary text-white font-black py-4 rounded-xl shadow-lg uppercase tracking-widest text-xs">
+                Generar Reporte Oficial PDF
+            </button>
+        </form>
+    </div>
+</div>
+
+<script src="app.js?v=4.3"></script>
 </body></html>
