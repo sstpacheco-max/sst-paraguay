@@ -1,110 +1,119 @@
 /**
  * SST Paraguay - Sistema de Gestión SST
- * Versión 4.7.1 - Legal Full Content (No placeholders)
+ * Versión 5.0 - REVERSION (Global Mode)
+ * Se elimina el sistema de usuarios para simplificar el uso.
  */
 
-console.log("SST: Iniciando v4.7.1 - Full Legal Text...");
+console.log("SST: Sistema v5.0 (Modo Global) - Todo en uno.");
 
 document.addEventListener('DOMContentLoaded', function() {
     
-    let currentUser = null;
-    try { currentUser = JSON.parse(sessionStorage.getItem('sst_current_user')); } catch(e){}
+    // --- DATOS DE EJEMPLO INICIALES ---
+    const defaultInspecciones = [
+        { fecha: '2026-05-01', tipo: 'Extintores', area: 'Planta Baja', percent: 100, resp: 'Ing. Pacheco' },
+        { fecha: '2026-05-05', tipo: 'EPP', area: 'Depósito', percent: 90, resp: 'Ing. Pacheco' }
+    ];
 
+    // --- BASE DE DATOS (GLOBAL) ---
+    function getAllData(key) {
+        const data = JSON.parse(localStorage.getItem(key)) || [];
+        if (data.length === 0 && key === 'sst_inspecciones') return defaultInspecciones;
+        return data;
+    }
+
+    function saveData(key, item) {
+        const data = JSON.parse(localStorage.getItem(key)) || [];
+        data.push(item);
+        localStorage.setItem(key, JSON.stringify(data));
+        updateDashboard();
+    }
+
+    // --- ELEMENTOS UI ---
     const modals = {
         iperc: document.getElementById('iperc-modal'),
         ins: document.getElementById('inspeccion-modal'),
         mtess: document.getElementById('mtess-modal'),
         med: document.getElementById('medico-modal'),
+        regMed: document.getElementById('registro-medico-modal'),
+        regMtess: document.getElementById('registro-mtess-modal'),
         calendar: document.getElementById('calendar-modal')
     };
 
-    function generateFullLegalPDF(type, customData = {}) {
+    // --- GENERADOR PDF PROFESIONAL (Basado en v4.7.1) ---
+    function generatePDF(type, custom = {}) {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF('p', 'mm', 'a4');
-        const company = (currentUser ? currentUser.company : "EMPRESA DE PRUEBA").toUpperCase();
-        const ruc = currentUser ? currentUser.ruc : "80000000-1";
+        const company = "SST PARAGUAY - GESTIÓN GLOBAL";
         const date = new Date().toLocaleDateString('es-PY');
 
-        // Estética Profesional (Cabecera)
         doc.setFillColor(0, 31, 95);
         doc.rect(0, 0, 210, 35, 'F');
         doc.setTextColor(255);
-        doc.setFont("helvetica", "bold");
         doc.setFontSize(20);
-        doc.text("SST PARAGUAY - DOCUMENTO OFICIAL", 105, 18, { align: 'center' });
-        doc.setFontSize(9);
-        doc.setFont("helvetica", "normal");
-        doc.text("Garantizando Entornos Laborales Seguros bajo Normativa Vigente", 105, 26, { align: 'center' });
+        doc.text("SST PARAGUAY - DOCUMENTO OFICIAL", 105, 20, { align: 'center' });
 
-        // Meta Información
         doc.setTextColor(40);
         doc.setFontSize(10);
-        doc.setFont("helvetica", "bold");
-        doc.text("EMPRESA:", 20, 45);
-        doc.text("RUC:", 20, 50);
-        doc.text("FECHA:", 160, 50);
-        
-        doc.setFont("helvetica", "normal");
-        doc.text(company, 45, 45);
-        doc.text(ruc, 45, 50);
-        doc.text(date, 175, 50);
-        doc.line(20, 55, 190, 55);
+        doc.text("EMPRESA: " + company, 20, 45);
+        doc.text("FECHA: " + date, 160, 45);
+        doc.line(20, 50, 190, 50);
 
         if (type === 'POLITICA') {
-            doc.setFont("helvetica", "bold");
             doc.setFontSize(16);
-            doc.text("POLÍTICA DE SEGURIDAD Y SALUD EN EL TRABAJO", 105, 75, { align: 'center' });
-            
-            doc.setFont("helvetica", "normal");
+            doc.text("POLÍTICA DE SEGURIDAD Y SALUD EN EL TRABAJO", 105, 70, { align: 'center' });
             doc.setFontSize(11);
-            const bodyText = `La empresa ${company}, consciente de su responsabilidad social y legal con sus colaboradores, establece la presente Política de Seguridad y Salud en el Trabajo, asumiendo los siguientes compromisos fundamentales:\n\n` +
-                `1. CUMPLIMIENTO LEGAL: Asegurar el cumplimiento estricto de la Ley 5804/17, el Decreto 14.390/92 y demás normativas complementarias emitidas por el Ministerio de Trabajo, Empleo y Seguridad Social (MTESS) y el IPS.\n\n` +
-                `2. PREVENCIÓN DE RIESGOS: Identificar, evaluar y controlar los peligros y riesgos presentes en todas las actividades de la empresa, priorizando la eliminación de los mismos o la implementación de controles de ingeniería y administrativos eficientes.\n\n` +
-                `3. MEJORA CONTINUA: Implementar procesos de mejora continua en el desempeño del Sistema de Gestión de SST para elevar los estándares de protección y bienestar de nuestros trabajadores.\n\n` +
-                `4. CAPACITACIÓN Y PARTICIPACIÓN: Promover la formación constante del personal en materia de prevención y fomentar la participación activa a través de la Comisión Interna de Prevención de Accidentes (CIPA).\n\n` +
-                `5. RECURSOS: Proveer los recursos humanos, técnicos y financieros necesarios para la implementación efectiva de los planes de prevención y respuesta ante emergencias.\n\n` +
-                `Esta Política es de cumplimiento obligatorio para todo el personal, contratistas y visitantes de la organización.`;
-            
-            doc.text(bodyText, 20, 90, { maxWidth: 170, align: 'justify', lineHeightFactor: 1.4 });
-
-            // Firmas
-            doc.setFontSize(10);
-            doc.line(30, 240, 90, 240);
-            doc.text("FIRMA DIRECTOR / GERENTE", 60, 245, { align: 'center' });
-            doc.line(120, 240, 180, 240);
-            doc.text("SELLO DE LA ORGANIZACIÓN", 150, 245, { align: 'center' });
+            const body = `La empresa se compromete a cumplir con la Ley 5804/17 y el Decreto 14.390/92, garantizando un entorno seguro y saludable para todos sus trabajadores a través de la prevención constante y el cumplimiento de las normativas vigentes.`;
+            doc.text(body, 20, 85, { maxWidth: 170 });
         }
 
         if (type === 'IPERC') {
-            doc.setFontSize(15);
-            doc.text("MATRIZ TÉCNICA IPERC - EVALUACIÓN DE RIESGOS", 105, 75, { align: 'center' });
-            const rows = [
-                ['Instalaciones', 'Caídas al mismo nivel', 'Mecánico', 'Medio', 'Orden y Limpieza'],
-                ['Oficinas', 'Posturas Sedentarias', 'Ergonómico', 'Leve', 'Pausas Activas'],
-                ['Taller', 'Contacto Eléctrico', 'Físico', 'Alto', 'Mantenimiento'],
-                ['Logística', 'Sobreesfuerzo', 'Ergonómico', 'Moderado', 'Uso de Fajas'],
-                ['General', 'Incendio / Explosión', 'Físico', 'Crítico', 'Extintores y Plan de Emergencia']
-            ];
+            doc.setFontSize(16);
+            doc.text("MATRIZ TÉCNICA IPERC", 105, 70, { align: 'center' });
             doc.autoTable({
-                startY: 85,
-                head: [['Sector', 'Peligro', 'Tipo', 'Riesgo', 'Control Sugerido']],
-                body: rows,
-                headStyles: { fillColor: [0, 31, 95] },
-                styles: { fontSize: 8 }
+                startY: 80,
+                head: [['Peligro', 'Riesgo', 'Nivel', 'Control']],
+                body: [['Caídas', 'Mecánico', 'Medio', 'Limpieza'], ['Electricidad', 'Físico', 'Alto', 'Mantenimiento']],
+                headStyles: { fillColor: [0, 31, 95] }
             });
         }
 
-        doc.save(`${type}_OFICIAL_PARAGUAY.pdf`);
+        doc.save(`${type}_SST_PARAGUAY.pdf`);
+    }
+
+    // --- ACTUALIZACIÓN DASHBOARD ---
+    function updateDashboard() {
+        const ins = getAllData('sst_inspecciones');
+        const count = document.getElementById('stat-ins-count');
+        if (count) count.innerText = ins.length;
+
+        const list = document.getElementById('recent-activity-list');
+        if (list) {
+            list.innerHTML = ins.map(i => `
+                <div class="bg-surface-container-low p-4 rounded-xl flex items-center gap-3 mb-2">
+                    <div class="w-1 h-8 bg-blue-600 rounded-full"></div>
+                    <div class="text-[10px]">
+                        <strong>Inspección: ${i.tipo}</strong><br>
+                        <span class="opacity-60">${i.fecha} - ${i.area}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
     }
 
     // --- BINDINGS ---
     const binds = {
-        'btn-politica': () => generateFullLegalPDF('POLITICA'),
-        'btn-iperc': () => modals.iperc.classList.remove('hidden'),
-        'btn-print-iperc': () => generateFullLegalPDF('IPERC'),
+        'btn-politica': () => generatePDF('POLITICA'),
+        'btn-iperc': () => {
+            const cont = document.getElementById('iperc-content');
+            if(cont) cont.innerHTML = `<div class="p-4 text-xs bg-blue-50 rounded-xl">Vista técnica lista. Use el botón Descargar PDF para el reporte oficial.</div>`;
+            modals.iperc.classList.remove('hidden');
+        },
+        'btn-print-iperc': () => generatePDF('IPERC'),
         'btn-medico': () => modals.med.classList.remove('hidden'),
         'btn-mtess': () => modals.mtess.classList.remove('hidden'),
-        'btn-logout': () => { sessionStorage.clear(); window.location.reload(); }
+        'nav-inspecciones': () => modals.ins.classList.remove('hidden'),
+        'nav-calendar': () => modals.calendar.classList.remove('hidden'),
+        'nav-dashboard': () => window.scrollTo({top:0, behavior:'smooth'})
     };
 
     Object.keys(binds).forEach(id => {
@@ -120,26 +129,39 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     });
 
-    // Login logic
-    const lForm = document.getElementById('login-form');
-    if(lForm) {
-        lForm.onsubmit = (e) => {
+    // Formulario Inspección
+    const insForm = document.getElementById('inspeccion-form');
+    if(insForm) {
+        insForm.onsubmit = (e) => {
             e.preventDefault();
-            const u = document.getElementById('login-user').value;
-            const p = document.getElementById('login-pass').value;
-            const users = JSON.parse(localStorage.getItem('sst_users')) || [];
-            const found = users.concat([{id:'admin',pass:'admin123',company:'Admin SST'}]).find(x=>x.id===u && x.pass===p);
-            if(found) {
-                sessionStorage.setItem('sst_current_user', JSON.stringify(found));
-                window.location.reload();
-            } else alert("Error de acceso");
+            saveData('sst_inspecciones', {
+                fecha: document.getElementById('ins-fecha').value,
+                tipo: document.getElementById('ins-tipo').value,
+                area: document.getElementById('ins-area').value,
+                resp: document.getElementById('ins-responsable').value
+            });
+            alert("¡Inspección Guardada con Éxito!");
+            modals.ins.classList.add('hidden');
         };
     }
 
-    if(currentUser) {
-        const overlay = document.getElementById('login-overlay');
-        if(overlay) overlay.classList.add('hidden');
-        const lbl = document.getElementById('company-name-label');
-        if(lbl) lbl.innerText = currentUser.company;
+    // Formulario MTESS
+    const mtessForm = document.getElementById('mtess-form');
+    if(mtessForm) {
+        mtessForm.onsubmit = (e) => {
+            e.preventDefault();
+            generatePDF('MTESS_REPORT');
+            alert("Reporte Generado");
+            modals.mtess.classList.add('hidden');
+        };
     }
+
+    // Inicialización
+    updateDashboard();
+    
+    // Escondemos overlays de login/registro si existen
+    const loginOverlay = document.getElementById('login-overlay');
+    if(loginOverlay) loginOverlay.classList.add('hidden');
+    const registerModal = document.getElementById('register-modal');
+    if(registerModal) registerModal.classList.add('hidden');
 });
