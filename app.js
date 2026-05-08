@@ -1,4 +1,86 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- AUTH SYSTEM ---
+    const USERS = [
+        { id: 'admin', pass: 'admin123', role: 'admin', company: 'Global' },
+        // Empresa A (Industrial)
+        { id: 'userA1', pass: 'A123', role: 'user', company: 'Industrias ABC' },
+        { id: 'userA2', pass: 'A123', role: 'user', company: 'Industrias ABC' },
+        { id: 'userA3', pass: 'A123', role: 'user', company: 'Industrias ABC' },
+        // Empresa B (Construcción)
+        { id: 'userB1', pass: 'B123', role: 'user', company: 'Constructora XYZ' },
+        { id: 'userB2', pass: 'B123', role: 'user', company: 'Constructora XYZ' },
+        { id: 'userB3', pass: 'B123', role: 'user', company: 'Constructora XYZ' }
+    ];
+
+    let currentUser = JSON.parse(sessionStorage.getItem('sst_current_user'));
+    const loginOverlay = document.getElementById('login-overlay');
+    const loginForm = document.getElementById('login-form');
+    const loginError = document.getElementById('login-error');
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const user = document.getElementById('login-user').value;
+        const pass = document.getElementById('login-pass').value;
+
+        const found = USERS.find(u => u.id === user && u.pass === pass);
+        if (found) {
+            sessionStorage.setItem('sst_current_user', JSON.stringify(found));
+            currentUser = found;
+            loginOverlay.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => loginOverlay.classList.add('hidden'), 500);
+            initDashboard();
+        } else {
+            loginError.classList.remove('hidden');
+            setTimeout(() => loginError.classList.add('hidden'), 3000);
+        }
+    };
+
+    if (loginForm) loginForm.onsubmit = handleLogin;
+
+    // Helper to get data filtered by company
+    const getFilteredData = (key) => {
+        const raw = JSON.parse(localStorage.getItem(key)) || [];
+        if (currentUser.role === 'admin') return raw;
+        return raw.filter(item => item.companyId === currentUser.company);
+    };
+
+    // Helper to save data with company tag
+    const saveDataWithCompany = (key, data) => {
+        const raw = JSON.parse(localStorage.getItem(key)) || [];
+        data.companyId = currentUser.company; // Tag with company
+        raw.push(data);
+        localStorage.setItem(key, JSON.stringify(raw));
+    };
+
+    // Logout Logic
+    const btnLogout = document.getElementById('btn-logout');
+    if (btnLogout) {
+        btnLogout.onclick = () => {
+            sessionStorage.removeItem('sst_current_user');
+            window.location.reload();
+        };
+    }
+
+    const initDashboard = () => {
+        if (!currentUser) return;
+        
+        // Update UI with company name
+        const companyLabel = document.querySelector('header p.text-xs');
+        if (companyLabel) companyLabel.innerText = `SST ${currentUser.company} (${currentUser.role.toUpperCase()})`;
+        
+        // Re-render components with filtered data
+        if (typeof renderCalendar === 'function') renderCalendar();
+        if (typeof renderRegistroMedico === 'function') renderRegistroMedico();
+        if (typeof renderRegistroMtess === 'function') renderRegistroMtess();
+        if (typeof renderHistorialIns === 'function') renderHistorialIns();
+    };
+
+    // Auto-login if session exists
+    if (currentUser) {
+        loginOverlay.classList.add('hidden');
+        initDashboard();
+    }
+
     // Animate the Pulse Number
     animateValue(document.querySelector('.pulse-number'), 100, 142, 1500);
 
@@ -204,9 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     estado: "Declarado al MTESS"
                 };
                 
-                let registros = JSON.parse(localStorage.getItem('sst_registros_mtess')) || [];
-                registros.push(newRecord);
-                localStorage.setItem('sst_registros_mtess', JSON.stringify(registros));
+                saveDataWithCompany('sst_registros_mtess', newRecord);
                 
                 if (typeof renderRegistroMtess === 'function') {
                     renderRegistroMtess();
@@ -1366,9 +1446,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 estado: "Orden Emitida" // Default
             };
             
-            let registros = JSON.parse(localStorage.getItem('sst_registros_medicos')) || [];
-            registros.push(newRecord);
-            localStorage.setItem('sst_registros_medicos', JSON.stringify(registros));
+            saveDataWithCompany('sst_registros_medicos', newRecord);
             
             // ACTUALIZAR TABLA SI ESTÁ ABIERTA
             renderRegistroMedico();
@@ -1447,7 +1525,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnExportCsv) {
         btnExportCsv.addEventListener('click', () => {
-            const registros = JSON.parse(localStorage.getItem('sst_registros_medicos')) || [];
+            const registros = getFilteredData('sst_registros_medicos');
             if (registros.length === 0) {
                 alert("No hay datos para exportar.");
                 return;
@@ -1483,7 +1561,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderRegistroMtess = () => {
         if (!tbodyRegistroMtess) return;
-        const registros = JSON.parse(localStorage.getItem('sst_registros_mtess')) || [];
+        const registros = getFilteredData('sst_registros_mtess');
         
         if (registros.length === 0) {
             tbodyRegistroMtess.innerHTML = `<tr><td colspan="5" class="px-4 py-8 text-center text-on-surface-variant italic">No hay declaraciones de accidentes emitidas todavía.</td></tr>`;
@@ -1530,7 +1608,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnExportMtessCsv) {
         btnExportMtessCsv.addEventListener('click', () => {
-            const registros = JSON.parse(localStorage.getItem('sst_registros_mtess')) || [];
+            const registros = getFilteredData('sst_registros_mtess');
             if (registros.length === 0) {
                 alert("No hay datos para exportar.");
                 return;
@@ -1589,7 +1667,7 @@ document.addEventListener('DOMContentLoaded', () => {
         calendarMonthYear.innerText = `${monthNames[month]} ${year}`;
         
         // Cargar eventos
-        const events = JSON.parse(localStorage.getItem('sst_events')) || [];
+        const events = getFilteredData('sst_events');
 
         // Empty slots for first week
         for (let i = 0; i < firstDay; i++) {
@@ -1638,7 +1716,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const updateEventSidebar = (dateStr) => {
-        const events = JSON.parse(localStorage.getItem('sst_events')) || [];
+        const events = getFilteredData('sst_events');
         const dayEvents = events.filter(e => e.date === dateStr);
         
         if (dayEvents.length === 0) {
@@ -1662,8 +1740,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Global delete for onclick
     window.deleteSstEvent = (date, index) => {
         let events = JSON.parse(localStorage.getItem('sst_events')) || [];
-        const filtered = events.filter(e => e.date === date);
-        const itemToDelete = filtered[index];
+        const companyEvents = events.filter(e => currentUser.role === 'admin' || e.companyId === currentUser.company);
+        const dayEvents = companyEvents.filter(e => e.date === date);
+        const itemToDelete = dayEvents[index];
         
         events = events.filter(e => e !== itemToDelete);
         localStorage.setItem('sst_events', JSON.stringify(events));
@@ -1729,9 +1808,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const type = document.getElementById('event-type').value;
             const date = document.getElementById('event-date').value;
             
-            const events = JSON.parse(localStorage.getItem('sst_events')) || [];
-            events.push({ title, type, date });
-            localStorage.setItem('sst_events', JSON.stringify(events));
+            saveDataWithCompany('sst_events', { title, type, date });
             
             eventForm.reset();
             cancelEventBtn.click();
@@ -1912,7 +1989,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Save to History (LocalStorage)
             try {
-                const inspecciones = JSON.parse(localStorage.getItem('sst_inspecciones')) || [];
                 const nuevaIns = { 
                     fecha: fecha || new Date().toISOString().split('T')[0], 
                     tipo: tipo || 'Inspección', 
@@ -1920,8 +1996,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     resp: resp || 'N/A', 
                     percent: percent || "0.0" 
                 };
-                inspecciones.push(nuevaIns);
-                localStorage.setItem('sst_inspecciones', JSON.stringify(inspecciones));
+                saveDataWithCompany('sst_inspecciones', nuevaIns);
                 console.log("Inspección guardada con éxito:", nuevaIns);
             } catch (err) {
                 console.error("Error al guardar inspección:", err);
@@ -1950,7 +2025,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderHistorialIns = () => {
         if (!tbodyHistorialIns) return;
-        const inspecciones = JSON.parse(localStorage.getItem('sst_inspecciones')) || [];
+        const inspecciones = getFilteredData('sst_inspecciones');
         
         if (inspecciones.length === 0) {
             tbodyHistorialIns.innerHTML = `<tr><td colspan="5" class="px-4 py-8 text-center text-on-surface-variant italic">No hay inspecciones registradas aún.</td></tr>`;
@@ -1988,7 +2063,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnExportInsCsv) {
         btnExportInsCsv.onclick = () => {
-            const inspecciones = JSON.parse(localStorage.getItem('sst_inspecciones')) || [];
+            const inspecciones = getFilteredData('sst_inspecciones');
             if (inspecciones.length === 0) return alert("No hay datos para exportar");
 
             let csv = "Fecha,Tipo,Area,Responsable,Cumplimiento\n";
