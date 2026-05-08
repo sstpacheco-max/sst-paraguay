@@ -122,11 +122,45 @@ document.addEventListener('DOMContentLoaded', function() {
 
         else if (type === 'MTESS_FORM') {
             doc.setFont("helvetica", "bold"); doc.setFontSize(14);
-            doc.text("DECLARACIÓN DE ACCIDENTE DE TRABAJO (MTESS)", 105, 55, { align: 'center' });
-            doc.setFontSize(10); doc.setFont("helvetica", "normal");
-            const c = [["Trabajador:",d.trabajador||"---"],["C.I.:",d.ci||"---"],["Cargo:",d.cargo||"---"],["Fecha:",d.fecha||"---"],["Lugar:",d.lugar||"---"],["Descripción:",d.desc||"---"]];
-            let y = 75;
-            c.forEach(([l,v]) => { doc.setFont("helvetica","bold"); doc.text(l,20,y); doc.setFont("helvetica","normal"); doc.text(v,65,y,{maxWidth:125}); y+=12; });
+            doc.text("DECLARACIÓN DE ACCIDENTE DE TRABAJO", 105, 50, { align: 'center' });
+            doc.setFontSize(9); doc.setFont("helvetica", "normal");
+            doc.text("Decreto 14.390/92 | Ley 5804/17 — MTESS República del Paraguay", 105, 57, { align: 'center' });
+
+            function section(title, y) { doc.setFont("helvetica","bold"); doc.setFontSize(9); doc.setFillColor(230,235,245); doc.rect(15,y-4,180,6,'F'); doc.text(title,20,y); return y+8; }
+            function field(label, val, x, y, w) { doc.setFont("helvetica","bold"); doc.setFontSize(8); doc.text(label,x,y); doc.setFont("helvetica","normal"); doc.text(String(val||'---'),x,y+4,{maxWidth:w||80}); }
+
+            let y = section("I. DATOS DEL EMPLEADOR", 68);
+            field("Razón Social:", d.empresa, 20, y, 55); field("RUC / N° Patronal:", d.ruc, 80, y, 50); field("Actividad (CIIU):", d.actividad, 140, y, 50);
+            y += 12; field("Dirección:", d.dirEmpresa, 20, y, 80); field("Teléfono/Email:", d.telEmpresa, 110, y, 80);
+
+            y = section("II. DATOS DEL TRABAJADOR ACCIDENTADO", y+14);
+            field("Nombre:", d.nombre, 20, y, 55); field("C.I.:", d.ci, 80, y, 30); field("Edad:", d.edad, 115, y, 15); field("Sexo:", d.sexo, 140, y, 25); field("Estado Civil:", d.civil, 170, y, 25);
+            y += 12; field("Cargo:", d.cargo, 20, y, 50); field("Antigüedad:", d.antiguedad, 75, y, 30); field("Salario (Gs.):", d.salario, 110, y, 35); field("Horario:", d.horario, 150, y, 40);
+            y += 12; field("Domicilio:", d.dirTrab, 20, y, 170);
+
+            y = section("III. DATOS DEL ACCIDENTE", y+14);
+            field("Fecha y Hora:", d.fecha, 20, y, 50); field("Lugar:", d.lugar, 75, y, 55); field("Tipo:", d.tipo, 140, y, 50);
+            y += 12; field("Agente Causante:", d.agente, 20, y, 55); field("Zona Corporal:", d.zona, 80, y, 50); field("EPP:", d.epp, 140, y, 50);
+            y += 14; doc.setFont("helvetica","bold"); doc.setFontSize(8); doc.text("Descripción del Suceso:", 20, y);
+            y += 5; doc.setFont("helvetica","normal"); const descLines = doc.splitTextToSize(String(d.desc||'---'), 170); doc.text(descLines, 20, y); y += descLines.length * 4;
+
+            // Si queda poco espacio, nueva página
+            if (y > 210) { doc.addPage(); y = 20; }
+
+            y = section("IV. DATOS MÉDICOS", y+10);
+            field("Tipo de Lesión:", d.lesion, 20, y, 45); field("Diagnóstico:", d.diagnostico, 70, y, 55); field("Días Incapacidad:", d.dias, 130, y, 25); field("Gravedad:", d.gravedad, 160, y, 35);
+            y += 12; field("Centro Médico:", d.centro, 20, y, 170);
+
+            y = section("V. TESTIGOS", y+14);
+            field("Testigo 1:", d.testigo1, 20, y, 80); field("Testigo 2:", d.testigo2, 110, y, 80);
+
+            // Firmas
+            y = Math.max(y + 25, 230);
+            doc.line(20, y, 80, y); doc.line(90, y, 140, y); doc.line(150, y, 195, y);
+            doc.setFontSize(7);
+            doc.text("Firma del Trabajador", 50, y+4, {align:'center'});
+            doc.text("Responsable SST", 115, y+4, {align:'center'});
+            doc.text("Representante Legal", 172, y+4, {align:'center'});
         }
 
         else if (type === 'POE_ALTURAS') {
@@ -318,18 +352,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // MTESS Form
+    // MTESS Form (Declaración Oficial Completa)
     const mtessForm = document.getElementById('mtess-form');
     if (mtessForm) {
         mtessForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            const v = id => document.getElementById(id)?.value || '';
             genPDF('MTESS_FORM', {
-                trabajador: document.getElementById('pdf-trabajador')?.value,
-                ci: document.getElementById('pdf-ci')?.value,
-                cargo: document.getElementById('pdf-cargo')?.value,
-                fecha: document.getElementById('pdf-fecha')?.value,
-                lugar: document.getElementById('pdf-lugar')?.value,
-                desc: document.getElementById('pdf-desc')?.value
+                // I. Empleador
+                empresa: v('mt-empresa'), ruc: v('mt-ruc'), actividad: v('mt-actividad'),
+                dirEmpresa: v('mt-dir-empresa'), telEmpresa: v('mt-tel-empresa'),
+                // II. Trabajador
+                nombre: v('mt-nombre'), ci: v('mt-ci'), edad: v('mt-edad'),
+                sexo: v('mt-sexo'), civil: v('mt-civil'), cargo: v('mt-cargo'),
+                antiguedad: v('mt-antiguedad'), salario: v('mt-salario'),
+                horario: v('mt-horario'), dirTrab: v('mt-dir-trab'),
+                // III. Accidente
+                fecha: v('mt-fecha'), lugar: v('mt-lugar'), tipo: v('mt-tipo'),
+                agente: v('mt-agente'), zona: v('mt-zona'), epp: v('mt-epp'),
+                desc: v('mt-desc'),
+                // IV. Médico
+                lesion: v('mt-lesion'), diagnostico: v('mt-diagnostico'),
+                dias: v('mt-dias'), centro: v('mt-centro'), gravedad: v('mt-gravedad'),
+                // V. Testigos
+                testigo1: v('mt-testigo1'), testigo2: v('mt-testigo2')
             });
             closeModal('mtess-modal');
         });

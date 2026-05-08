@@ -1276,27 +1276,112 @@
 
 <!-- Modal Reporte MTESS (restaurado en v5.2) -->
 <div id="mtess-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4">
-    <div class="bg-surface-container-lowest rounded-3xl w-full max-w-4xl p-6 pb-8 shadow-2xl relative max-h-[85vh] overflow-y-auto">
+    <div class="bg-surface-container-lowest rounded-3xl w-full max-w-5xl p-6 pb-8 shadow-2xl relative max-h-[85vh] overflow-y-auto">
         <button id="close-mtess-modal" class="absolute top-4 right-4 text-outline hover:text-on-surface transition-colors">
             <span class="material-symbols-outlined">close</span>
         </button>
-        <h3 class="font-headline text-2xl font-bold text-secondary mb-2">Reporte de Accidente de Trabajo (MTESS)</h3>
-        <p class="text-sm text-on-surface-variant mb-6">Formulario oficial según Decreto 14.390/92</p>
-        <form id="mtess-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="space-y-4">
-                <p class="text-xs font-bold text-secondary uppercase border-b border-secondary/10 pb-2">Información del Trabajador</p>
-                <input type="text" id="pdf-trabajador" placeholder="Nombre Completo" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm">
-                <input type="text" id="pdf-ci" placeholder="Cédula de Identidad" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm">
-                <input type="text" id="pdf-cargo" placeholder="Cargo u Ocupación" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm">
-            </div>
-            <div class="space-y-4">
-                <p class="text-xs font-bold text-secondary uppercase border-b border-secondary/10 pb-2">Detalles del Accidente</p>
-                <input type="datetime-local" id="pdf-fecha" required class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm">
-                <input type="text" id="pdf-lugar" placeholder="Lugar Exacto" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm">
-                <textarea id="pdf-desc" placeholder="Descripción detallada del suceso..." required rows="3" class="w-full bg-surface-container-low border-0 rounded-xl px-4 py-3 text-sm"></textarea>
-            </div>
-            <button type="submit" class="md:col-span-2 bg-secondary text-white font-black py-4 rounded-xl shadow-lg uppercase tracking-widest text-xs">
-                Generar Reporte Oficial PDF
+        <h3 class="font-headline text-2xl font-bold text-secondary mb-1">Declaración de Accidente de Trabajo</h3>
+        <p class="text-sm text-on-surface-variant mb-6">Formulario oficial según Decreto 14.390/92 y Ley 5804/17 — MTESS Paraguay</p>
+        <form id="mtess-form" class="space-y-6">
+
+            <!-- SECCIÓN 1: DATOS DEL EMPLEADOR -->
+            <fieldset class="border border-outline-variant/20 rounded-xl p-4 space-y-3">
+                <legend class="text-xs font-bold text-secondary uppercase tracking-widest px-2">I. Datos del Empleador</legend>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <input type="text" id="mt-empresa" placeholder="Razón Social" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-ruc" placeholder="RUC / N° Patronal MTESS" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-actividad" placeholder="Actividad Económica (CIIU)" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <input type="text" id="mt-dir-empresa" placeholder="Dirección del Establecimiento" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-tel-empresa" placeholder="Teléfono / Email" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                </div>
+            </fieldset>
+
+            <!-- SECCIÓN 2: DATOS DEL TRABAJADOR -->
+            <fieldset class="border border-outline-variant/20 rounded-xl p-4 space-y-3">
+                <legend class="text-xs font-bold text-secondary uppercase tracking-widest px-2">II. Datos del Trabajador Accidentado</legend>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <input type="text" id="mt-nombre" placeholder="Nombre y Apellido Completo" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-ci" placeholder="Cédula de Identidad" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="number" id="mt-edad" placeholder="Edad" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                    <select id="mt-sexo" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                        <option value="">Sexo</option><option value="Masculino">Masculino</option><option value="Femenino">Femenino</option>
+                    </select>
+                    <select id="mt-civil" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                        <option value="">Estado Civil</option><option>Soltero/a</option><option>Casado/a</option><option>Unión Libre</option><option>Viudo/a</option><option>Divorciado/a</option>
+                    </select>
+                    <input type="text" id="mt-cargo" placeholder="Cargo / Ocupación" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-antiguedad" placeholder="Antigüedad (ej: 2 años)" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <input type="text" id="mt-salario" placeholder="Salario Mensual (Gs.)" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-horario" placeholder="Horario de Trabajo (ej: 07:00-15:00)" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-dir-trab" placeholder="Domicilio del Trabajador" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                </div>
+            </fieldset>
+
+            <!-- SECCIÓN 3: DATOS DEL ACCIDENTE -->
+            <fieldset class="border border-outline-variant/20 rounded-xl p-4 space-y-3">
+                <legend class="text-xs font-bold text-secondary uppercase tracking-widest px-2">III. Datos del Accidente</legend>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <input type="datetime-local" id="mt-fecha" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-lugar" placeholder="Lugar exacto del accidente" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <select id="mt-tipo" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                        <option value="">Tipo de Accidente</option>
+                        <option>Caída de personas</option><option>Caída de objetos</option>
+                        <option>Golpe contra objetos</option><option>Atrapamiento</option>
+                        <option>Sobreesfuerzo</option><option>Contacto eléctrico</option>
+                        <option>Contacto con sustancias</option><option>Accidente de tránsito (in itinere)</option>
+                        <option>Proyección de partículas</option><option>Otro</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <input type="text" id="mt-agente" placeholder="Agente Causante (ej: Máquina cortadora)" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-zona" placeholder="Zona del Cuerpo Afectada" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <select id="mt-epp" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                        <option value="">¿Usaba EPP?</option>
+                        <option>Sí, adecuado</option><option>Sí, pero inadecuado</option><option>No usaba</option>
+                    </select>
+                </div>
+                <textarea id="mt-desc" rows="3" required class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Descripción detallada de cómo ocurrió el accidente, condiciones inseguras o actos subestándares..."></textarea>
+            </fieldset>
+
+            <!-- SECCIÓN 4: DATOS MÉDICOS -->
+            <fieldset class="border border-outline-variant/20 rounded-xl p-4 space-y-3">
+                <legend class="text-xs font-bold text-secondary uppercase tracking-widest px-2">IV. Datos Médicos</legend>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <select id="mt-lesion" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                        <option value="">Tipo de Lesión</option>
+                        <option>Fractura</option><option>Herida cortante</option><option>Contusión</option>
+                        <option>Quemadura</option><option>Luxación</option><option>Esguince</option>
+                        <option>Amputación</option><option>Intoxicación</option><option>Otro</option>
+                    </select>
+                    <input type="text" id="mt-diagnostico" placeholder="Diagnóstico Médico" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="number" id="mt-dias" placeholder="Días de Incapacidad" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <input type="text" id="mt-centro" placeholder="Centro Médico que Atendió" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <select id="mt-gravedad" class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                        <option value="">Gravedad</option>
+                        <option>Leve (sin baja)</option><option>Moderado (con baja temporal)</option><option>Grave</option><option>Muy Grave</option><option>Mortal</option>
+                    </select>
+                </div>
+            </fieldset>
+
+            <!-- SECCIÓN 5: TESTIGOS -->
+            <fieldset class="border border-outline-variant/20 rounded-xl p-4 space-y-3">
+                <legend class="text-xs font-bold text-secondary uppercase tracking-widest px-2">V. Testigos</legend>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <input type="text" id="mt-testigo1" placeholder="Nombre Testigo 1 / C.I." class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                    <input type="text" id="mt-testigo2" placeholder="Nombre Testigo 2 / C.I." class="w-full bg-surface-container-low border-0 rounded-lg px-3 py-2 text-sm outline-none">
+                </div>
+            </fieldset>
+
+            <button type="submit" class="w-full bg-secondary text-white font-black py-4 rounded-xl shadow-lg uppercase tracking-widest text-xs">
+                Generar Declaración Oficial PDF
             </button>
         </form>
     </div>
