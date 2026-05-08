@@ -45,11 +45,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // ════════════════════════════════════════════
     //  MOTOR DE GENERACIÓN PDF
     // ════════════════════════════════════════════
-    function genPDF(type, d) {
-        if (!window.jspdf) { alert("Error: Librería PDF no cargada."); return; }
+    function genPDF(type, d = {}) {
+        if (!window.jspdf) { 
+            console.error("jsPDF no detectado.");
+            alert("Error: La librería de generación de PDF no se cargó correctamente. Por favor, recargue la página."); 
+            return; 
+        }
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF('p', 'mm', 'a4');
         const hoy = new Date().toLocaleDateString('es-PY');
+
+        // Verificación de integridad de datos
+        if (typeof d !== 'object' || d === null) d = {};
 
         // Cabecera Corporativa
         doc.setFillColor(0, 31, 95);
@@ -88,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
             doc.text(d.empresa || "LA EMPRESA", 105, 60, { align: 'center' });
             
             doc.setFontSize(10); doc.setFont("helvetica", "bold");
-            doc.text("1. INTRODUCCIÃ“N Y BASE LEGAL", 20, 75);
+            doc.text("1. INTRODUCCIÓN Y BASE LEGAL", 20, 75);
             doc.setFont("helvetica", "normal");
             const intro = "El presente plan se establece en cumplimiento con el Decreto N° 14.390/92 (Reglamento General Técnico de Seguridad, Higiene y Medicina en el Trabajo) y la Ley N° 5804/17 del Sistema Nacional de Prevención de Riesgos Laborales. Su objetivo es preservar la integridad física del personal y bienes de la institución.";
             doc.text(doc.splitTextToSize(intro, 170), 20, 82);
@@ -100,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
             doc.text("- Objetivos: Identificar amenazas, asignar responsabilidades y establecer flujogramas de respuesta.", 25, 114);
 
             doc.setFont("helvetica", "bold");
-            doc.text("3. IDENTIFICACIÃ“N DE AMENAZAS", 20, 125);
+            doc.text("3. IDENTIFICACIÓN DE AMENAZAS", 20, 125);
             const threats = [];
             if (d.chkFuego) threats.push("Incendio / Explosión");
             if (d.chkMedica) threats.push("Emergencia Médica");
@@ -125,13 +132,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             doc.setFont("helvetica", "bold");
-            doc.text("5. PROTOCOLO GENERAL DE EVACUACIÃ“N", 20, doc.autoTable.previous.finalY + 15);
+            doc.text("5. PROTOCOLO GENERAL DE EVACUACIÓN", 20, doc.autoTable.previous.finalY + 15);
             doc.setFont("helvetica", "normal");
-            const proto = "1. ALARMA: Activación de sirena o aviso sonoro. 2. ABANDONO: Salida en fila, sin correr, siguiendo rutas señalizadas. 3. REUNIÃ“N: Conteo de personal en el Punto de Reunión: " + (d.punto || "Exterior") + ". 4. CONTROL: Solo reingresar tras autorización del Jefe de Emergencias.";
+            const proto = "1. ALARMA: Activación de sirena o aviso sonoro. 2. ABANDONO: Salida en fila, sin correr, siguiendo rutas señalizadas. 3. REUNIÓN: Conteo de personal en el Punto de Reunión: " + (d.punto || "Exterior") + ". 4. CONTROL: Solo reingresar tras autorización del Jefe de Emergencias.";
             doc.text(doc.splitTextToSize(proto, 170), 20, doc.autoTable.previous.finalY + 22);
 
             doc.setFont("helvetica", "bold");
-            doc.text("6. TELÃ‰FONOS DE EMERGENCIA (NACIONAL)", 20, doc.autoTable.previous.finalY + 45);
+            doc.text("6. TELÉFONOS DE EMERGENCIA (NACIONAL)", 20, doc.autoTable.previous.finalY + 45);
             doc.setFontSize(9);
             doc.autoTable({
                 startY: doc.autoTable.previous.finalY + 50,
@@ -225,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
             doc.text(doc.splitTextToSize(personal, 170), 20, 102);
 
             doc.setFont("helvetica", "bold");
-            doc.text("3. EQUIPO DE PROTECCIÃ“N PERSONAL (EPP) OBLIGATORIO", 20, 125);
+            doc.text("3. EQUIPO DE PROTECCIÓN PERSONAL (EPP) OBLIGATORIO", 20, 125);
             doc.autoTable({
                 startY: 130,
                 head: [['Equipo', 'Especificación Normativa']],
@@ -288,22 +295,21 @@ document.addEventListener('DOMContentLoaded', function() {
         doc.setFontSize(8); doc.setTextColor(150);
         doc.text("SST PARAGUAY - Cumplimiento Normativo Profesional", 105, 285, { align: 'center' });
         
-        // Finalización y Guardado (Método de Máxima Compatibilidad)
+        // Finalización y Guardado (Máxima Estabilidad)
         const safeName = String(type || 'Reporte').replace(/[^a-z0-9]/gi, '_');
         const fileName = `${safeName}_SST_PY_${new Date().getTime()}.pdf`;
 
-        console.log("Generando PDF para descarga:", fileName);
+        console.log("Generando PDF:", fileName);
         
         try {
             const pdfBlob = doc.output('blob');
             
-            // Si el navegador es Internet Explorer o Edge antiguo
+            // Compatibilidad con IE/Edge Legacy
             if (window.navigator && window.navigator.msSaveOrOpenBlob) {
                 window.navigator.msSaveOrOpenBlob(pdfBlob, fileName);
             } else {
-                // Para navegadores modernos, forzamos octet-stream para asegurar la descarga del archivo
-                const blob = new Blob([pdfBlob], { type: 'application/octet-stream' });
-                const url = window.URL.createObjectURL(blob);
+                // Navegadores Modernos
+                const url = URL.createObjectURL(pdfBlob);
                 const a = document.createElement('a');
                 a.style.display = 'none';
                 a.href = url;
@@ -311,17 +317,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.appendChild(a);
                 a.click();
                 
+                // Limpieza extendida para asegurar la descarga
                 setTimeout(() => {
                     document.body.removeChild(a);
-                    window.URL.revokeObjectURL(url);
-                }, 2000);
+                    URL.revokeObjectURL(url);
+                }, 1000);
             }
-            console.log("Descarga iniciada.");
-            alert("SST Paraguay: Reporte generado con éxito.\nArchivo: " + fileName);
+            console.log("Descarga iniciada correctamente.");
+            // Opcional: Notificación discreta
         } catch (err) {
-            console.error("Error crítico en descarga:", err);
-            // Último recurso: abrir en ventana nueva
-            doc.output('dataurlnewwindow');
+            console.error("Error crítico en generación PDF:", err);
+            // Último recurso: intentar abrir en nueva pestaña
+            try {
+                doc.output('dataurlnewwindow');
+            } catch (e) {
+                alert("Error crítico: No se pudo generar el PDF. Revise la consola del navegador.");
+            }
         }
     }
 
