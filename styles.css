@@ -38,6 +38,13 @@
 body {
     font-family: var(--font-body);
     background-color: var(--clr-background);
+    background-image: 
+        linear-gradient(rgba(248, 249, 250, 0.94), rgba(248, 249, 250, 0.94)),
+        url('background.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     color: var(--clr-on-surface);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
