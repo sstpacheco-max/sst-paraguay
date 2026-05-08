@@ -207,14 +207,47 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         else if (type === 'POE_ALTURAS') {
-            doc.setFont("helvetica", "bold"); doc.setFontSize(14);
-            doc.text("POE: TRABAJO SEGURO EN ALTURAS", 105, 50, { align: 'center' });
-            doc.setFontSize(9); doc.setFont("helvetica", "normal");
-            const txt = "Este procedimiento establece los requisitos mínimos de seguridad para trabajos sobre 1.80m, incluyendo el uso obligatorio de arnés de cuerpo completo, línea de vida y puntos de anclaje certificados (Dec. 14.390/92).";
-            doc.text(doc.splitTextToSize(txt, 170), 20, 60);
-            doc.setFont("helvetica","bold"); doc.text("Requisitos Obligatorios:", 20, 80);
-            const r = ["1. Certificado médico de aptitud.", "2. Capacitación teórica/práctica.", "3. Permiso de Trabajo (PTA) firmado.", "4. EPP contra caídas inspeccionado."];
-            r.forEach((t, i) => doc.text(t, 25, 88 + (i*6)));
+            doc.setFont("helvetica", "bold"); doc.setFontSize(16);
+            doc.text("POE: PROCEDIMIENTO PARA TRABAJOS SEGUROS EN ALTURAS", 105, 50, { align: 'center' });
+            doc.setFontSize(12);
+            doc.text(d.empresa || "LA EMPRESA", 105, 58, { align: 'center' });
+            
+            doc.setFontSize(10); doc.setFont("helvetica", "bold");
+            doc.text("1. OBJETIVO Y ALCANCE", 20, 75);
+            doc.setFont("helvetica", "normal");
+            const intro = "Establecer las normas tÃ©cnicas de seguridad para prevenir caÃ­das de personas y objetos durante la realizaciÃ³n de trabajos en alturas (superiores a 1.80m), cumpliendo con el Decreto NÂ° 14.390/92.";
+            doc.text(doc.splitTextToSize(intro, 170), 20, 82);
+
+            doc.setFont("helvetica", "bold");
+            doc.text("2. REQUERIMIENTOS DEL PERSONAL", 20, 95);
+            doc.setFont("helvetica", "normal");
+            const personal = "Todo trabajador que realice tareas en alturas debe contar con: \n- Aptitud mÃ©dica vigente (EMO de Alturas).\n- CapacitaciÃ³n teÃ³rica y prÃ¡ctica en protecciÃ³n contra caÃ­das.\n- AutorizaciÃ³n escrita mediante el Permiso de Trabajo (PTA).";
+            doc.text(doc.splitTextToSize(personal, 170), 20, 102);
+
+            doc.setFont("helvetica", "bold");
+            doc.text("3. EQUIPO DE PROTECCIÃ“N PERSONAL (EPP) OBLIGATORIO", 20, 125);
+            doc.autoTable({
+                startY: 130,
+                head: [['Equipo', 'EspecificaciÃ³n Normativa']],
+                body: [
+                    ['ArnÃ©s de Cuerpo Completo', 'Tipo ParacaÃ­das, 4 argollas, norma ANSI/OSHA o equivalente.'],
+                    ['LÃ­nea de Vida Doble', 'Con absorbedor de energÃ­a y ganchos de 2 1/4".'],
+                    ['Casco de Seguridad', 'Con barbiquejo de 3 puntos de apoyo.'],
+                    ['Botas de Seguridad', 'Suela antideslizante y dielÃ©ctrica si aplica.']
+                ],
+                theme: 'grid',
+                headStyles: { fillColor: [0, 102, 102] }
+            });
+
+            doc.setFont("helvetica", "bold");
+            doc.text("4. PROCEDIMIENTO DE SEGURIDAD", 20, doc.autoTable.previous.finalY + 15);
+            doc.setFont("helvetica", "normal");
+            const proc = "1. Inspeccionar el Ã¡rea y equipos antes de subir. 2. Delimitar y señalizar el nivel inferior para evitar riesgos a terceros. 3. Asegurar el punto de anclaje (resistencia min. 2.2kN). 4. Mantener siempre un punto de conexiÃ³n a la lÃ­nea de vida.";
+            doc.text(doc.splitTextToSize(proc, 170), 20, doc.autoTable.previous.finalY + 22);
+
+            doc.setFont("helvetica", "bold");
+            doc.text("5. MARCO LEGAL (PARAGUAY)", 20, doc.autoTable.previous.finalY + 45);
+            doc.text("Reglamento General TÃ©cnico de Seguridad, Higiene y Medicina en el Trabajo - Decreto 14.390/92.", 20, doc.autoTable.previous.finalY + 52);
         }
 
         else if (type === 'PTA') {
@@ -299,7 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Dash Buttons
     bind('btn-politica', () => openModal('politica-modal'));
     bind('btn-contingencia', () => openModal('contingencia-modal'));
-    bind('btn-altura', () => genPDF('POE_ALTURAS'));
+    bind('btn-altura', () => openModal('altura-modal'));
     bind('btn-pta-altura', () => openModal('pta-modal'));
     bind('btn-medico', () => openModal('medico-modal'));
     bind('btn-epp', () => openModal('epp-modal'));
@@ -396,6 +429,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fecha:'mt-fecha', lugar:'mt-lugar', tipo:'mt-tipo', agente:'mt-agente', zona:'mt-zona', epp:'mt-epp', desc:'mt-desc',
         lesion:'mt-lesion', diagnostico:'mt-diagnostico', dias:'mt-dias', centro:'mt-centro', gravedad:'mt-gravedad'
     });
+    setupForm('altura-form', 'POE_ALTURAS', 'altura-modal', { empresa: 'alt-empresa', responsable: 'alt-responsable' });
     // PTA Form Completo
     const ptaForm = document.getElementById('pta-form');
     if (ptaForm) {
